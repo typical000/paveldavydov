@@ -1,5 +1,5 @@
 import {Container, Graphics, Texture, Sprite, utils as pixiUtils, autoDetectRenderer, PI_2} from 'pixi.js'
-import {TweenMax, Power0} from 'gsap'
+import {TweenLite, Power0} from 'gsap'
 
 import Line from './Line'
 import Dot from './Dot'
@@ -377,7 +377,7 @@ export default class DotScene {
   start() {
     this.isRotating = true
 
-    this.tweenRotate = new TweenMax(this.foregroundGraphics, this.settings.rotationSpeed, {
+    this.tweenRotate = new TweenLite(this.foregroundGraphics, this.settings.rotationSpeed, {
       rotation: PI_2, // Rotations degree, by 360 degs
       repeat: -1, // Make rotation repeat infinite times
       ease: Power0.easeNone // Linear easing
@@ -421,7 +421,7 @@ export default class DotScene {
    * @private
    */
   setDotTween(index, x, y, r) {
-    this.dot[index].tween = TweenMax.to(
+    this.dot[index].tween = TweenLite.to(
       this.dot[index].graphic,
       getRandomInterval(this.settings.minTimeout, this.settings.maxTimeout),
       {
@@ -448,7 +448,7 @@ export default class DotScene {
     this.isAnimating = true
 
     // Make main object with full opaicty
-    TweenMax.to(this.foregroundGraphics, this.settings.appearingSpeed, {
+    TweenLite.to(this.foregroundGraphics, this.settings.appearingSpeed, {
       alpha: 1,
       ease: this.settings.itemsAnimateEasing
     })
@@ -469,7 +469,7 @@ export default class DotScene {
     this.isAnimating = false
 
     // Make main object with full opaicty
-    TweenMax.to(this.foregroundGraphics, this.settings.appearingSpeed, {
+    TweenLite.to(this.foregroundGraphics, this.settings.appearingSpeed, {
       alpha: this.settings.stoppedOpacityAmount,
       ease: this.settings.itemsAnimateEasing
     })
@@ -477,7 +477,7 @@ export default class DotScene {
     // Revert to starting point all running animations with dots
     // (lines will make the same because they are connected in redraw function)
     for (let i = 0; i < this.settings.edges; i++) {
-      this.dot[i].tween = TweenMax.to(
+      this.dot[i].tween = TweenLite.to(
         this.dot[i].graphic,
         getRandomInterval(this.settings.minTimeout, this.settings.maxTimeout),
         {
