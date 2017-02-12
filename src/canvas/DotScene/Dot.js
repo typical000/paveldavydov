@@ -1,5 +1,4 @@
 import {Graphics} from 'pixi.js'
-// import {dotSize, dotFill, dotStroke, dotStrokeSize} from './config'
 
 /**
  * Single dot class
@@ -19,13 +18,4 @@ export default class Dot {
     this.r = this.graphic.r = r
     this.deg = deg
   }
-
-  // draw() {
-  //   this.graphic.clear()
-  //   this.graphic.beginFill(dotFill)
-  //   this.graphic.lineStyle(dotStrokeSize, dotStroke)
-  //   this.graphic.drawCircle(this.position.x, this.position.y, dotSize)
-  //   this.graphic.endFill()
-  // }
-
 }

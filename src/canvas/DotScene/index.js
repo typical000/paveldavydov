@@ -8,11 +8,6 @@ import SizeManager from './SizeManager'
 import initialConfig from './config'
 import {degToRad, decToRgba, getRandomInterval} from './utils'
 
-const START_RADIUS_MULTIPLIER = 40
-const MIN_RADIUS_MULTIPLIER = 20
-const MAX_RADIUS_MULTIPLIER = 45
-const CURVE_APPROXIMATION = 40
-
 export default class DotScene {
   constructor(config) {
     // Disable console pixi.js text about plugin
@@ -77,17 +72,15 @@ export default class DotScene {
 
   /**
    * Set default, minimal and maximal offset radius
-   * @private
    */
   setRadiuses() {
-    this.startRadius = +this.setFigureRadius(START_RADIUS_MULTIPLIER).toFixed(2)
-    this.minRadius = +this.setFigureRadius(MIN_RADIUS_MULTIPLIER).toFixed(2)
-    this.maxRadius = +this.setFigureRadius(MAX_RADIUS_MULTIPLIER).toFixed(2)
+    this.startRadius = +this.setFigureRadius(this.settings.startRadius).toFixed(2)
+    this.minRadius = +this.setFigureRadius(this.settings.minRadius).toFixed(2)
+    this.maxRadius = +this.setFigureRadius(this.settings.maxRadius).toFixed(2)
   }
 
   /**
    * Set scene size function (used in resize and init processes)
-   * @private
    */
   setSceneSize() {
     const {width, height} = this.sizeManager.size
@@ -99,7 +92,6 @@ export default class DotScene {
 
   /**
     * Set figure radius function (it is set default, minimal and maximal radiuses)
-    * @private
     * @param {Number} Multiplier value on what must be multiplied the original forumula
     */
   setFigureRadius(multiplier) {
@@ -112,7 +104,6 @@ export default class DotScene {
 
   /**
    * Get pair of X and Y coordinate from radius and angle
-   * @private
    * @param {Number} Radius from center of screen\viewport
    * @param {Number} Degree (take value from 0 up to 360)
    * @returns {Object[]} Pair of X and Y of real coordinates
@@ -129,7 +120,6 @@ export default class DotScene {
 
   /**
    * Draw radial gradient image
-   * @private
    * @param {Number} Width of image
    * @param {Number} Height of image
    * @param {Number} X position of gradient center
@@ -159,7 +149,6 @@ export default class DotScene {
 
   /**
    * Draw background
-   * @private
    */
   drawBackground() {
     const {x, y} = this.sizeManager.center
@@ -228,7 +217,6 @@ export default class DotScene {
 
   /**
    * Draw foreground function
-   * @private
    */
   drawForeground() {
     const {x, y} = this.sizeManager.center
@@ -267,7 +255,6 @@ export default class DotScene {
 
   /**
    * Just handle resize resize
-   * @private
    */
   resize() {
     this.sizeManager.update()
@@ -291,7 +278,6 @@ export default class DotScene {
 
   /**
    * Main redraw scene function
-   * @private
    */
   redraw() {
     // Refresh for each dot and line their positions
@@ -327,19 +313,19 @@ export default class DotScene {
 
       // Set control points for curved lines
       const controlPoint = this.getCoordinate(
-        this.dot[prev].graphic.r + CURVE_APPROXIMATION,
+        this.dot[prev].graphic.r + this.settings.curveDistortion,
         this.deg[i - 1] + this.curveDeformation
       )
       const controlPoint2 = this.getCoordinate(
-        this.dot[prev].graphic.r - CURVE_APPROXIMATION,
+        this.dot[prev].graphic.r - this.settings.curveDistortion,
         (i === this.settings.edges ? this.deg[0] : this.deg[i]) - this.curveDeformation
       )
-
 
       // Draw lines
       this.line[prev].graphic.lineStyle(this.settings.strokeWidth, this.settings.strokeDirectLine)
       this.line[prev].graphic.moveTo(this.line[prev].start.x, this.line[prev].start.y)
       this.line[prev].graphic.lineTo(this.line[prev].end.x, this.line[prev].end.y)
+
       // Draw curves
       this.line[prev].graphic.lineStyle(this.settings.strokeWidth, this.settings.strokeCurvedLine)
       this.line[prev].graphic.moveTo(this.line[prev].start.x, this.line[prev].start.y)
@@ -358,21 +344,18 @@ export default class DotScene {
     requestAnimationFrame(this.redraw.bind(this))
   }
 
-
   /**
    * Full cleaning function for stage
    * @param {Object} PIXI.Graphics() object that must be fully cleared
-   * @private
    */
   static clearStage(stage) {
     for (let i = stage.children.length - 1; i >= 0; i--) {
-      stage.removeChild(this.stage.children[i])
+      stage.removeChild(stage.children[i])
     }
   }
 
   /**
    * Starting method. Called on page & content load
-   * @public
    */
   start() {
     this.isRotating = true
@@ -388,7 +371,6 @@ export default class DotScene {
 
   /**
    * Stop method. Created because if we have start it must be stop somewhere :)
-   * @public
    */
   stop() {
     this.isRotating = false
@@ -399,7 +381,6 @@ export default class DotScene {
 
   /**
    * Toggle all animations and interactions
-   * @public
    */
   toggle() {
     if (this.isRotating) {
@@ -418,7 +399,6 @@ export default class DotScene {
    * @param {Number} target X coordinate
    * @param {Number} target Y coordinate
    * @param {Number} target preffered radius
-   * @private
    */
   setDotTween(index, x, y, r) {
     this.dot[index].tween = TweenLite.to(
@@ -442,7 +422,6 @@ export default class DotScene {
 
   /**
    * Start main animation. Used only on frontpage. Called through custom events
-   * @public
    */
   animateStart() {
     this.isAnimating = true
@@ -463,7 +442,6 @@ export default class DotScene {
 
   /**
    * Stop animation. Called through custom events too
-   * @public
    */
   animateStop() {
     this.isAnimating = false
@@ -493,7 +471,6 @@ export default class DotScene {
 
   /**
    * Toggle animation. Called through custom events
-   * @public
    */
   animateToggle() {
     if (this.isAnimating) {
