@@ -11,16 +11,15 @@ config.plugins = config.plugins.concat([
     }
   }),
 
+  new webpack.LoaderOptionsPlugin({
+    minimize: true
+  }),
+
   // Ignore dev config
   new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
 
   // Optimizations
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }
-  }),
-  new webpack.optimize.DedupePlugin(),
+  new webpack.optimize.UglifyJsPlugin(),
   new CompressionPlugin({
     asset: "[path].gz[query]",
     algorithm: "gzip",

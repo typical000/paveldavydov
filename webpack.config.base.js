@@ -19,28 +19,40 @@ module.exports = {
     filename: 'bundle.v' + config.version + '.js',
   },
   module: {
-    loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel']},
-      { test: /\.json$/, loader: 'json-loader' },
-      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
-      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' },
-      { test: /\.jpg$/, loader: 'url-loader?limit=100000' },
-      { test: /\.png$/, loader: 'url-loader?limit=100000' },
-      { test: /\.gif$/, loader: 'url-loader?limit=100000' },
-      { test: /\.jpg$/, loader: 'file-loader' },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader')} // When migrate to Webpack 2.0 read this: https://github.com/webpack/extract-text-webpack-plugin/issues/215
+    rules: [
+      { test: /\.jsx?$/, exclude: /node_modules/, use: ['babel-loader']},
+      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, use: 'url?limit=10000&mimetype=application/font-woff' },
+      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, use: 'url?limit=10000&mimetype=application/font-woff' },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, use: 'url?limit=10000&mimetype=image/svg+xml' },
+      { test: /\.jpg$/, use: 'url-loader?limit=100000' },
+      { test: /\.png$/, use: 'url-loader?limit=100000' },
+      { test: /\.gif$/, use: 'url-loader?limit=100000' },
+      { test: /\.jpg$/, use: 'file-loader' },
+      {
+        test: /\.css$/, use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: 'css-loader'
+      })}
     ]
   },
   resolve: {
+    // TODO: When preact-compat will be updated - remove this string
+    mainFields: ['main', 'web'],
     alias: {
       react: 'preact-compat',
       'react-dom': 'preact-compat'
     }
   },
   plugins: [
-    new ExtractTextPlugin('vendor.styles.v' + config.version + '.css'),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.v' + config.version + '.js'),
+    new ExtractTextPlugin({
+      filename: 'vendor.styles.v' + config.version + '.css',
+      allChunks: true,
+      disable: false
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.bundle.v' + config.version + '.js'
+    }),
     new CopyFilesPlugin([{
       from: './src/images',
       to: './images'
@@ -48,7 +60,6 @@ module.exports = {
       from: './src/fonts',
       to: './fonts'
     }]),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ]
 }
