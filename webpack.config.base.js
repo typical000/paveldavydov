@@ -37,7 +37,7 @@ module.exports = {
   },
   resolve: {
     // TODO: When preact-compat will be updated - remove this string
-    mainFields: ['main', 'web'],
+    // mainFields: ['main', 'web'],
     alias: {
       react: 'preact-compat',
       'react-dom': 'preact-compat'

@@ -6,7 +6,8 @@ import Dot from './Dot'
 import SizeManager from './SizeManager'
 
 import initialConfig from './config'
-import {degToRad, decToRgba, getRandomInterval} from './utils'
+import {degToRad, decToRgba} from './utils/color'
+import {getRandomInterval} from './utils/time'
 
 export default class DotScene {
   constructor(config) {

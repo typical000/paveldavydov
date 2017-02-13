@@ -1,6 +1,6 @@
 // import React, {PureComponent, PropTypes} from 'react'
 import React, {PureComponent} from 'react'
-import DotScene from '../canvas/DotScene'
+import Scene from '../canvas'
 
 export default class DotSceneContainer extends PureComponent {
   constructor(props) {
@@ -11,7 +11,7 @@ export default class DotSceneContainer extends PureComponent {
   componentDidMount() {
     // >>> INIT HERE and make scene as singleton
 
-    this.scene = new DotScene({
+    this.scene = new Scene({
       container: this.canvas
     })
   }
