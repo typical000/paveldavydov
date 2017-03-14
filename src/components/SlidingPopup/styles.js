@@ -2,9 +2,7 @@ import {translate, rotateZ, multiple} from 'css-functions'
 
 import theme from '../../theme'
 import {transition} from '../../utils/css'
-
-const barThickness = 50
-const barThicknessHovered = 80
+import {barThickness, barThicknessHovered} from '../../constants/sizes'
 
 export default {
   popup: {

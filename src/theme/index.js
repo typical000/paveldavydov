@@ -1,5 +1,4 @@
 export default {
-
   // Typography
   fontFamily: '"Gotham Pro", Helvetica, Arial, sans-serif',
   fontSize: 16,

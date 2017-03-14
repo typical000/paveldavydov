@@ -1,4 +1,4 @@
-import {translate, rotateZ} from 'css-functions'
+import {translate, scale, rotateZ, multiple} from 'css-functions'
 
 import theme from '../../theme'
 import {transition, border} from '../../utils/css'
@@ -214,4 +214,36 @@ export default {
       transform: translate(0, 0),
     },
   },
+
+  [theme.media.md]: {
+    title: {
+      height: nameHeight * 2,
+    },
+    name: {
+      textAlign: 'center',
+      padding: 0,
+      left: -200,
+      right: -200,
+      width: 'auto',
+    },
+    position: {
+      textAlign: 'center',
+      padding: 0,
+      left: -200,
+      right: -200,
+      width: 'auto',
+      top: 'auto',
+      bottom: 0
+    },
+    part: {
+      height: size / 2 - nameHeight,
+    }
+  },
+
+  [theme.media.xs]: {
+    logo: {
+      transformOrigin: ['50%', '50%'],
+      transform: scale(0.6, 0.6)
+    }
+  }
 }

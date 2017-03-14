@@ -1,6 +1,8 @@
 import {translate} from 'css-functions'
 import theme from '../../theme'
 
+import {barThickness} from '../../constants/sizes'
+
 export default {
   app: {
     background: theme.pageBackground,
@@ -17,6 +19,22 @@ export default {
     height: '100vh',
     position: 'relative',
     overflow: 'hidden',
+    // Top and bottom white spaces
+    '&::before, &::after': {
+      content: "''",
+      left: 0,
+      right: 0,
+      zIndex: 10,
+      position: 'fixed',
+      background: theme.cardBackground,
+      height: barThickness,
+    },
+    '&::before': {
+      top: 0,
+    },
+    '&::after': {
+      bottom: 0,
+    },
   },
 
   scene: {
@@ -33,14 +51,10 @@ export default {
     top: '50%',
     left: '50%',
     transform: translate('-50%', '-50%'),
-    // transition: transition('1s'),
     zIndex: 10,
   },
   logoStatic: {
     composes: '$logo',
-    position: 'absolute'
+    position: 'absolute',
   },
-  // logoAttached: {
-  //   composes: '$logo',
-  // }
 }
