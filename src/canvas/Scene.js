@@ -413,9 +413,9 @@ export default class DotScene {
         overwrite: 'all',
         // Recursively call function in infinite loop
         onComplete: () => {
-          const r = getRandomInterval(this.minRadius, this.maxRadius)
-          const {x, y} = this.getCoordinate(r, this.dot[index].deg)
-          this.setDotTween(index, x, y, r)
+          const radius = getRandomInterval(this.minRadius, this.maxRadius)
+          const coord = this.getCoordinate(radius, this.dot[index].deg)
+          this.setDotTween(index, coord.x, coord.y, radius)
         }
       }
     )
@@ -437,6 +437,7 @@ export default class DotScene {
     for (let i = 0; i < this.settings.edges; i++) {
       const r = this.dot[i].r
       const {x, y} = this.getCoordinate(this.dot[i].r, this.dot[i].deg)
+
       this.setDotTween(i, x, y, r)
     }
   }

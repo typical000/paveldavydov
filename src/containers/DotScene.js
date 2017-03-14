@@ -1,19 +1,27 @@
-// import React, {PureComponent, PropTypes} from 'react'
-import React, {PureComponent} from 'react'
+import React, {PureComponent, PropTypes} from 'react'
 import Scene from '../canvas'
 
 export default class DotSceneContainer extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {}
+  static propTypes = {
+    loading: PropTypes.boolean
   }
 
   componentDidMount() {
-    // >>> INIT HERE and make scene as singleton
-
     this.scene = new Scene({
       container: this.canvas
     })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Start or stop animation
+    if (nextProps.loading) this.scene.animateStop()
+    else this.scene.animateStart()
+  }
+
+  shouldComponentUpdate() {
+    // We really don't need to re-render component.
+    // There is no real case.
+    return false
   }
 
   render() {

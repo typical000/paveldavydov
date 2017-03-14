@@ -6,7 +6,7 @@ import styles from './styles'
 
 class Page extends PureComponent {
   static propTypes = {
-    sheet: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
     // location: PropTypes.object.isRequired,
     // params: PropTypes.object.isRequired
   }
@@ -16,10 +16,7 @@ class Page extends PureComponent {
   }
 
   render() {
-    const {
-      sheet: {classes},
-      // params
-    } = this.props
+    const {classes} = this.props
 
     return (
       <div className={classes.page}>

@@ -6,7 +6,7 @@ export default {
   lineHeight: 1.65,
 
   textColor: '#333',
-  textColorLight: '#999',
+  textColorLight: '#bdbdbd',
   textColorDark: '#000',
 
   titleColor: '#333',
@@ -19,6 +19,7 @@ export default {
 
   // Layout
   pageBackground: '#f9f9f9',
+  cardBackground: '#fff',
 
   // Button
   btnColor: '#000',

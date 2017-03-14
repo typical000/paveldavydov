@@ -34,7 +34,7 @@ export const decToHex = (number) => {
  * @param {Number} Opacity value (in interval from 0 up to 1)
  * @return {Number} Converted HEX color
  */
-export const decToRgba = (number, opacity) => {
+export const decToRgba = (number, opacity = 1) => {
   const r = number >> 16
   const g = (number >> 8) & 0xFF
   const b = number & 0xFF
