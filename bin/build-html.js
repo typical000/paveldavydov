@@ -6,7 +6,12 @@ var config = JSON.parse(fs.readFileSync(configPath))
 
 require('babel-register')(config)
 require('ignore-styles')
-require('module-alias').addAliases(require('../webpack.config.base').resolve.alias)
+require('module-alias').addAliases(Object.assign({}, require('../webpack.config.base').resolve.alias, {
+  // Replace 'browser-only' modules with empty things to prevent
+  // undefined errors on 'document' or 'window' that doesn't exists on server
+  'pixi.js': '',
+  gsap: ''
+}))
 
 var render = require('../src/server').default
 var dir = path.join(__dirname, '..', 'dist');

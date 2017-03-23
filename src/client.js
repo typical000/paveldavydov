@@ -3,10 +3,10 @@ import {render} from 'react-dom'
 import {Router, browserHistory} from 'react-router'
 import 'whatwg-fetch'
 
-import routes from './routes'
+import App from './components/app'
 
 render(
-  <Router history={browserHistory} routes={routes} />,
+  <App />,
   document.body
 )
 

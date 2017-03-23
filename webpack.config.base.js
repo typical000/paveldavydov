@@ -19,6 +19,7 @@ module.exports = {
     filename: 'bundle.v' + config.version + '.js',
   },
   module: {
+    noParse: /\.min\.js/,
     rules: [
       { test: /\.jsx?$/, exclude: /node_modules/, use: ['babel-loader']},
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, use: 'url?limit=10000&mimetype=application/font-woff' },

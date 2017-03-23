@@ -2,7 +2,6 @@ import React, {PureComponent, PropTypes} from 'react'
 
 import GlobalStyles from '../GlobalStyles'
 import Logo from '../Logo'
-import Page from '../Page'
 import SlidingPopup from '../SlidingPopup'
 import DotScene from '../DotScene'
 
@@ -38,8 +37,8 @@ class App extends PureComponent {
       <GlobalStyles>
         <div className={classes.app}>
           <div className={classes.content}>
-            { /* REPLACE with NavigationRouter */ }
 
+            { /* Just a temporary button */ }
             <button
               onClick={this.handleClick}
               style={{
@@ -52,7 +51,6 @@ class App extends PureComponent {
               Toggle
             </button>
 
-            <Page />
           </div>
 
           <SlidingPopup
@@ -70,10 +68,10 @@ class App extends PureComponent {
           </SlidingPopup>
 
           <div className={classes.logo}>
-            <Logo loading={this.state.loading} />
+            {process.browser && <Logo loading={this.state.loading} />}
           </div>
           <div className={classes.scene}>
-            <DotScene />
+            {process.browser && <DotScene />}
           </div>
         </div>
       </GlobalStyles>
