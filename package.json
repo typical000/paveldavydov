@@ -11,9 +11,10 @@
     "dev-server": "cross-env NODE_ENV=development PORT=3000 node ./bin/webpack-dev-server.js",
     "build:dev": "cross-env NODE_ENV=development webpack --config ./webpack.config.dev",
     "build:prod": "cross-env NODE_ENV=production webpack --config ./webpack.config.prod",
-    "build-html": "cross-env NODE_ENV=production node ./bin/build-html",
-    "all:dev": "npm run clean && npm run build:dev && npm run build-html",
-    "all:prod": "npm run clean && npm run build:prod && npm run build-html",
+    "build:html": "cross-env NODE_ENV=production node ./bin/build-html",
+    "clean": "rimraf 'dist/*'",
+    "all:dev": "npm run clean && npm run build:dev && npm run build:html",
+    "all:prod": "npm run clean && npm run build:prod && npm run build:html",
     "lint": "eslint ./src",
     "lint:staged": "lint-staged",
     "start": "npm run lint && npm run all:prod"
@@ -52,7 +53,8 @@
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0"
+    "webpack-dev-server": "^2.2.0",
+    "webpack-manifest-plugin": "^1.1.0"
   },
   "dependencies": {
     "babel-polyfill": "^6.20.0",

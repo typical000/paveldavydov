@@ -1,8 +1,11 @@
 'use strict'
 
-var webpack = require('webpack')
 var CompressionPlugin = require('compression-webpack-plugin')
+var webpack = require('webpack')
+
 var config = require('./webpack.config.base')
+
+config.output.filename = 'app.[chunkhash].js',
 
 config.plugins = config.plugins.concat([
   new webpack.DefinePlugin({
@@ -10,15 +13,14 @@ config.plugins = config.plugins.concat([
       NODE_ENV: '"production"'
     }
   }),
-
+  new webpack.optimize.CommonsChunkPlugin({
+    names: ['vendor', 'manifest'],
+    filename: '[name].[chunkhash].js'
+  }),
   new webpack.LoaderOptionsPlugin({
     minimize: true
   }),
-
-  // Ignore dev config
   new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
-
-  // Optimizations
   new webpack.optimize.UglifyJsPlugin(),
   new CompressionPlugin({
     asset: "[path].gz[query]",

@@ -4,19 +4,18 @@ var webpack = require('webpack')
 var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var CopyFilesPlugin = require('copy-webpack-plugin')
-var config = require('./package.json')
+var ManifestPlugin = require('webpack-manifest-plugin')
+
+var dependencies = require('./package.json').dependencies
 
 module.exports = {
   entry: {
-    app: [
-      path.join(__dirname, 'src', 'client.js'),
-    ],
-    vendor: Object.keys(config.dependencies)
+    app: [path.join(__dirname, 'src', 'client.js')],
+    vendor: Object.keys(dependencies)
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    publicPath: '/dist',
-    filename: 'bundle.v' + config.version + '.js',
+    publicPath: '/dist'
   },
   module: {
     noParse: /\.min\.js/,
@@ -37,23 +36,12 @@ module.exports = {
     ]
   },
   resolve: {
-    // TODO: When preact-compat will be updated - remove this string
-    // mainFields: ['main', 'web'],
     alias: {
       react: 'preact-compat',
       'react-dom': 'preact-compat'
     }
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: 'vendor.styles.v' + config.version + '.css',
-      allChunks: true,
-      disable: false
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      filename: 'vendor.bundle.v' + config.version + '.js'
-    }),
     new CopyFilesPlugin([{
       from: './src/images',
       to: './images'
@@ -61,6 +49,9 @@ module.exports = {
       from: './src/fonts',
       to: './fonts'
     }]),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new ManifestPlugin({
+      fileName: 'stats.json'
+    })
   ]
 }
