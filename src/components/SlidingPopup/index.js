@@ -1,5 +1,7 @@
 import React, {PureComponent, PropTypes} from 'react'
-import classnames from 'classnames'
+import cn from 'classnames'
+
+import Close from '../Close'
 
 import {capitalizeFirstLetter} from '../../utils/text'
 import injectSheet from '../../utils/jss'
@@ -23,10 +25,13 @@ class SlidingPopup extends PureComponent {
 
     this.direction = capitalizeFirstLetter(this.props.direction)
     this.state = {
-      isOpen: props.open
+      isOpen: props.open,
+      hovered: false
     }
 
-    this.handleBarClick = this.handleBarClick.bind(this)
+    this.onClick = this.onClick.bind(this)
+    this.onCloseEnter = this.onCloseEnter.bind(this)
+    this.onCloseLeave = this.onCloseLeave.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,9 +42,21 @@ class SlidingPopup extends PureComponent {
 
   // REPLACE INNER STATE CHANGE
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  handleBarClick() {
+  onClick() {
     this.setState({
-      isOpen: !this.state.isOpen,
+      isOpen: !this.state.isOpen
+    })
+  }
+
+  onCloseEnter() {
+    this.setState({
+      hovered: true
+    })
+  }
+
+  onCloseLeave() {
+    this.setState({
+      hovered: false
     })
   }
 
@@ -50,16 +67,16 @@ class SlidingPopup extends PureComponent {
       title
     } = this.props
 
-    const popupClasses = classnames({
-      [classes[`popup${this.direction}`]]: true,
-      [classes.open]: this.state.isOpen
-    })
+    const popupClasses = cn(
+      classes[`popup${this.direction}`],
+      this.state.isOpen && classes.open
+    )
 
     return (
       <div className={popupClasses}>
         <button
           className={classes.barOpen}
-          onClick={this.handleBarClick}
+          onClick={this.onClick}
         >
           <div className={classes.title}>
             {title}
@@ -68,10 +85,20 @@ class SlidingPopup extends PureComponent {
         <div className={classes.content}>
           <button
             className={classes.barClose}
-            onClick={this.handleBarClick}
+            onClick={this.onClick}
+            onMouseEnter={this.onCloseEnter}
+            onMouseLeave={this.onCloseLeave}
           >
-            <div className={classes.close} />
+            <div
+              className={classes.close}
+            >
+              <Close hovered={this.state.hovered} />
+            </div>
           </button>
+          <div className={classes.overlay}>
+            <div className={classes.overlayTop} />
+            <div className={classes.overlayBottom} />
+          </div>
           <div className={classes.inner}>
             {children}
           </div>

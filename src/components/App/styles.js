@@ -24,7 +24,7 @@ export default {
       content: "''",
       left: 0,
       right: 0,
-      zIndex: 10,
+      zIndex: 1500, // Must be on top of all document
       position: 'fixed',
       background: theme.cardBackground,
       height: barThickness,
