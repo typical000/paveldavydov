@@ -5,13 +5,12 @@ import {stripIndents} from 'common-tags'
 import {minify} from 'html-minifier'
 
 import config from './config'
-import {version} from '../package.json'
 import chunks from '../dist/stats.json'
 
 import App from './components/App'
 
 // Get first part of name (all that goes before first '.')
-const stripFileName = (name) => name.split('.')[0]
+const stripFileName = name => name.split('.')[0]
 
 const renderChunks = () => {
   // Right order to place chunks.
@@ -26,9 +25,7 @@ const renderChunks = () => {
     if (aIndex < bIndex) return -1
     if (aIndex > bIndex) return 1
     return 0
-  }).map(value => {
-    return `<script src="/${value}"></script>`
-  }).join('')
+  }).map(value => `<script src="/${value}"></script>`).join('')
 }
 
 const renderAnalytics = () => (
@@ -52,7 +49,7 @@ const renderApp = () => {
   }
 }
 
-const renderHTML = ({app, css, chunks, analytics}) => minify(stripIndents`
+const renderHTML = ({app, css, js, analytics}) => minify(stripIndents`
   <!doctype html>
   <html lang="en">
     <head>
@@ -75,7 +72,7 @@ const renderHTML = ({app, css, chunks, analytics}) => minify(stripIndents`
     </head>
     <body>
       ${app}
-      ${chunks}
+      ${js}
       ${analytics}
     </body>
   </html>
@@ -87,6 +84,6 @@ const renderHTML = ({app, css, chunks, analytics}) => minify(stripIndents`
 
 export default renderHTML({
   ...renderApp(),
-  chunks: renderChunks(),
+  js: renderChunks(),
   analytics: renderAnalytics()
 })

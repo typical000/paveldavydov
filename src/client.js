@@ -1,9 +1,8 @@
 import React from 'react'
 import {render} from 'react-dom'
-import {Router, browserHistory} from 'react-router'
 import 'whatwg-fetch'
 
-import App from './components/app'
+import App from './components/App'
 
 render(
   <App />,

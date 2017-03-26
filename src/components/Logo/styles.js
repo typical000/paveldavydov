@@ -1,4 +1,4 @@
-import {translate, scale, rotateZ, multiple} from 'css-functions'
+import {translate, scale, rotateZ} from 'css-functions'
 
 import theme from '../../theme'
 import {transition, border} from '../../utils/css'
@@ -236,7 +236,7 @@ export default {
       bottom: 0
     },
     part: {
-      height: size / 2 - nameHeight,
+      height: (size / 2) - nameHeight,
     }
   },
 
