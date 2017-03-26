@@ -17,13 +17,30 @@ class App extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      loading: false
+      loading: false,
+      aboutPopupActive: false,
+      contactPopupActive: false
     }
 
     this.handleClick = this.handleClick.bind(this)
+    this.toggleAboutPopup = this.toggleAboutPopup.bind(this)
+    this.toggleContactPopup = this.toggleContactPopup.bind(this)
   }
 
-  // TO REMOVE
+  toggleAboutPopup() {
+    this.setState({
+      aboutPopupActive: !this.state.aboutPopupActive
+    })
+  }
+
+  toggleContactPopup() {
+    this.setState({
+      contactPopupActive: !this.state.contactPopupActive
+    })
+  }
+
+  // Used only for temporary button
+  // Need to toggle/untoggle loading animation on logo
   handleClick() {
     this.setState({
       loading: !this.state.loading
@@ -56,13 +73,16 @@ class App extends PureComponent {
           <SlidingPopup
             direction={'left'}
             title={'About me'}
-            open={this.state.loading}
+            open={this.state.aboutPopupActive}
+            toggleHandler={this.toggleAboutPopup}
           >
             <div>Content</div>
           </SlidingPopup>
           <SlidingPopup
             direction={'right'}
             title={'Contact me'}
+            open={this.state.contactPopupActive}
+            toggleHandler={this.toggleContactPopup}
           >
             <div>Contact</div>
           </SlidingPopup>

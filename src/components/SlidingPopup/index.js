@@ -13,7 +13,8 @@ class SlidingPopup extends PureComponent {
     classes: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
     direction: PropTypes.string,
-    open: PropTypes.boolean
+    open: PropTypes.boolean,
+    toggleHandler: PropTypes.func
   }
 
   static defaultProps = {
@@ -29,7 +30,6 @@ class SlidingPopup extends PureComponent {
       hovered: false
     }
 
-    this.onClick = this.onClick.bind(this)
     this.onCloseEnter = this.onCloseEnter.bind(this)
     this.onCloseLeave = this.onCloseLeave.bind(this)
   }
@@ -37,14 +37,6 @@ class SlidingPopup extends PureComponent {
   componentWillReceiveProps(nextProps) {
     this.setState({
       isOpen: nextProps.open
-    })
-  }
-
-  // REPLACE INNER STATE CHANGE
-  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  onClick() {
-    this.setState({
-      isOpen: !this.state.isOpen
     })
   }
 
@@ -76,7 +68,7 @@ class SlidingPopup extends PureComponent {
       <div className={popupClasses}>
         <button
           className={classes.barOpen}
-          onClick={this.onClick}
+          onClick={this.props.toggleHandler}
         >
           <div className={classes.title}>
             {title}
@@ -85,7 +77,7 @@ class SlidingPopup extends PureComponent {
         <div className={classes.content}>
           <button
             className={classes.barClose}
-            onClick={this.onClick}
+            onClick={this.props.toggleHandler}
             onMouseEnter={this.onCloseEnter}
             onMouseLeave={this.onCloseLeave}
           >
