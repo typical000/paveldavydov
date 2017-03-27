@@ -24,7 +24,7 @@ class App extends PureComponent {
       logoClosed: false,
     }
 
-    this.handleClick = this.handleClick.bind(this)
+    this.toggleLoading = this.toggleLoading.bind(this)
     this.toggleAboutPopup = this.toggleAboutPopup.bind(this)
     this.toggleContactPopup = this.toggleContactPopup.bind(this)
   }
@@ -47,8 +47,9 @@ class App extends PureComponent {
 
   // Used only for temporary button
   // Need to toggle/untoggle loading animation on logo
-  handleClick() {
+  toggleLoading() {
     this.setState({
+      sceneAnimated: !this.state.sceneAnimated,
       loading: !this.state.loading
     })
   }
@@ -63,7 +64,7 @@ class App extends PureComponent {
 
             { /* Just a temporary button */ }
             <button
-              onClick={this.handleClick}
+              onClick={this.toggleLoading}
               style={{
                 position: 'relative',
                 zIndex: 100,

@@ -1,5 +1,5 @@
 import React, {PureComponent, PropTypes} from 'react'
-import {TweenMax, Linear} from 'gsap'
+import {TweenLite, Linear} from 'gsap'
 import cn from 'classnames'
 
 import {capitalizeFirstLetter} from '../../utils/text'
@@ -19,8 +19,9 @@ class Logo extends PureComponent {
 
   static getRingAnimation(isClockwise) {
     return {
-      rotation: isClockwise ? 360 : -360,
-      repeat: -1,
+      // TweenLite doesn't support infinite loops.
+      // So we multiply rotation amount (like 1000 rotations :))
+      rotation: (isClockwise ? 360 : -360) * 1000,
       ease: Linear.easeNone
     }
   }
@@ -32,16 +33,16 @@ class Logo extends PureComponent {
 
   componentDidMount() {
     // Initialize animation for each ring
-    this.ring.outer = new TweenMax(
-      [this.selectorTopOuter, this.selectorBottomOuter], 5, Logo.getRingAnimation(true)
+    this.ring.outer = new TweenLite(
+      [this.selectorTopOuter, this.selectorBottomOuter], 5000, Logo.getRingAnimation(true)
     )
 
-    this.ring.middle = new TweenMax(
-      [this.selectorTopMiddle, this.selectorBottomMiddle], 5, Logo.getRingAnimation(false)
+    this.ring.middle = new TweenLite(
+      [this.selectorTopMiddle, this.selectorBottomMiddle], 5000, Logo.getRingAnimation(false)
     )
 
-    this.ring.inner = new TweenMax(
-      [this.selectorTopInner, this.selectorBottomInner], 9, Logo.getRingAnimation(false)
+    this.ring.inner = new TweenLite(
+      [this.selectorTopInner, this.selectorBottomInner], 9000, Logo.getRingAnimation(false)
     )
 
     // Set starting animation time scale
@@ -49,7 +50,7 @@ class Logo extends PureComponent {
   }
 
   setAnimationTimeScale(scale) {
-    TweenMax.to(
+    TweenLite.to(
       [this.ring.outer, this.ring.middle, this.ring.inner], 1, {timeScale: scale}
     )
   }
