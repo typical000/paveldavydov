@@ -14,7 +14,7 @@ export const dotStroke = 0x757575
 export const backgroundColorPrimary = 0xF9F9F9
 export const backgroundColorSecondary = 0xF3F3F3
 
-export const rotationSpeed = 120
+export const rotationSpeed = 1200
 export const minTimeout = 2
 export const maxTimeout = 6
 export const appearingSpeed = 2

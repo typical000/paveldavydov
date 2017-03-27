@@ -362,9 +362,10 @@ export default class DotScene {
     this.isRotating = true
 
     this.tweenRotate = new TweenLite(this.foregroundGraphics, this.settings.rotationSpeed, {
-      rotation: PI_2, // Rotations degree, by 360 degs
-      repeat: -1, // Make rotation repeat infinite times
-      ease: Power0.easeNone // Linear easing
+      // TweenLite doesn't support infinite animations.
+      // So we increase rotation amount to bigger number than 360deg (pi/2)
+      rotation: PI_2 * 10,
+      ease: Power0.easeNone
     })
 
     this.animateStart()
