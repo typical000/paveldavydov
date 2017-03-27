@@ -59,6 +59,8 @@ class SlidingPopup extends PureComponent {
       title
     } = this.props
 
+    const direction = this.direction
+
     const popupClasses = cn(
       classes[`popup${this.direction}`],
       this.state.isOpen && classes.open
@@ -67,16 +69,16 @@ class SlidingPopup extends PureComponent {
     return (
       <div className={popupClasses}>
         <button
-          className={classes.barOpen}
+          className={classes[`barOpen${direction}`]}
           onClick={this.props.toggleHandler}
         >
-          <div className={classes.title}>
+          <div className={classes[`title${direction}`]}>
             {title}
           </div>
         </button>
-        <div className={classes.content}>
+        <div className={classes[`content${direction}`]}>
           <button
-            className={classes.barClose}
+            className={classes[`barClose${direction}`]}
             onClick={this.props.toggleHandler}
             onMouseEnter={this.onCloseEnter}
             onMouseLeave={this.onCloseLeave}
@@ -87,9 +89,9 @@ class SlidingPopup extends PureComponent {
               <Close hovered={this.state.hovered} />
             </div>
           </button>
-          <div className={classes.overlay}>
-            <div className={classes.overlayTop} />
-            <div className={classes.overlayBottom} />
+          <div className={classes[`overlay${direction}`]}>
+            <div className={classes[`overlayTop${direction}`]} />
+            <div className={classes[`overlayBottom${direction}`]} />
           </div>
           <div className={classes.inner}>
             {children}

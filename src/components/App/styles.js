@@ -1,7 +1,7 @@
 import {translate} from 'css-functions'
 import theme from '../../theme'
 
-import {barThickness} from '../../constants/sizes'
+import {bar, barSm} from '../../constants/sizes'
 
 export default {
   app: {
@@ -27,7 +27,7 @@ export default {
       zIndex: 1500, // Must be on top of all document
       position: 'fixed',
       background: theme.cardBackground,
-      height: barThickness,
+      height: bar,
     },
     '&::before': {
       top: 0,
@@ -35,6 +35,11 @@ export default {
     '&::after': {
       bottom: 0,
     },
+    [theme.media.sm]: {
+      '&::before, &::after': {
+        height: barSm
+      }
+    }
   },
 
   scene: {
@@ -56,5 +61,5 @@ export default {
   logoStatic: {
     composes: '$logo',
     position: 'absolute',
-  },
+  }
 }
