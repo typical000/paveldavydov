@@ -1,6 +1,6 @@
 import React, {PureComponent, PropTypes} from 'react'
 import {TweenMax, Linear} from 'gsap'
-import classnames from 'classnames'
+import cn from 'classnames'
 
 import {capitalizeFirstLetter} from '../../utils/text'
 import injectSheet from '../../utils/jss'
@@ -13,7 +13,8 @@ import styles from './styles'
 class Logo extends PureComponent {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    loading: PropTypes.boolean
+    loading: PropTypes.boolean,
+    closed: PropTypes.closed
   }
 
   static getRingAnimation(isClockwise) {
@@ -93,14 +94,11 @@ class Logo extends PureComponent {
   }
 
   render() {
-    const {classes, loading} = this.props
+    const {classes, loading, closed} = this.props
     const parts = ['top', 'bottom']
 
     // Set loading classes
-    const logoClasses = classnames({
-      [classes.logo]: true,
-      [classes.logoLoading]: loading
-    })
+    const logoClasses = cn(classes.logo, (loading || closed) && classes.loading)
 
     // Set animation speed
     this.setAnimationTimeScale(loading ? 1 : 0.2)

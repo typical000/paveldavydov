@@ -178,7 +178,7 @@ export default {
   },
 
   // Logo global states
-  logoLoading: {
+  loading: {
     '& $part': {
       height: size / 2,
       transition: transition(transitionTime, transitionTime),

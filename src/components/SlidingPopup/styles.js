@@ -124,7 +124,7 @@ export default {
       right: 0,
       bottom: 0,
       background: theme.pageBackground,
-      opacity: 0.8,
+      opacity: 0.6,
     },
     // Additional bar on side
     '&::after': {
