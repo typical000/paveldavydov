@@ -3,7 +3,7 @@ import Scene from '../canvas'
 
 export default class DotSceneContainer extends PureComponent {
   static propTypes = {
-    loading: PropTypes.boolean
+    animated: PropTypes.boolean
   }
 
   componentDidMount() {
@@ -14,8 +14,8 @@ export default class DotSceneContainer extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     // Start or stop animation
-    if (nextProps.loading) this.scene.animateStop()
-    else this.scene.animateStart()
+    if (nextProps.animated) this.scene.animateStart()
+    else this.scene.animateStop()
   }
 
   shouldComponentUpdate() {

@@ -8,9 +8,7 @@ import styles from './styles'
  * @param {boolean} is hovered or not
  * @param {Object} JSS sheet object
  */
-const Close = ({hovered, sheet}) => {
-  const {classes} = sheet
-
+const Close = ({hovered, classes}) => {
   return (
     <div className={hovered ? classes.hovered : classes.close}>
       <span className={classes.barFirst} />

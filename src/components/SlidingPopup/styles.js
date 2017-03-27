@@ -10,7 +10,7 @@ export default {
     position: 'fixed',
     top: 0,
     left: 0,
-    transition: transition('1.5s'),
+    transition: transition('1.2s'),
     height: '100vh',
     width: '200%'
   },

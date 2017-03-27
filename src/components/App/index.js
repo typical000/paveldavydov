@@ -19,7 +19,8 @@ class App extends PureComponent {
     this.state = {
       loading: false,
       aboutPopupActive: false,
-      contactPopupActive: false
+      contactPopupActive: false,
+      sceneAnimated: true
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -29,13 +30,15 @@ class App extends PureComponent {
 
   toggleAboutPopup() {
     this.setState({
-      aboutPopupActive: !this.state.aboutPopupActive
+      aboutPopupActive: !this.state.aboutPopupActive,
+      sceneAnimated: !this.state.sceneAnimated
     })
   }
 
   toggleContactPopup() {
     this.setState({
-      contactPopupActive: !this.state.contactPopupActive
+      contactPopupActive: !this.state.contactPopupActive,
+      sceneAnimated: !this.state.sceneAnimated
     })
   }
 
@@ -91,7 +94,7 @@ class App extends PureComponent {
             {process.browser && <Logo loading={this.state.loading} />}
           </div>
           <div className={classes.scene}>
-            {process.browser && <DotScene />}
+            {process.browser && <DotScene animated={this.state.sceneAnimated} />}
           </div>
         </div>
       </GlobalStyles>

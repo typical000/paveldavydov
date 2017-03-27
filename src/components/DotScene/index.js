@@ -4,22 +4,21 @@ import DotSceneContainer from '../../containers/DotScene'
 import injectSheet from '../../utils/jss'
 import styles from './styles'
 
-const App = (props) => {
-  const {classes} = props
-
+const DotScene = ({animated, classes}) => {
   return (
     <div className={classes.scene}>
       <div className={classes.even} />
       <div className={classes.odd} />
       <div className={classes.container}>
-        <DotSceneContainer />
+        <DotSceneContainer animated={animated} />
       </div>
     </div>
   )
 }
 
-App.propTypes = {
+DotScene.propTypes = {
   classes: PropTypes.object.isRequired,
+  animated: PropTypes.bool
 }
 
-export default injectSheet(styles)(App)
+export default injectSheet(styles)(DotScene)

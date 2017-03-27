@@ -9,9 +9,7 @@ import styles from './styles'
  * @param {boolean} is opened now or not
  * @param {Object} JSS sheet object
  */
-const Hamburger = ({active, sheet}) => {
-  const {classes} = sheet
-
+const Hamburger = ({active, classes}) => {
   return (
     <div className={cn(classes.hamburger, active && classes.active)}>
       <span className={classes.barFirst} />
