@@ -27,6 +27,7 @@ Created by Pavel Davydov
 - [ ] Add loader
 - [ ] Try avoid using pure React compnents, remove `preact-comat`
 - [ ] Decrease bundle size
+  - [x] Add `webpack-bundle-analyzer`
   - [ ] GSAP
   - [ ] Pixi.js
   - [ ] React
