@@ -1,5 +1,4 @@
 import React, {PureComponent, PropTypes} from 'react'
-import {TweenLite, Linear} from 'gsap'
 import cn from 'classnames'
 
 import {capitalizeFirstLetter} from '../../utils/text'
@@ -17,44 +16,6 @@ class Logo extends PureComponent {
     closed: PropTypes.closed
   }
 
-  static getRingAnimation(isClockwise) {
-    return {
-      // TweenLite doesn't support infinite loops.
-      // So we multiply rotation amount (like 1000 rotations :))
-      rotation: (isClockwise ? 360 : -360) * 1000,
-      ease: Linear.easeNone
-    }
-  }
-
-  constructor(props) {
-    super(props)
-    this.ring = {}
-  }
-
-  componentDidMount() {
-    // Initialize animation for each ring
-    this.ring.outer = new TweenLite(
-      [this.selectorTopOuter, this.selectorBottomOuter], 5000, Logo.getRingAnimation(true)
-    )
-
-    this.ring.middle = new TweenLite(
-      [this.selectorTopMiddle, this.selectorBottomMiddle], 5000, Logo.getRingAnimation(false)
-    )
-
-    this.ring.inner = new TweenLite(
-      [this.selectorTopInner, this.selectorBottomInner], 9000, Logo.getRingAnimation(false)
-    )
-
-    // Set starting animation time scale
-    this.setAnimationTimeScale(this.props.loading ? 1 : 0.2)
-  }
-
-  setAnimationTimeScale(scale) {
-    TweenLite.to(
-      [this.ring.outer, this.ring.middle, this.ring.inner], 1, {timeScale: scale}
-    )
-  }
-
   /**
    * @param {string} part name (used by CSS)
    * @param {string} ring type (outer, middle, etc.)
@@ -63,12 +24,7 @@ class Logo extends PureComponent {
     const {classes} = this.props
 
     return (
-      <div
-        className={classes[`ring${type}`]}
-        ref={(ref) => {
-          this[`selector${name}${type}`] = ref
-        }}
-      >
+      <div className={classes[`ring${type}`]}>
         <div className={classes.content} />
         <div className={classes.content} />
       </div>
@@ -100,9 +56,6 @@ class Logo extends PureComponent {
 
     // Set loading classes
     const logoClasses = cn(classes.logo, (loading || closed) && classes.loading)
-
-    // Set animation speed
-    this.setAnimationTimeScale(loading ? 1 : 0.2)
 
     return (
       <div className={logoClasses}>

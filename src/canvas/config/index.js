@@ -1,4 +1,4 @@
-import {Power4} from 'gsap'
+import TweenLite from 'TweenLite'
 
 export const edges = 16
 
@@ -22,7 +22,7 @@ export const stoppedOpacityAmount = 0.3
 
 // Done with && due to server side rendering, where 'gsap' creates infinite loop.
 // We need to compute this variable ONLY in browser
-export const itemsAnimateEasing = process.browser && Power4.easeInOut
+export const itemsAnimateEasing = process.browser && TweenLite.Power4.easeInOut
 
 export const startRadius = 40
 export const minRadius = 30

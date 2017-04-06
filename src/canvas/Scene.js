@@ -1,5 +1,5 @@
 import {Container, Graphics, Texture, Sprite, utils as pixiUtils, autoDetectRenderer, PI_2} from 'pixi.js'
-import {TweenLite, Power0} from 'gsap'
+import TweenLite from 'TweenLite'
 
 import Line from './Line'
 import Dot from './Dot'
@@ -365,7 +365,7 @@ export default class DotScene {
       // TweenLite doesn't support infinite animations.
       // So we increase rotation amount to bigger number than 360deg (pi/2)
       rotation: PI_2 * 10,
-      ease: Power0.easeNone
+      ease: TweenLite.Power0.easeNone
     })
 
     this.animateStart()

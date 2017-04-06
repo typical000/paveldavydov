@@ -8,18 +8,16 @@ import styles from './styles'
  * @param {boolean} is hovered or not
  * @param {Object} JSS sheet object
  */
-const Close = ({hovered, classes}) => {
-  return (
-    <div className={hovered ? classes.hovered : classes.close}>
-      <span className={classes.barFirst} />
-      <span className={classes.barSecond} />
-    </div>
-  )
-}
+const Close = ({hovered, classes}) => (
+  <div className={hovered ? classes.hovered : classes.close}>
+    <span className={classes.barFirst} />
+    <span className={classes.barSecond} />
+  </div>
+)
 
 Close.propTypes = {
-  hovered: React.PropTypes.bool,
-  sheet: React.PropTypes.object
+  classes: React.PropTypes.object.isRequired,
+  hovered: React.PropTypes.bool
 }
 
 export default injectSheet(styles)(Close)
