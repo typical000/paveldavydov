@@ -10,7 +10,8 @@ require('module-alias').addAliases(Object.assign({}, require('../webpack.config.
   // Replace 'browser-only' modules with empty things to prevent
   // undefined errors on 'document' or 'window' that doesn't exists on server
   'pixi.js': '',
-  gsap: ''
+  TweenLite: '',
+  gsap: '',
 }))
 
 var render = require('../src/server').default

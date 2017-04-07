@@ -3,10 +3,17 @@
   "extends": "eslint-config-jss",
   "rules": {
     "react/forbid-prop-types": ["error", {
-      "forbid": ["any", "array"]
+      "forbid": [
+        "any",
+        "array"
+      ]
     }],
     "import/no-unresolved": [2, {
-      "ignore": ["react", "react-dom"]
+      "ignore": [
+        "react",
+        "react-dom",
+        "TweenLite"
+      ]
     }]
   },
   "parserOptions": {

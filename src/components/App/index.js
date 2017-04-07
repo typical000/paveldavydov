@@ -17,14 +17,12 @@ class App extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      loading: false,
       aboutPopupActive: false,
       contactPopupActive: false,
       sceneAnimated: true,
       logoClosed: false,
     }
 
-    this.toggleLoading = this.toggleLoading.bind(this)
     this.toggleAboutPopup = this.toggleAboutPopup.bind(this)
     this.toggleContactPopup = this.toggleContactPopup.bind(this)
   }
@@ -45,38 +43,13 @@ class App extends PureComponent {
     })
   }
 
-  // Used only for temporary button
-  // Need to toggle/untoggle loading animation on logo
-  toggleLoading() {
-    this.setState({
-      sceneAnimated: !this.state.sceneAnimated,
-      loading: !this.state.loading
-    })
-  }
-
   render() {
     const {classes} = this.props
 
     return (
       <GlobalStyles>
         <div className={classes.app}>
-          <div className={classes.content}>
-
-            { /* Just a temporary button */ }
-            <button
-              onClick={this.toggleLoading}
-              style={{
-                position: 'relative',
-                zIndex: 100,
-                top: 100,
-                left: 100
-              }}
-            >
-              Toggle
-            </button>
-
-          </div>
-
+          <div className={classes.content} />
           <SlidingPopup
             direction={'left'}
             title={'About me'}

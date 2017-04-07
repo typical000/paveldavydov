@@ -12,6 +12,7 @@ const ringOuterMultiplier = 0.8
 const ringMiddleMultiplier = 0.65
 const ringInnerMultiplier = 0.5
 const ringOffset = 24
+const ringAnimationSpeed = 50000
 
 const nameHeight = 55
 const nameFontSize = 36
@@ -164,21 +165,42 @@ export default {
     composes: '$ring',
     width: (size - ringOffset) * ringOuterMultiplier,
     height: (size - ringOffset) * ringOuterMultiplier,
+    animation: {
+      name: 'rotateAnimation',
+      duration: ringAnimationSpeed * 1.2,
+      direction: 'alternate',
+      iterationCount: 'infinite',
+      timingFunction: 'linear'
+    }
   },
   ringMiddle: {
     composes: '$ring',
     width: (size - ringOffset) * ringMiddleMultiplier,
     height: (size - ringOffset) * ringMiddleMultiplier,
-    transform: rotateZ(45)
+    transform: rotateZ(45),
+    animation: {
+      name: 'rotateAnimation',
+      duration: ringAnimationSpeed,
+      direction: 'reverse',
+      iterationCount: 'infinite',
+      timingFunction: 'linear'
+    }
   },
   ringInner: {
     composes: '$ring',
     width: (size - ringOffset) * ringInnerMultiplier,
     height: (size - ringOffset) * ringInnerMultiplier,
+    animation: {
+      name: 'rotateAnimation',
+      duration: ringAnimationSpeed * 0.8,
+      direction: 'alternate',
+      iterationCount: 'infinite',
+      timingFunction: 'linear'
+    }
   },
 
-  // Logo global states
-  loading: {
+  // Closed global state
+  closed: {
     '& $part': {
       height: size / 2,
       transition: transition(transitionTime, transitionTime),
@@ -213,6 +235,15 @@ export default {
     '60%': {
       transform: translate(0, 0),
     },
+  },
+
+  '@keyframes rotateAnimation': {
+    '0%': {
+      transform: rotateZ(0),
+    },
+    '100%': {
+      transform: rotateZ(360),
+    }
   },
 
   [theme.media.md]: {

@@ -12,7 +12,6 @@ import styles from './styles'
 class Logo extends PureComponent {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    loading: PropTypes.boolean,
     closed: PropTypes.closed
   }
 
@@ -51,11 +50,10 @@ class Logo extends PureComponent {
   }
 
   render() {
-    const {classes, loading, closed} = this.props
+    const {classes, closed} = this.props
     const parts = ['top', 'bottom']
 
-    // Set loading classes
-    const logoClasses = cn(classes.logo, (loading || closed) && classes.loading)
+    const logoClasses = cn(classes.logo, closed && classes.closed)
 
     return (
       <div className={logoClasses}>
