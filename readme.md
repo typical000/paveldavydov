@@ -28,6 +28,5 @@ Created by Pavel Davydov
 - [ ] Try avoid using pure React compnents, remove `preact-comat`
 - [ ] Decrease bundle size
   - [x] Add `webpack-bundle-analyzer`
-  - [ ] GSAP
-  - [ ] Pixi.js
-  - [ ] React
+  - [x] Replace GSAP with Tween.js
+  - [ ] Pixi.js. Maybe there is any lighweight alternative

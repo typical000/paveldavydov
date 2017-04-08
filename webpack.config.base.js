@@ -8,20 +8,10 @@ var ManifestPlugin = require('webpack-manifest-plugin')
 
 var dependencies = require('./package.json').dependencies
 
-/**
- * We need to pre-process dependencies
- * before create vendor bundle
- */
-function getCorrectedVendors(list) {
-  list.splice(list.indexOf('gsap'), 1)
-  list.push('gsap/src/minified/TweenLite.min.js')
-  return list
-}
-
 module.exports = {
   entry: {
     app: [path.join(__dirname, 'src', 'client.js')],
-    vendor: getCorrectedVendors(Object.keys(dependencies))
+    vendor: Object.keys(dependencies)
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -47,7 +37,6 @@ module.exports = {
   },
   resolve: {
     alias: {
-      TweenLite: 'gsap/src/minified/TweenLite.min.js',
       react: 'preact-compat',
       'react-dom': 'preact-compat',
     }

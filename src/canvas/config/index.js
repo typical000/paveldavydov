@@ -1,4 +1,4 @@
-import TweenLite from 'TweenLite'
+import TWEEN from 'tween.js'
 
 export const edges = 16
 
@@ -14,15 +14,16 @@ export const dotStroke = 0x757575
 export const backgroundColorPrimary = 0xF9F9F9
 export const backgroundColorSecondary = 0xF3F3F3
 
-export const rotationSpeed = 1200
-export const minTimeout = 2
-export const maxTimeout = 6
-export const appearingSpeed = 2
+export const rotationSpeed = 100000
+export const minTimeout = 2000
+export const maxTimeout = 6000
+export const appearingSpeed = 2000
 export const stoppedOpacityAmount = 0.3
 
 // Done with && due to server side rendering, where 'gsap' creates infinite loop.
 // We need to compute this variable ONLY in browser
-export const itemsAnimateEasing = process.browser && TweenLite.Power4.easeInOut
+export const itemsAnimateEasing = TWEEN.Easing.Quartic.InOut
+
 
 export const startRadius = 40
 export const minRadius = 30

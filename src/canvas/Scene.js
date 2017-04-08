@@ -1,5 +1,5 @@
 import {Container, Graphics, Texture, Sprite, utils as pixiUtils, autoDetectRenderer, PI_2} from 'pixi.js'
-import TweenLite from 'TweenLite'
+import TWEEN from 'tween.js'
 
 import Line from './Line'
 import Dot from './Dot'
@@ -340,6 +340,8 @@ export default class DotScene {
       )
     }
 
+    TWEEN.update()
+
     // Main render call that makes pixi draw container and its children
     this.renderer.render(this.stage)
     requestAnimationFrame(this.redraw.bind(this))
@@ -360,13 +362,10 @@ export default class DotScene {
    */
   start() {
     this.isRotating = true
-
-    this.tweenRotate = new TweenLite(this.foregroundGraphics, this.settings.rotationSpeed, {
-      // TweenLite doesn't support infinite animations.
-      // So we increase rotation amount to bigger number than 360deg (pi/2)
-      rotation: PI_2 * 10,
-      ease: TweenLite.Power0.easeNone
-    })
+    this.tweenRotate = new TWEEN.Tween(this.foregroundGraphics)
+      .to({rotation: PI_2}, this.settings.rotationSpeed)
+      .repeat(Infinity)
+      .start()
 
     this.animateStart()
   }
@@ -377,7 +376,7 @@ export default class DotScene {
   stop() {
     this.isRotating = false
 
-    this.tweenRotate.kill()
+    this.tweenRotate.stop()
     this.animateStop()
   }
 
@@ -403,23 +402,20 @@ export default class DotScene {
    * @param {Number} target preffered radius
    */
   setDotTween(index, x, y, r) {
-    this.dot[index].tween = TweenLite.to(
-      this.dot[index].graphic,
-      getRandomInterval(this.settings.minTimeout, this.settings.maxTimeout),
-      {
+    this.dot[index].tween = new TWEEN.Tween(this.dot[index].graphic)
+      .to({
         x: x - this.dot[index].position.x,
         y: y - this.dot[index].position.y,
-        r, // Update radius with final one (needed for gracefull curves calculations)
-        ease: this.settings.itemsAnimateEasing,
-        overwrite: 'all',
-        // Recursively call function in infinite loop
-        onComplete: () => {
-          const radius = getRandomInterval(this.minRadius, this.maxRadius)
-          const coord = this.getCoordinate(radius, this.dot[index].deg)
-          this.setDotTween(index, coord.x, coord.y, radius)
-        }
-      }
-    )
+        r,
+      }, getRandomInterval(this.settings.minTimeout, this.settings.maxTimeout))
+      .easing(this.settings.itemsAnimateEasing)
+      // .repeat(Infinity)
+      .onComplete(() => {
+        const radius = getRandomInterval(this.minRadius, this.maxRadius)
+        const coord = this.getCoordinate(radius, this.dot[index].deg)
+        this.setDotTween(index, coord.x, coord.y, radius)
+      })
+      .start()
   }
 
   /**
@@ -429,10 +425,10 @@ export default class DotScene {
     this.isAnimating = true
 
     // Make main object with full opaicty
-    TweenLite.to(this.foregroundGraphics, this.settings.appearingSpeed, {
-      alpha: 1,
-      ease: this.settings.itemsAnimateEasing
-    })
+    this.foregroundGraphics.tween = new TWEEN.Tween(this.foregroundGraphics)
+      .to({alpha: 1}, this.settings.appearingSpeed)
+      .easing(this.settings.itemsAnimateEasing)
+      .start()
 
     // Create infinite loop for dots animations
     for (let i = 0; i < this.settings.edges; i++) {
@@ -450,25 +446,24 @@ export default class DotScene {
     this.isAnimating = false
 
     // Make main object with full opaicty
-    TweenLite.to(this.foregroundGraphics, this.settings.appearingSpeed, {
-      alpha: this.settings.stoppedOpacityAmount,
-      ease: this.settings.itemsAnimateEasing
-    })
+    this.foregroundGraphics.tween.stop()
+    this.foregroundGraphics.tween = new TWEEN.Tween(this.foregroundGraphics)
+      .to({alpha: this.settings.stoppedOpacityAmount}, this.settings.appearingSpeed)
+      .easing(this.settings.itemsAnimateEasing)
+      .start()
 
     // Revert to starting point all running animations with dots
     // (lines will make the same because they are connected in redraw function)
     for (let i = 0; i < this.settings.edges; i++) {
-      this.dot[i].tween = TweenLite.to(
-        this.dot[i].graphic,
-        getRandomInterval(this.settings.minTimeout, this.settings.maxTimeout),
-        {
+      this.dot[i].tween.stop();
+      this.dot[i].tween = new TWEEN.Tween(this.dot[i].graphic)
+        .to({
           x: 0,
           y: 0,
-          r: this.startRadius,
-          ease: this.settings.itemsAnimateEasing,
-          overwrite: 'all'
-        }
-      )
+          r: this.startRadius
+        }, getRandomInterval(this.settings.minTimeout, this.settings.maxTimeout))
+        .easing(this.settings.itemsAnimateEasing)
+        .start()
     }
   }
 
@@ -476,12 +471,8 @@ export default class DotScene {
    * Toggle animation. Called through custom events
    */
   animateToggle() {
-    if (this.isAnimating) {
-      this.animateStop()
-    }
-    else {
-      this.animateStart()
-    }
+    if (this.isAnimating) this.animateStop()
+    else this.animateStart()
 
     this.isAnimating = !this.isAnimating
   }
