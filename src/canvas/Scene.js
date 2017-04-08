@@ -455,7 +455,7 @@ export default class DotScene {
     // Revert to starting point all running animations with dots
     // (lines will make the same because they are connected in redraw function)
     for (let i = 0; i < this.settings.edges; i++) {
-      this.dot[i].tween.stop();
+      this.dot[i].tween.stop()
       this.dot[i].tween = new TWEEN.Tween(this.dot[i].graphic)
         .to({
           x: 0,

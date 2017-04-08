@@ -7,6 +7,7 @@ Created by Pavel Davydov
 - [x] Long-term caching for static assets with Webpack
 - [x] Add `npm clean` for dists
 - [x] Create animation for popups
+- [ ] Add increasing/decreasing speed of main animation on mouse move
 - [ ] "Contact Me" content
   - [ ] Layout
   - [ ] Validation & errors
