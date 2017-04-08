@@ -92,9 +92,9 @@ export default class DotScene {
   }
 
   /**
-    * Set figure radius function (it is set default, minimal and maximal radiuses)
-    * @param {Number} Multiplier value on what must be multiplied the original forumula
-    */
+   * Set figure radius function (it is set default, minimal and maximal radiuses)
+   * @param {Number} Multiplier value on what must be multiplied the original forumula
+   */
   setFigureRadius(multiplier) {
     const {width, height} = this.sizeManager.size
 

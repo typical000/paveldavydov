@@ -2,6 +2,8 @@ import React, {PureComponent, PropTypes} from 'react'
 
 import GlobalStyles from '../GlobalStyles'
 import Logo from '../Logo'
+import About from '../About'
+import Contact from '../Contact'
 import SlidingPopup from '../SlidingPopup'
 import DotScene from '../DotScene'
 
@@ -56,7 +58,7 @@ class App extends PureComponent {
             open={this.state.aboutPopupActive}
             toggleHandler={this.toggleAboutPopup}
           >
-            <div>Content</div>
+            <About />
           </SlidingPopup>
           <SlidingPopup
             direction={'right'}
@@ -64,7 +66,7 @@ class App extends PureComponent {
             open={this.state.contactPopupActive}
             toggleHandler={this.toggleContactPopup}
           >
-            <div>Contact</div>
+            <Contact />
           </SlidingPopup>
 
           <div className={classes.logo}>
