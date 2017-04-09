@@ -3,22 +3,22 @@ import cn from 'classnames'
 
 import Icon from './Icon'
 
-const Star = ({className}) => (
+const Arrow = ({className}) => (
   <Icon>
     {({sheet: {classes}}) => (
       <svg
         className={cn(classes.icon, className)}
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
+        viewBox="0 0 60 23"
       >
-        <path d="M3.333 20L5 12.308 0 7.692l6.667-1.538L10 0l3.333 6.154L20 7.692l-5 4.615L16.667 20 10 15.385 3.333 20z" />
+        <path d="M49 23l-.5-.5L58.938 12H0v-1h58.938L48.5.5 49 0l11 11v1L49 23z" />
       </svg>
     )}
   </Icon>
 )
 
-Star.propTypes = {
+Arrow.propTypes = {
   className: PropTypes.string
 }
 
-export default Star
+export default Arrow

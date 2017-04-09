@@ -1,7 +1,3 @@
 export {default as Github} from './Github'
-export {default as Star} from './Star'
-export {default as Pencil} from './Pencil'
 export {default as Link} from './Link'
-export {default as Mouse} from './Mouse'
-export {default as Logo} from './Logo'
-export {default as NotFound} from './NotFound'
+export {default as Arrow} from './Arrow'
