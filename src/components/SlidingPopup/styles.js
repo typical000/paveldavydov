@@ -112,9 +112,6 @@ export default {
   content: {
     width: '50%',
     height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     position: 'relative',
     '&::before': {
       content: '""',
@@ -134,6 +131,7 @@ export default {
       bottom: 0,
       background: theme.cardBackground,
       width: bar,
+      zIndex: 10,
     },
     [theme.media.sm]: {
       '&::after': {
@@ -157,8 +155,11 @@ export default {
   },
 
   inner: {
+    width: '100%',
     position: 'relative',
     zIndex: 2,
+    height: '100vh',
+    overflowY: 'auto'
   },
 
   bar: {
@@ -178,6 +179,7 @@ export default {
     width: bar,
     top: 0,
     bottom: 0,
+    zIndex: 10,
     '&:hover': {
       width: barHovered
     },

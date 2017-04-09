@@ -5,6 +5,7 @@ export default {
   lineHeight: 1.65,
 
   textColor: '#333',
+  textColorMuted: '#999',
   textColorLight: '#bdbdbd',
   textColorDark: '#000',
 
