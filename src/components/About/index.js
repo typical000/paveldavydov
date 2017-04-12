@@ -1,7 +1,7 @@
 import React, {PureComponent, PropTypes} from 'react'
 
 import ScrollScreen from '../ScrollScreen'
-import Link from '../Link'
+import {Link, Heading1, Heading2, Heading3} from '../typography'
 
 import {scrollScreen} from '../../utils/dom'
 import injectSheet from '../../utils/jss'
@@ -34,16 +34,10 @@ class About extends PureComponent {
           <div className={classes.blockPhoto} />
           <div className={classes.blockName}>
             <div>
-              <h1 className={classes.name}>
-                Pavel Davydov
-              </h1>
-              <h2 className={classes.quote}>
-                Front-end Developer and Designer
-              </h2>
+              <Heading1>Pavel Davydov</Heading1>
+              <Heading3 light>Front-end Developer and Designer</Heading3>
               <div className={classes.mail}>
-                <Link href={`mailto:${mail}`}>
-                  {mail}
-                </Link>
+                <Link href={`mailto:${mail}`}>{mail}</Link>
               </div>
             </div>
             <div className={classes.more}>
@@ -54,7 +48,23 @@ class About extends PureComponent {
           </div>
         </div>
         <div className={classes.containerBottom}>
-          Bottom text
+          <div className={classes.inner}>
+            <Heading2>Hello,</Heading2>
+            <div className={classes.content}>
+              My name is Pavel Davydov and I am front-end developer
+              and graphic designer based in&nbsp;
+              <Link
+                href="https://en.wikipedia.org/wiki/Zaporizhia"
+                target="_blank"
+              >
+                Zaporizhia
+              </Link>
+              , Ukraine.
+            </div>
+
+            <Heading3>Open Source where I contribute</Heading3>
+
+          </div>
         </div>
       </div>
     )

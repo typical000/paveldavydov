@@ -1,7 +1,7 @@
 import React from 'react'
 import cn from 'classnames'
 
-import injectSheet from '../../utils/jss'
+import injectSheet from '../../../utils/jss'
 import styles from './styles'
 
 const Link = (props) => {

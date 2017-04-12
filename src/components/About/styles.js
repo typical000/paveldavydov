@@ -42,23 +42,17 @@ export default {
   },
 
   // Inner, smaller elements
-  name: {
-    textTransform: 'uppercase',
-    fontSize: 42,
-    lineHeight: 1.2,
-    fontWeight: 300,
-    margin: [0, 0, 20, 0],
-    color: theme.textColor,
-  },
-  quote: {
-    fontSize: 24,
-    lineHeight: 1.4,
-    fontWeight: 300,
-    margin: [0, 0, 40, 0],
-    color: theme.textColorMuted,
+  inner: {
+    maxWidth: 600
   },
   mail: {
-
+    marginTop: 40
+  },
+  content: {
+    marginBottom: 40,
+    '&:last-child': {
+      marginBottom: 0
+    }
   },
 
   // More button
