@@ -59,18 +59,18 @@
     "webpack-manifest-plugin": "^1.1.0"
   },
   "dependencies": {
-    "babel-polyfill": "^6.20.0",
+    "babel-polyfill": "^6.23.0",
     "classnames": "^2.2.5",
     "css-functions": "^1.0.5",
-    "jss": "^6.3.0",
-    "jss-preset-default": "^1.2.0",
-    "normalize-jss": "^3.0.0",
-    "pixi.js": "^4.3.5",
-    "preact": "^7.2.0",
-    "preact-compat": "^3.14.1",
-    "react-jss": "^5.1.1",
+    "jss": "^7.0.0",
+    "jss-preset-default": "^2.0.0",
+    "normalize-jss": "^3.1.0",
+    "pixi.js": "^4.4.4",
+    "preact": "^8.1.0",
+    "preact-compat": "^3.14.3",
+    "react-jss": "^6.0.0",
     "tween.js": "^16.6.0",
-    "whatwg-fetch": "^2.0.1"
+    "whatwg-fetch": "^2.0.3"
   },
   "lint-staged": {
     "./src ./tests ./*.js": [
