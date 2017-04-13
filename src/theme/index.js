@@ -8,6 +8,7 @@ export default {
   textColorMuted: '#999',
   textColorLight: '#bdbdbd',
   textColorDark: '#000',
+  textColorInverse: '#fff',
 
   titleColor: '#333',
 

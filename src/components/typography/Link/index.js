@@ -24,7 +24,8 @@ const Link = (props) => {
       href={href}
       target={target}
     >
-      {children}
+      <span className={classes.stateHover}>{children}</span>
+      <span className={classes.stateDefault}>{children}</span>
     </a>
   )
 }
