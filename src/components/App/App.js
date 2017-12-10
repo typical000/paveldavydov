@@ -10,7 +10,7 @@ import DotScene from '../DotScene'
 
 import injectSheet from '../../utils/jss'
 
-const styles = (theme) => ({
+const styles = theme => ({
   app: {
     background: theme.common.page,
     color: theme.text.default,
@@ -41,7 +41,7 @@ const styles = (theme) => ({
 
 class App extends PureComponent {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
   }
 
   // TO REMOVE

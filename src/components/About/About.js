@@ -8,7 +8,7 @@ import injectSheet from '../../utils/jss'
 const mail = 'typical000@gmail.com'
 
 // TODO: Redesign needed
-const styles = (theme) => ({
+const styles = theme => ({
   about: {
     position: 'relative',
     height: '100%',
@@ -73,7 +73,7 @@ const styles = (theme) => ({
 
 class About extends PureComponent {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
   }
 
   constructor(props) {

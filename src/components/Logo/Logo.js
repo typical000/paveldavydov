@@ -9,7 +9,7 @@ import styles from './styles'
  */
 class Logo extends PureComponent {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
     closed: PropTypes.closed
   }
 

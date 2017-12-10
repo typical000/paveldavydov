@@ -7,8 +7,8 @@ import styles from './styles'
 
 class SlidingPopup extends PureComponent {
   static propTypes = {
-    children: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    children: PropTypes.node.isRequired,
     title: PropTypes.string.isRequired,
     direction: PropTypes.string,
     open: PropTypes.boolean,

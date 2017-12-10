@@ -59,7 +59,7 @@ const DotScene = ({animated, classes}) => (
 )
 
 DotScene.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   animated: PropTypes.bool
 }
 

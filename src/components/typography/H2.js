@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import cn from 'classnames'
 import injectSheet from '../../utils/jss'
 
-const styles = (theme) => ({
+const styles = theme => ({
   heading: {
     fontSize: 32,
     lineHeight: 1.4,
@@ -31,9 +31,9 @@ const H2 = (props) => {
 }
 
 H2.propTypes = {
-  children: React.PropTypes.string.isRequired,
-  classes: React.PropTypes.object.isRequired,
-  light: React.PropTypes.boolean
+  children: PropTypes.string.isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  light: PropTypes.boolean
 }
 
 export default injectSheet(styles)(H2)

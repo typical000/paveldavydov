@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import {rotateZ, translateY, multiple} from 'css-functions'
 import {Arrow} from '../icons'
 import {transition} from '../../utils/css'
 import injectSheet from '../../utils/jss'
 
-const styles = (theme) => ({
+const styles = theme => ({
   scroll: {
     font: {
       family: theme.typography.fontFamily,
@@ -50,9 +50,9 @@ const ScrollScreen = ({onClick, classes, children}) => (
 )
 
 ScrollScreen.propTypes = {
-  classes: React.PropTypes.object.isRequired,
-  onClick: React.PropTypes.func.isRequired,
-  children: React.PropTypes.string.isRequired
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 export default injectSheet(styles)(ScrollScreen)

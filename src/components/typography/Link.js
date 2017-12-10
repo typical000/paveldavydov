@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import cn from 'classnames'
 import {translateX} from 'css-functions'
 import injectSheet from '../../utils/jss'
 import {transition} from '../../utils/css'
 
-const styles = (theme) => ({
+const styles = theme => ({
   link: {
     position: 'relative',
     display: 'inline-block',
@@ -62,11 +62,11 @@ const Link = (props) => {
 }
 
 Link.propTypes = {
-  children: React.PropTypes.string.isRequired,
-  classes: React.PropTypes.object.isRequired,
-  customClass: React.PropTypes.string,
-  href: React.PropTypes.string,
-  target: React.PropTypes.string
+  children: PropTypes.string.isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  customClass: PropTypes.string,
+  href: PropTypes.string,
+  target: PropTypes.string
 }
 
 export default injectSheet(styles)(Link)

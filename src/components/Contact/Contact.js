@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import injectSheet from '../../utils/jss'
 
 const styles = {
@@ -14,7 +14,7 @@ const Contact = ({classes}) => (
 )
 
 Contact.propTypes = {
-  classes: React.PropTypes.object.isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
 }
 
 export default injectSheet(styles)(Contact)

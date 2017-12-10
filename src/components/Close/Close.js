@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import {rotateZ} from 'css-functions'
 import injectSheet from '../../utils/jss'
 import {transition} from '../../utils/css'
@@ -53,8 +53,8 @@ const Close = ({hovered, classes}) => (
 )
 
 Close.propTypes = {
-  classes: React.PropTypes.object.isRequired,
-  hovered: React.PropTypes.bool
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  hovered: PropTypes.bool
 }
 
 export default injectSheet(styles)(Close)
