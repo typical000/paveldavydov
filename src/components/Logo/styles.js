@@ -1,5 +1,5 @@
 import {translate, scale, rotateZ} from 'css-functions'
-
+import {mediaMd, mediaXs} from '../../constants/media'
 import theme from '../../theme'
 import {transition, border} from '../../utils/css'
 
@@ -246,7 +246,7 @@ export default {
     }
   },
 
-  [theme.media.md]: {
+  [mediaMd]: {
     title: {
       height: nameHeight * 2,
     },
@@ -271,7 +271,7 @@ export default {
     }
   },
 
-  [theme.media.xs]: {
+  [mediaXs]: {
     logo: {
       transformOrigin: ['50%', '50%'],
       transform: scale(0.6, 0.6)

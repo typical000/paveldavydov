@@ -1,12 +1,11 @@
 import React from 'react'
 import {renderToString} from 'react-dom/server'
-import {SheetsRegistryProvider, SheetsRegistry} from 'react-jss'
 import {stripIndents} from 'common-tags'
 import {minify} from 'html-minifier'
-
+import {JssProvider, ThemeProvider, SheetsRegistry, jss} from './utils/jss'
+import theme from './theme'
 import config from './config'
 import chunks from '../dist/stats.json'
-
 import App from './components/App'
 
 // Get first part of name (all that goes before first '.')
@@ -36,11 +35,12 @@ const renderAnalytics = () => (
 
 const renderApp = () => {
   const sheets = new SheetsRegistry()
-
   const app = renderToString(
-    <SheetsRegistryProvider registry={sheets}>
-      <App />
-    </SheetsRegistryProvider>
+    <ThemeProvider theme={theme}>
+      <JssProvider registry={sheets} jss={jss}>
+        <App />
+      </JssProvider>
+    </ThemeProvider>
   )
 
   return {

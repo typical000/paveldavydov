@@ -1,16 +1,14 @@
 import {create as createJss} from 'jss'
-import {
-  create as createInjectSheet,
-  SheetsRegistryProvider,
-  SheetsRegistry
-} from 'react-jss'
+import injectSheet, {JssProvider, SheetsRegistry, ThemeProvider} from 'react-jss'
 import preset from 'jss-preset-default'
 
-export const jss = createJss(preset())
+const jss = createJss(preset())
 
 export {
-  SheetsRegistryProvider,
-  SheetsRegistry
+  JssProvider,
+  SheetsRegistry,
+  ThemeProvider,
+  jss
 }
 
-export default createInjectSheet(jss)
+export default injectSheet

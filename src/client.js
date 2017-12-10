@@ -1,11 +1,16 @@
 import React from 'react'
 import {render} from 'react-dom'
 import 'whatwg-fetch'
-
+import {jss, ThemeProvider, JssProvider} from './utils/jss'
+import theme from './theme'
 import App from './components/App'
 
 render(
-  <App />,
+  <ThemeProvider theme={theme}>
+    <JssProvider jss={jss}>
+      <App />
+    </JssProvider>
+  </ThemeProvider>,
   document.body
 )
 

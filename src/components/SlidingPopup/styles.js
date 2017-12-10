@@ -3,6 +3,7 @@ import {translate, rotateZ, scale, multiple} from 'css-functions'
 import theme from '../../theme'
 import {transition} from '../../utils/css'
 import {bar, barHovered, barSm, barSmHovered} from '../../constants/sizes'
+import {mediaSm} from '../../constants/media'
 
 export default {
   popup: {
@@ -133,7 +134,7 @@ export default {
       width: bar,
       zIndex: 10,
     },
-    [theme.media.sm]: {
+    [mediaSm]: {
       '&::after': {
         width: barSm
       }
@@ -183,7 +184,7 @@ export default {
     '&:hover': {
       width: barHovered
     },
-    [theme.media.sm]: {
+    [mediaSm]: {
       width: barSm,
       '&:hover': {
         width: barSmHovered
@@ -226,7 +227,7 @@ export default {
     left: '50%',
     whiteSpace: 'nowrap',
     fontSize: theme.fontSize,
-    [theme.media.sm]: {
+    [mediaSm]: {
       fontSize: Math.floor(theme.fontSize * 0.9)
     }
   },
@@ -238,7 +239,7 @@ export default {
       translate('-50%', '-50%'),
       rotateZ(-90)
     ),
-    [theme.media.sm]: {
+    [mediaSm]: {
       left: barSm / 2
     }
   },
@@ -251,7 +252,7 @@ export default {
       translate('50%', '-50%'),
       rotateZ(90)
     ),
-    [theme.media.sm]: {
+    [mediaSm]: {
       right: barSm / 2
     }
   },
@@ -261,7 +262,7 @@ export default {
     position: 'absolute',
     top: '50%',
     left: '50%',
-    [theme.media.sm]: {
+    [mediaSm]: {
       transform: multiple(
         translate('-50%', '-50%'),
         scale(0.8, 0.8)
