@@ -73,8 +73,8 @@
     "whatwg-fetch": "^2.0.3"
   },
   "lint-staged": {
-    "./src ./tests ./*.js": [
-      "eslint --fix",
+    "*.js": [
+      "eslint",
       "git add"
     ]
   },
