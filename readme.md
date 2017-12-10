@@ -4,18 +4,23 @@ Created by Pavel Davydov
 
 # TODO
 
-- [x] Long-term caching for static assets with Webpack
-- [x] Add `npm clean` for dists
-- [x] Create animation for popups
-- [ ] Add increasing/decreasing speed of main animation on mouse move
+- [ ] Update all dependencies (jss, react-jss, etc.)
+  - [ ] Rewrite code to use JssProvider
+  - [ ] Rewrite code to use ThemeProvider. Refactore theme
+  - [ ] Ensure that SSR still work fine
+- [ ] Redesign
+  - [ ] Change fonts
+  - [ ] Change brand colors
+  - [ ] Redesign menu
+  - [ ] Redesign CSS animation on home screen
+- [ ] Create new animation for main section
+  - [ ] Update pixi.js dependency. Search if there is any way to avoid importing all pixi js in bundle
+  - [ ] Noise background animation
+  - [ ] Circular animation in center
+  - [ ] Add floating figures
+  - [ ] Make that floating figures don't collide with circular animations
 - [ ] "Contact Me" content
-  - [ ] Layout
-  - [ ] Validation & errors
 - [ ] "About Me" content
-  - [ ] Layout
-  - [ ] Photo
-  - [ ] Social links
-- [x] Main animation changing with current route
 - [ ] Functional `setState` as separated modules
 - [ ] "Work" content
   - [ ] Layout
@@ -24,9 +29,7 @@ Created by Pavel Davydov
   - [ ] Unit testing
   - [ ] Integration tests
 - [ ] React-helmet
-- [ ] Routing for each section
 - [ ] Add loader
-- [ ] Try avoid using pure React compnents, remove `preact-comat`
 - [ ] Decrease bundle size
   - [x] Add `webpack-bundle-analyzer`
   - [x] Replace GSAP with Tween.js
