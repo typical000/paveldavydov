@@ -1,24 +1,22 @@
 import React from 'react'
 import cn from 'classnames'
+import injectSheet from '../../utils/jss'
 
-import injectSheet from '../../../utils/jss'
-import theme from '../../../theme'
-
-const styles = {
+const styles = (theme) => ({
   heading: {
-    fontSize: 42,
-    lineHeight: 1.2,
+    fontSize: 24,
+    lineHeight: 1.4,
     fontWeight: 300,
     margin: [0, 0, 20, 0],
-    textTransform: 'uppercase',
-    color: theme.textColor
+    textTransform: 'none',
+    color: theme.text.default
   },
   light: {
-    color: theme.textColorMuted
+    color: theme.text.muted
   }
-}
+})
 
-const Heading1 = (props) => {
+const H3 = (props) => {
   const {classes, children, light} = props
   const headingClasses = cn(
     classes.heading,
@@ -26,16 +24,16 @@ const Heading1 = (props) => {
   )
 
   return (
-    <h1 className={headingClasses}>
+    <h3 className={headingClasses}>
       {children}
-    </h1>
+    </h3>
   )
 }
 
-Heading1.propTypes = {
+H3.propTypes = {
   children: React.PropTypes.string.isRequired,
   classes: React.PropTypes.object.isRequired,
   light: React.PropTypes.boolean
 }
 
-export default injectSheet(styles)(Heading1)
+export default injectSheet(styles)(H3)

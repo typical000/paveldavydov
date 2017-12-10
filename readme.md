@@ -4,11 +4,12 @@ Created by Pavel Davydov
 
 # TODO
 
-- [ ] Update all dependencies (jss, react-jss, etc.)
-  - [ ] Rewrite code to use JssProvider
-  - [ ] Rewrite code to use ThemeProvider. Refactore theme
-  - [ ] Ensure that SSR still work fine
+- [x] Update all dependencies (jss, react-jss, etc.)
+  - [x] Rewrite code to use JssProvider
+  - [x] Rewrite code to use ThemeProvider. Refactore theme
+  - [x] Ensure that SSR still work fine
   - [x] Fix lint-staged
+  - [x] Add sourcemaps
 - [ ] Redesign
   - [ ] Change fonts
   - [ ] Change brand colors

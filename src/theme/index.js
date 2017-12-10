@@ -7,6 +7,8 @@ export default {
 
   common: {
     page: '#f9f9f9',
+    card: '#fff',
+    cardInverse: '#333',
   },
 
   text: {
@@ -14,5 +16,6 @@ export default {
     highlight: '#000',
     muted: '#999',
     light: '#bdbdbd',
+    inverse: '#fff',
   }
 }

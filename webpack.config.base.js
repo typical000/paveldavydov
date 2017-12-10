@@ -50,6 +50,9 @@ module.exports = {
       to: './fonts'
     }]),
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[name].js.map'
+    }),
     new ManifestPlugin({
       fileName: 'stats.json'
     })

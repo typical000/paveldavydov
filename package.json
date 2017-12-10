@@ -17,8 +17,7 @@
     "all:dev": "npm run clean && npm run build:dev && npm run build:html",
     "all:prod": "npm run clean && npm run build:prod && npm run build:html",
     "precommit": "lint-staged",
-    "lint": "eslint ./src",
-    "start": "npm run lint && npm run all:prod"
+    "lint": "eslint ./src"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
