@@ -8,6 +8,7 @@ Created by Pavel Davydov
   - [ ] Rewrite code to use JssProvider
   - [ ] Rewrite code to use ThemeProvider. Refactore theme
   - [ ] Ensure that SSR still work fine
+  - [x] Fix lint-staged
 - [ ] Redesign
   - [ ] Change fonts
   - [ ] Change brand colors

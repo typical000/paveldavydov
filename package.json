@@ -16,8 +16,8 @@
     "clean": "rimraf 'dist/*'",
     "all:dev": "npm run clean && npm run build:dev && npm run build:html",
     "all:prod": "npm run clean && npm run build:prod && npm run build:html",
+    "precommit": "lint-staged",
     "lint": "eslint ./src",
-    "lint:staged": "lint-staged",
     "start": "npm run lint && npm run all:prod"
   },
   "devDependencies": {
@@ -46,11 +46,11 @@
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^2.0.0-beta.5",
     "html-minifier": "^3.2.3",
+    "husky": "^0.14.3",
     "ignore-styles": "^5.0.1",
     "json-loader": "^0.5.4",
-    "lint-staged": "^3.4.0",
+    "lint-staged": "^6.0.0",
     "module-alias": "^2.0.0",
-    "pre-commit": "^1.2.2",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0",
@@ -74,10 +74,9 @@
   },
   "lint-staged": {
     "./src ./tests ./*.js": [
-      "eslint",
+      "eslint --fix",
       "git add"
     ]
   },
-  "pre-commit": "lint:staged",
   "license": "MIT"
 }
