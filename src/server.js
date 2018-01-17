@@ -71,9 +71,7 @@ const renderHTML = ({app, css, js, analytics}) => minify(stripIndents`
       </style>
     </head>
     <body>
-      <div id="app">
-        ${app}
-      </div>
+      <div id="app">${app}</div>
       ${js}
       ${analytics}
     </body>

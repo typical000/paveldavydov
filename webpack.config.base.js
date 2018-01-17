@@ -48,7 +48,12 @@ module.exports = {
       filename: '[name].js.map'
     }),
     new ManifestPlugin({
-      fileName: 'stats.json'
+      fileName: 'stats.json',
+      // Exclude sourcemaps
+      filter: ({name}) => {
+        if (name.endsWith('map')) return false
+        return true
+      }
     })
   ]
 }

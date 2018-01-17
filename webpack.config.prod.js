@@ -9,9 +9,7 @@ config.output.filename = 'app.[chunkhash].js',
 
 config.plugins = config.plugins.concat([
   new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: '"production"'
-    }
+    'process.env.NODE_ENV': JSON.stringify('production')
   }),
   new webpack.optimize.CommonsChunkPlugin({
     names: ['vendor', 'manifest'],
