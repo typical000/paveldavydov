@@ -38,17 +38,20 @@ export default {
     width: '100%',
     height: '100%',
     position: 'absolute',
-    background: theme.cardBackground,
+    background: theme.background.overlay,
   },
   overlayLeft: {
     composes: '$overlay',
-    left: '100%'
+    background: `linear-gradient(to right, ${theme.background.overlay} 50%, rgba(0,0,0,0))`,
+    left: '100%',
   },
   overlayRight: {
     composes: '$overlay',
-    right: '100%'
+    background: `linear-gradient(to left, ${theme.background.overlay} 50%, rgba(0,0,0,0))`,
+    right: '100%',
   },
 
+  // TODO: Think about removing this things if they are not visible
   overlayTop: {
     '&::before, &::after': {
       content: '""',
@@ -56,7 +59,7 @@ export default {
       height: 1,
       top: '50%',
       left: '50%',
-      background: theme.textColorLight,
+      background: theme.common.border,
       opacity: 0.3
     },
   },
@@ -114,45 +117,15 @@ export default {
     width: '50%',
     height: '100%',
     position: 'relative',
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      left: 0,
-      top: 0,
-      right: 0,
-      bottom: 0,
-      background: theme.pageBackground,
-      opacity: 0.6,
-    },
-    // Additional bar on side
-    '&::after': {
-      content: '""',
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      background: theme.cardBackground,
-      width: bar,
-      zIndex: 10,
-    },
-    [mediaSm]: {
-      '&::after': {
-        width: barSm
-      }
-    }
+    background: theme.background.overlay,
   },
   contentLeft: {
     composes: '$content',
     float: 'left',
-    '&::after': {
-      left: 0
-    }
   },
   contentRight: {
     composes: '$content',
     float: 'right',
-    '&::after': {
-      right: 0
-    }
   },
 
   inner: {
@@ -173,22 +146,21 @@ export default {
     padding: 0,
     margin: 0,
     boxShadow: 'none',
-    fontFamily: theme.fontFamily,
-    background: theme.cardBackground,
     position: 'absolute',
     cursor: 'pointer',
     width: bar,
     top: 0,
     bottom: 0,
     zIndex: 10,
-    '&:hover': {
-      width: barHovered
+    color: theme.text.default,
+    background: 'transparent',
+    font: {
+      family: theme.typography.fontFamily,
+      size: 18,
+      weight: 'bold'
     },
     [mediaSm]: {
       width: barSm,
-      '&:hover': {
-        width: barSmHovered
-      }
     }
   },
 
@@ -226,9 +198,9 @@ export default {
     top: '50%',
     left: '50%',
     whiteSpace: 'nowrap',
-    fontSize: theme.fontSize,
+    fontSize: Math.floor(theme.typography.fontSize * 1.15),
     [mediaSm]: {
-      fontSize: Math.floor(theme.fontSize * 0.9)
+      fontSize: Math.floor(theme.typography.fontSize * 0.9)
     }
   },
   titleLeft: {

@@ -7,7 +7,7 @@ import {transition} from '../../utils/css'
 const styles = (theme) => {
   const color = theme.text.default
   const size = 24
-  const barWeight = 1
+  const barWeight = 3
 
   return {
     close: {

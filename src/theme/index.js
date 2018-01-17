@@ -26,5 +26,10 @@ export default {
     highlight: base.brand,
     muted: '#7f7f7f',
     inverse: base.dark,
-  }
+  },
+
+  background: {
+    overlay: 'rgba(0, 0, 0, 0.5)',
+  },
+
 }

@@ -53,6 +53,7 @@ class App extends PureComponent {
       contactPopupActive: false,
       sceneAnimated: true,
       logoClosed: false,
+      hasMounted: false,
     }
 
     this.toggleAboutPopup = this.toggleAboutPopup.bind(this)
@@ -75,7 +76,12 @@ class App extends PureComponent {
     })
   }
 
+  componentDidMount() {
+    this.setState({hasMounted: true});
+  }
+
   render() {
+    const {hasMounted} = this.state
     const {classes} = this.props
 
     return (
@@ -100,13 +106,13 @@ class App extends PureComponent {
           </SlidingPopup>
 
           <div className={classes.logo}>
-            {process.browser && <Logo
+            {hasMounted && <Logo
               loading={this.state.loading}
               closed={this.state.logoClosed}
             />}
           </div>
           <div className={classes.scene}>
-            {process.browser && <BackgroundScene animated={this.state.sceneAnimated} />}
+            {hasMounted && <BackgroundScene animated={this.state.sceneAnimated} />}
           </div>
         </div>
       </GlobalStyles>
