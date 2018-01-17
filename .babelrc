@@ -10,10 +10,5 @@
   ],
   "ignore": [
     "node_modules"
-  ],
-  "env": {
-    "development": {
-      "presets": ["react-hmre"]
-    }
-  }
+  ]
 }

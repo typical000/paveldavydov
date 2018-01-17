@@ -20,7 +20,16 @@ module.exports = {
   module: {
     noParse: /\.min\.js/,
     rules: [
-      { test: /\.jsx?$/, exclude: /node_modules/, use: ['babel-loader']},
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: []
+          }
+        }
+      },
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, use: 'url?limit=10000&mimetype=application/font-woff' },
       { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, use: 'url?limit=10000&mimetype=application/font-woff' },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, use: 'url?limit=10000&mimetype=image/svg+xml' },

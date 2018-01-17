@@ -3,7 +3,9 @@
 var webpack = require('webpack')
 var config = require('./webpack.config.base')
 
-config.output.filename = 'app.js',
+config.output.filename = 'app.js'
+
+config.module.rules[0].use.options.presets.push('react-hmre')
 
 config.plugins = config.plugins.concat([
   new webpack.DefinePlugin({
