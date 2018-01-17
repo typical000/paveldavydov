@@ -1,4 +1,13 @@
+const base = {
+  brand: '#fe504f',
+  light: '#fff',
+  dark: '#333'
+}
+
 export default {
+
+  brand: base.brand, // Main brand color
+
   typography: {
     fontFamily: '"Gotham Pro", Helvetica, Arial, sans-serif',
     fontSize: 16,
@@ -6,16 +15,16 @@ export default {
   },
 
   common: {
-    page: '#f9f9f9',
-    card: '#fff',
-    cardInverse: '#333',
+    page: '#000',
+    card: '#252525',
+    cardInverse: '#7f7f7f',
+    border: '#515151',
   },
 
   text: {
-    default: '#333',
-    highlight: '#000',
-    muted: '#999',
-    light: '#bdbdbd',
-    inverse: '#fff',
+    default: base.light,
+    highlight: base.brand,
+    muted: '#7f7f7f',
+    inverse: base.dark,
   }
 }

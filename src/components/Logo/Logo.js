@@ -1,4 +1,5 @@
-import React, {PureComponent, PropTypes} from 'react'
+import React, {PureComponent} from 'react'
+import PropTypes from 'prop-types'
 import cn from 'classnames'
 import {capitalizeFirstLetter} from '../../utils/text'
 import injectSheet from '../../utils/jss'
@@ -10,7 +11,7 @@ import styles from './styles'
 class Logo extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
-    closed: PropTypes.closed
+    closed: PropTypes.bool
   }
 
   /**
@@ -21,7 +22,7 @@ class Logo extends PureComponent {
     const {classes} = this.props
 
     return (
-      <div className={classes[`ring${type}`]}>
+      <div key={type} className={classes[`ring${type}`]}>
         <div className={classes.content} />
         <div className={classes.content} />
       </div>
@@ -39,7 +40,7 @@ class Logo extends PureComponent {
     name = capitalizeFirstLetter(name)
 
     return (
-      <div className={classes[`part${name}`]}>
+      <div key={name} className={classes[`part${name}`]}>
         <div className={classes[`container${name}`]}>
           {rings.map(type => this.renderRing(name, capitalizeFirstLetter(type)))}
         </div>

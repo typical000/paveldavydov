@@ -1,4 +1,5 @@
-import React, {PureComponent, PropTypes} from 'react'
+import React, {PureComponent} from 'react'
+import PropTypes from 'prop-types'
 import {translate} from 'css-functions'
 
 import GlobalStyles from '../GlobalStyles'
@@ -6,7 +7,7 @@ import Logo from '../Logo'
 import About from '../About'
 import Contact from '../Contact'
 import SlidingPopup from '../SlidingPopup'
-import DotScene from '../DotScene'
+import BackgroundScene from '../../containers/BackgroundScene'
 
 import injectSheet from '../../utils/jss'
 
@@ -105,7 +106,7 @@ class App extends PureComponent {
             />}
           </div>
           <div className={classes.scene}>
-            {process.browser && <DotScene animated={this.state.sceneAnimated} />}
+            {process.browser && <BackgroundScene animated={this.state.sceneAnimated} />}
           </div>
         </div>
       </GlobalStyles>

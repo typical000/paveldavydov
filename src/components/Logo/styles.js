@@ -7,19 +7,19 @@ const size = 250
 const transitionTime = '500ms'
 const transitionMoveTime = '1s'
 
-const ringColor = theme.textColorLight
+const ringColor = theme.common.border
 const ringOuterMultiplier = 0.8
 const ringMiddleMultiplier = 0.65
 const ringInnerMultiplier = 0.5
 const ringOffset = 24
 const ringAnimationSpeed = 50000
 
-const nameHeight = 55
-const nameFontSize = 36
+const nameHeight = 60
+const nameFontSize = 40
 const nameChangeInterval = 7000
 
-const nameColor = theme.textColorDark
-const positionColor = theme.textColorLight
+const nameColor = theme.text.default
+const positionColor = theme.text.highlight
 
 export default {
   logo: {
@@ -32,7 +32,7 @@ export default {
   title: {
     transition: transition(transitionMoveTime),
     fontSize: nameFontSize,
-    fontWeight: 300,
+    fontWeight: 'bold',
     height: nameHeight,
     lineHeight: `${nameHeight}px`,
     textTransform: 'uppercase',

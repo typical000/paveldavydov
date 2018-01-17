@@ -35,12 +35,6 @@ module.exports = {
       })}
     ]
   },
-  resolve: {
-    alias: {
-      react: 'preact-compat',
-      'react-dom': 'preact-compat',
-    }
-  },
   plugins: [
     new CopyFilesPlugin([{
       from: './src/images',

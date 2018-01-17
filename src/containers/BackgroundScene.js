@@ -1,9 +1,10 @@
-import React, {PureComponent, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import Scene from '../canvas'
 
-export default class DotSceneContainer extends PureComponent {
+export default class BackgroundSceneContainer extends Component {
   static propTypes = {
-    animated: PropTypes.boolean
+    animated: PropTypes.bool
   }
 
   componentDidMount() {

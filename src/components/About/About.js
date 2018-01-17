@@ -1,4 +1,5 @@
-import React, {PureComponent, PropTypes} from 'react'
+import React, {PureComponent} from 'react'
+import PropTypes from 'prop-types'
 import ScrollScreen from '../ScrollScreen'
 import {Link, H1, H2, H3} from '../typography'
 import {scrollScreen} from '../../utils/dom'

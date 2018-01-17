@@ -66,8 +66,9 @@
     "jss-preset-default": "^4.0.1",
     "normalize-jss": "^4.0.0",
     "pixi.js": "^4.6.2",
-    "preact": "^8.2.6",
-    "preact-compat": "^3.17.0",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-jss": "^8.1.0",
     "tween.js": "^16.6.0",
     "whatwg-fetch": "^2.0.3"

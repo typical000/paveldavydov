@@ -22,16 +22,16 @@ const styles = {
   }, {
     fontFamily: 'Gotham Pro',
     src: [
-      'url("fonts/gothapromed.woff2") format("woff2")',
-      'url("fonts/gothapromed.woff") format("woff")',
+      'url("fonts/gothaprobold.woff2") format("woff2")',
+      'url("fonts/gothaprobold.woff") format("woff")',
     ],
     fontWeight: 'bold',
     fontStyle: 'normal'
   }, {
     fontFamily: 'Gotham Pro',
     src: [
-      'url("fonts/gothapromedita.woff2") format("woff2")',
-      'url("fonts/gothapromedita.woff") format("woff")',
+      'url("fonts/gothaproboldita.woff2") format("woff2")',
+      'url("fonts/gothaproboldita.woff") format("woff")',
     ],
     fontWeight: 'bold',
     fontStyle: 'italic'

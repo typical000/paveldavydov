@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import {rotateZ} from 'css-functions'
 import injectSheet from '../../utils/jss'
 import {transition} from '../../utils/css'

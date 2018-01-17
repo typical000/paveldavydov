@@ -11,7 +11,7 @@ render(
       <App />
     </JssProvider>
   </ThemeProvider>,
-  document.body
+  document.getElementById('app')
 )
 
 const style = document.getElementById('critical-css')

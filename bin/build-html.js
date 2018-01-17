@@ -4,9 +4,12 @@ var path = require('path')
 var configPath = path.join(process.cwd(), '.babelrc')
 var config = JSON.parse(fs.readFileSync(configPath))
 
+var webpackConfig = require('../webpack.config.base');
+var aliases = webpackConfig.resolve ? webpackConfig.resolve.alias : {};
+
 require('babel-register')(config)
 require('ignore-styles')
-require('module-alias').addAliases(Object.assign({}, require('../webpack.config.base').resolve.alias, {
+require('module-alias').addAliases(Object.assign({}, aliases, {
   // Replace 'browser-only' modules with empty things to prevent
   // undefined errors on 'document' or 'window' that doesn't exists on server
   'pixi.js': '',

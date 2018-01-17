@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import cn from 'classnames'
 import injectSheet from '../../utils/jss'
 
@@ -33,7 +34,7 @@ const H3 = (props) => {
 H3.propTypes = {
   children: PropTypes.string.isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  light: PropTypes.boolean
+  light: PropTypes.bool
 }
 
 export default injectSheet(styles)(H3)

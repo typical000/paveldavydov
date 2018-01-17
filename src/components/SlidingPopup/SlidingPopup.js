@@ -1,4 +1,5 @@
-import React, {PureComponent, PropTypes} from 'react'
+import React, {PureComponent} from 'react'
+import PropTypes from 'prop-types'
 import cn from 'classnames'
 import Close from '../Close'
 import {capitalizeFirstLetter} from '../../utils/text'
@@ -11,7 +12,7 @@ class SlidingPopup extends PureComponent {
     children: PropTypes.node.isRequired,
     title: PropTypes.string.isRequired,
     direction: PropTypes.string,
-    open: PropTypes.boolean,
+    open: PropTypes.bool,
     toggleHandler: PropTypes.func
   }
 
