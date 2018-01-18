@@ -15,7 +15,7 @@ export default {
   },
 
   common: {
-    page: '#000',
+    page: '#222',
     card: '#252525',
     cardInverse: '#7f7f7f',
     border: '#515151',

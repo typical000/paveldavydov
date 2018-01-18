@@ -1,4 +1,4 @@
-import {Container, Graphics, Texture, Sprite, utils as pixiUtils, autoDetectRenderer, PI_2} from 'pixi.js'
+import {Container, Graphics, Texture, Sprite, filters as pixiFilters, utils as pixiUtils, autoDetectRenderer, PI_2} from 'pixi.js'
 import TWEEN from 'tween.js'
 
 import Line from './Line'
@@ -26,7 +26,7 @@ export default class Scene {
       forceFXAA: true,
       antialias: true,
       resolution: window.devicePixelRatio,
-      view: this.settings.container
+      view: this.settings.container,
     })
 
     // Set right scene size take from screen size
@@ -100,6 +100,21 @@ export default class Scene {
   }
 
   /**
+   * Add any possible shaders (filters) to background.
+   * I must say this: "LETS MAKE SOME NOISE!" :)
+   */
+  applyBackroundFilters() {
+    const {NoiseFilter} = pixiFilters
+
+    if (!this.backgroundFilter) {
+      this.backgorundFilter = new NoiseFilter()
+      this.backgorundFilter.noise = 0.25
+    }
+
+    this.backgroundGraphics.filters = [this.backgorundFilter]
+  }
+
+  /**
    * Draw background
    */
   drawBackground() {
@@ -130,6 +145,8 @@ export default class Scene {
       overlay.position.y = scheme.rect[1]
       this.backgroundGraphics.addChild(overlay)
     });
+
+    this.applyBackroundFilters();
 
     // FInally, draw all on stage
     this.stage.addChild(this.backgroundGraphics)
@@ -171,6 +188,10 @@ export default class Scene {
   redraw() {
 
     TWEEN.update()
+
+    // Make noise animated
+    this.backgorundFilter.seed = Math.random();
+
 
     // Main render call that makes pixi draw container and its children
     this.renderer.render(this.stage)

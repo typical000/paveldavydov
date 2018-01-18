@@ -3,7 +3,7 @@ import {mediaMd, mediaXs} from '../../constants/media'
 import theme from '../../theme'
 import {transition, border} from '../../utils/css'
 
-const size = 250
+const size = 220
 const transitionTime = '500ms'
 const transitionMoveTime = '1s'
 
@@ -15,7 +15,7 @@ const ringOffset = 24
 const ringAnimationSpeed = 50000
 
 const nameHeight = 60
-const nameFontSize = 40
+const nameFontSize = 36
 const nameChangeInterval = 7000
 
 const nameColor = theme.text.default
@@ -35,6 +35,7 @@ export default {
     fontWeight: 'bold',
     height: nameHeight,
     lineHeight: `${nameHeight}px`,
+    letterSpacing: 4,
     textTransform: 'uppercase',
     whiteSpace: 'nowrap',
     position: 'absolute',

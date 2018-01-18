@@ -3,13 +3,11 @@ import TWEEN from 'tween.js'
 export const strokeWidth = 1
 export const strokeColor = 0x515151
 
-// export const backgroundColorPrimary = 0xF9F9F9
-// export const backgroundColorSecondary = 0xF3F3F3
 export const backgroundPrimary = 0x222222
-export const backgroundSecondary = 0x151515
+export const backgroundSecondary = 0x1a1a1a
 
 export const backgroundPrimaryAccent = 0x333333
-export const backgroundSecondaryAccent = 0x222222
+export const backgroundSecondaryAccent = 0x2c2c2c
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // TODO: Review and remove
