@@ -60,6 +60,11 @@ class App extends PureComponent {
     this.toggleContactPopup = this.toggleContactPopup.bind(this)
   }
 
+  componentDidMount() {
+    // eslint-disable-next-line
+    this.setState({hasMounted: true})
+  }
+
   toggleAboutPopup() {
     this.setState({
       aboutPopupActive: !this.state.aboutPopupActive,
@@ -74,10 +79,6 @@ class App extends PureComponent {
       sceneAnimated: !this.state.sceneAnimated,
       logoClosed: !this.state.logoClosed
     })
-  }
-
-  componentDidMount() {
-    this.setState({hasMounted: true});
   }
 
   render() {

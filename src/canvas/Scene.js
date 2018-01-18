@@ -1,13 +1,8 @@
-import {Container, Graphics, Texture, Sprite, filters as pixiFilters, utils as pixiUtils, autoDetectRenderer, PI_2} from 'pixi.js'
+import {Container, Graphics, Sprite, filters as pixiFilters, utils as pixiUtils, autoDetectRenderer} from 'pixi.js'
 import TWEEN from 'tween.js'
-
-import Line from './Line'
-import Dot from './Dot'
 import SizeManager from './SizeManager'
-
 import initialConfig from './config'
-import {degToRad, decToRgba, getRadialGradientTexture} from './utils/color'
-import {getRandomInterval} from './utils/time'
+import {getRadialGradientTexture} from './utils/color'
 
 export default class Scene {
   constructor(config) {
@@ -144,9 +139,9 @@ export default class Scene {
       overlay.position.x = scheme.rect[0]
       overlay.position.y = scheme.rect[1]
       this.backgroundGraphics.addChild(overlay)
-    });
+    })
 
-    this.applyBackroundFilters();
+    this.applyBackroundFilters()
 
     // FInally, draw all on stage
     this.stage.addChild(this.backgroundGraphics)
@@ -186,11 +181,10 @@ export default class Scene {
    * Main redraw scene function
    */
   redraw() {
-
     TWEEN.update()
 
     // Make noise animated
-    this.backgorundFilter.seed = Math.random();
+    this.backgorundFilter.seed = Math.random()
 
 
     // Main render call that makes pixi draw container and its children

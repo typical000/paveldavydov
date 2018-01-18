@@ -2,7 +2,7 @@ import {translate, rotateZ, scale, multiple} from 'css-functions'
 
 import theme from '../../theme'
 import {transition} from '../../utils/css'
-import {bar, barHovered, barSm, barSmHovered} from '../../constants/sizes'
+import {bar, barSm} from '../../constants/sizes'
 import {mediaSm} from '../../constants/media'
 
 export default {
