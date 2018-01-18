@@ -15,8 +15,8 @@ export default class BackgroundSceneContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     // Start or stop animation
-    if (nextProps.animated) this.scene.animateStart()
-    else this.scene.animateStop()
+    if (nextProps.animated) this.scene.start()
+    else this.scene.stop()
   }
 
   shouldComponentUpdate() {
