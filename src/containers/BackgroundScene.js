@@ -8,9 +8,7 @@ export default class BackgroundSceneContainer extends Component {
   }
 
   componentDidMount() {
-    this.scene = new Scene({
-      container: this.canvas
-    })
+    this.scene = new Scene(this.canvas)
   }
 
   componentWillReceiveProps(nextProps) {

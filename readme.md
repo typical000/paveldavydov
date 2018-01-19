@@ -11,14 +11,14 @@ Created by Pavel Davydov
   - [x] Fix lint-staged
   - [x] Add sourcemaps
 - [ ] Redesign
-  - [ ] Change fonts
-  - [ ] Change brand colors
+  - [x] Change fonts
+  - [x] Change brand colors
   - [ ] Redesign menu
   - [ ] Redesign CSS animation on home screen
 - [ ] Create new animation for main section
   - [ ] Update pixi.js dependency. Search if there is any way to avoid importing all pixi js in bundle
-  - [ ] Noise background animation
-  - [ ] Circular animation in center
+  - [x] Noise background animation
+  - [x] Circular animation in center
   - [ ] Add floating figures
   - [ ] Make that floating figures don't collide with circular animations
 - [ ] "Contact Me" content

@@ -154,6 +154,7 @@ export default {
     zIndex: 10,
     color: theme.text.default,
     background: 'transparent',
+    letterSpacing: 2,
     font: {
       family: theme.typography.fontFamily,
       size: 18,

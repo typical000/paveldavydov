@@ -25,7 +25,8 @@ export default {
   logo: {
     width: size,
     height: size,
-    userSelect: 'none'
+    userSelect: 'none',
+    transition: transition(transitionTime),
   },
 
   // Title styles
@@ -202,6 +203,7 @@ export default {
 
   // Closed global state
   closed: {
+    opacity: 0.5,
     '& $part': {
       height: size / 2,
       transition: transition(transitionTime, transitionTime),

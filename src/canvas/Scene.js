@@ -1,19 +1,22 @@
 import {Container, Graphics, Sprite, filters as pixiFilters, utils as pixiUtils, autoDetectRenderer} from 'pixi.js'
 import TWEEN from 'tween.js'
 import SizeManager from './SizeManager'
-import initialConfig from './config'
+import Circle from './Circle'
+import settings from './settings'
 import {getRadialGradientTexture} from './utils/color'
+import {isEven} from './utils/number'
 
 export default class Scene {
-  constructor(config) {
+
+  /**
+   * @param {Object} container - DOM node where mount scene
+   */
+  constructor(container) {
     // Disable console pixi.js text about plugin
     pixiUtils.skipHello()
 
-    // Extend default settings with passed ones
-    this.settings = {...initialConfig, ...config}
-
     // Create instance for managing sizes
-    this.sizeManager = new SizeManager(this.settings.container.parentNode)
+    this.sizeManager = new SizeManager(container.parentNode)
 
     // Create renderer
     this.renderer = autoDetectRenderer(this.sizeManager.width, this.sizeManager.height, {
@@ -21,7 +24,7 @@ export default class Scene {
       forceFXAA: true,
       antialias: true,
       resolution: window.devicePixelRatio,
-      view: this.settings.container,
+      view: container,
     })
 
     // Set right scene size take from screen size
@@ -35,7 +38,11 @@ export default class Scene {
     this.foregroundGraphics = new Graphics()
 
     // Make self-opaque on startup
-    this.foregroundGraphics.alpha = this.settings.stoppedOpacityAmount
+    this.foregroundGraphics.alpha = settings.foregroundOpacity
+
+    this.circle = []
+
+    this.initForeground()
 
     this.drawBackground()
     this.drawForeground()
@@ -69,27 +76,33 @@ export default class Scene {
    */
   get backgroundScheme() {
     const {x, y} = this.sizeManager.center
+    const {
+      backgroundPrimary,
+      backgroundSecondary,
+      backgroundPrimaryAccent,
+      backgroundSecondaryAccent
+    } = settings
 
     return [{
-      fill: this.settings.backgroundPrimary,
+      fill: backgroundPrimary,
       rect: [0, 0, x, y],
-      overlayFill: this.settings.backgroundPrimaryAccent,
+      overlayFill: backgroundPrimaryAccent,
       overlayRect: [x, y, x, y],
     }, {
-      fill: this.settings.backgroundPrimary,
+      fill: backgroundPrimary,
       rect: [x, y, x, y],
-      overlayFill: this.settings.backgroundPrimaryAccent,
+      overlayFill: backgroundPrimaryAccent,
       overlayRect: [x, y, 0, 0],
     }, {
-      fill: this.settings.backgroundSecondary,
+      fill: backgroundSecondary,
       rect: [x, 0, x, y],
-      overlayFill: this.settings.backgroundSecondaryAccent,
+      overlayFill: backgroundSecondaryAccent,
       overlayRect: [x, y, 0, y],
 
     }, {
-      fill: this.settings.backgroundSecondary,
+      fill: backgroundSecondary,
       rect: [0, y, x, y],
-      overlayFill: this.settings.backgroundSecondaryAccent,
+      overlayFill: backgroundSecondaryAccent,
       overlayRect: [x, y, x, 0],
     }]
   }
@@ -113,16 +126,18 @@ export default class Scene {
    * Draw background
    */
   drawBackground() {
+    const graphics = this.backgroundGraphics
+
     this.backgroundScheme.forEach((scheme) => {
       // Draw background rect
-      this.backgroundGraphics.beginFill(scheme.fill)
-      this.backgroundGraphics.drawRect(
+      graphics.beginFill(scheme.fill)
+      graphics.drawRect(
         scheme.rect[0],
         scheme.rect[1],
         scheme.rect[2],
         scheme.rect[3]
       )
-      this.backgroundGraphics.endFill()
+      graphics.endFill()
 
       // Add overlay
       const overlay = new Sprite(
@@ -138,29 +153,49 @@ export default class Scene {
       )
       overlay.position.x = scheme.rect[0]
       overlay.position.y = scheme.rect[1]
-      this.backgroundGraphics.addChild(overlay)
+      graphics.addChild(overlay)
     })
 
     this.applyBackroundFilters()
 
     // FInally, draw all on stage
-    this.stage.addChild(this.backgroundGraphics)
+    this.stage.addChild(graphics)
   }
 
   /**
    * Draw foreground function
    */
   drawForeground() {
-    const {x, y} = this.sizeManager.center
+    const graphics = this.foregroundGraphics
 
-    // Place background on center of screen
-    this.foregroundGraphics.position.x = x
-    this.foregroundGraphics.position.y = y
-    this.foregroundGraphics.pivot.x = x
-    this.foregroundGraphics.pivot.y = y
+    this.circle.forEach((circle) => {
+      graphics.addChild(circle.draw())
+    })
 
     // At the end - draw all on stage
-    this.stage.addChild(this.foregroundGraphics)
+    this.stage.addChild(graphics)
+  }
+
+  /**
+   * Init foreground elements such as animated circles
+   */
+  initForeground() {
+    const {x, y} = this.sizeManager.center
+    const {width, height} = this.sizeManager
+    const radius = Math.floor(((width > height ? height : width) / 2) * 0.95)
+
+    for (let i = 0; i < settings.circlesAmount; i++) {
+      this.circle[i] = new Circle(x, y, radius, isEven(i))
+    }
+  }
+
+  /**
+   * Set center of coordinates
+   * Needed to avoid offseting foreground on resize away from screen
+   */
+  setForegroundCenter() {
+    const {x, y} = this.sizeManager.center
+    this.circle.forEach(circle => circle.setCenter(x, y))
   }
 
   /**
@@ -173,6 +208,9 @@ export default class Scene {
     Scene.clearStage(this.backgroundGraphics)
     Scene.clearStage(this.foregroundGraphics)
 
+    this.circle.forEach(circle => circle.clear())
+
+    this.setForegroundCenter()
     this.drawBackground()
     this.drawForeground()
   }
@@ -181,11 +219,14 @@ export default class Scene {
    * Main redraw scene function
    */
   redraw() {
+    // TODO: We need tweens in this case?
     TWEEN.update()
 
     // Make noise animated
-    this.backgorundFilter.seed = Math.random()
+    this.backgorundFilter.seed = Math.random() / 10
 
+    // Rotate circles
+    this.circle.forEach(circle => circle.rotate())
 
     // Main render call that makes pixi draw container and its children
     this.renderer.render(this.stage)
