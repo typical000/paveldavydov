@@ -2,7 +2,7 @@ import TWEEN from 'tween.js'
 
 export default {
   circlesAmount: 16,
-  circlesDispersion: 50,
+  dispersionMultiplier: 12,
 
   strokeWidth: 1,
   strokeColor: 0x515151,

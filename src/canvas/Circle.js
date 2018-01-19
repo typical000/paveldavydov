@@ -6,8 +6,9 @@ import {getRandomArbitrary} from './utils/number'
  * @param {number} coordinate
  */
 const getDispersedPosition = (coordinate) => {
-  const {circlesDispersion} = settings
-  return coordinate + getRandomArbitrary(-circlesDispersion, circlesDispersion)
+  const {dispersionMultiplier} = settings
+  const amount = Math.floor(coordinate / dispersionMultiplier)
+  return coordinate + getRandomArbitrary(-amount, amount)
 }
 
 /**
@@ -65,7 +66,7 @@ export default class Dot {
    * Used inside requestAnimationFrame loop
    * @param {number} amount
    */
-  rotate(amount = Math.random() * 0.01) {
+  rotate(amount = Math.random() * 0.02) {
     this.graphics.rotation = this.animateClockwise ?
       this.graphics.rotation + amount :
       this.graphics.rotation - amount
