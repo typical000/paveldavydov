@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {rotateZ} from 'css-functions'
+import {rotateZ, translate, multiple} from 'css-functions'
 import injectSheet from '../../utils/jss'
 import {transition} from '../../utils/css'
 
@@ -32,11 +32,17 @@ const styles = (theme) => {
     },
     barFirst: {
       composes: '$bar',
-      transform: rotateZ(45)
+      transform: multiple(
+        translate(0, '-50%'),
+        rotateZ(45)
+      )
     },
     barSecond: {
       composes: '$bar',
-      transform: rotateZ(-45)
+      transform: multiple(
+        translate(0, '-50%'),
+        rotateZ(-45)
+      )
     }
   }
 }

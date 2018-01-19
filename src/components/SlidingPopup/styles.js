@@ -27,8 +27,8 @@ export default {
     left: '-100%'
   },
 
-  // Open state
-  open: {
+  // Active (open) state
+  active: {
     transform: translate(0, 0),
     zIndex: 1001, // Above other popups
   },
@@ -139,7 +139,8 @@ export default {
   bar: {
     transition: {
       timingFunction: 'cubic-bezier(1, 0, 0, 1)',
-      duration: '800ms'
+      duration: '500ms',
+      delay: '500ms'
     },
     border: 0,
     outline: 0,
@@ -155,26 +156,34 @@ export default {
     color: theme.text.default,
     background: 'transparent',
     letterSpacing: 2,
+    opacity: 1,
     font: {
       family: theme.typography.fontFamily,
       size: 18,
       weight: 'bold'
+    },
+    '&:hover $title::after': {
+      transform: scale(1, 1),
     },
     [mediaSm]: {
       width: barSm,
     }
   },
 
+  hidden: {
+    opacity: 0,
+  },
+
   // Opening bar
-  barOpen: {
+  barActive: {
     composes: '$bar',
   },
-  barOpenLeft: {
-    composes: '$barOpen',
+  barActiveLeft: {
+    composes: '$barActive',
     left: '100%'
   },
-  barOpenRight: {
-    composes: '$barOpen',
+  barActiveRight: {
+    composes: '$barActive',
     right: '100%'
   },
 
@@ -200,9 +209,25 @@ export default {
     left: '50%',
     whiteSpace: 'nowrap',
     fontSize: Math.floor(theme.typography.fontSize * 1.15),
+    color: theme.text.default,
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      top: '100%',
+      marginTop: 10,
+      left: 0,
+      right: 0,
+      height: 3,
+      background: theme.text.default,
+      transition: transition(),
+      transform: scale(0, 1)
+    },
     [mediaSm]: {
-      fontSize: Math.floor(theme.typography.fontSize * 0.9)
-    }
+      fontSize: Math.floor(theme.typography.fontSize * 0.9),
+      '&::after': {
+        marginTop: 5
+      }
+    },
   },
   titleLeft: {
     composes: '$title',

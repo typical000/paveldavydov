@@ -1,14 +1,12 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import {translate} from 'css-functions'
-
 import GlobalStyles from '../GlobalStyles'
 import Logo from '../Logo'
 import About from '../About'
 import Contact from '../Contact'
-import SlidingPopup from '../SlidingPopup'
+import SlidingPopup, {SlidingPopupGroup} from '../SlidingPopup'
 import BackgroundScene from '../../containers/BackgroundScene'
-
 import injectSheet from '../../utils/jss'
 
 const styles = theme => ({
@@ -45,19 +43,17 @@ class App extends PureComponent {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
   }
 
-  // TO REMOVE
   constructor(props) {
     super(props)
     this.state = {
-      aboutPopupActive: false,
-      contactPopupActive: false,
       sceneAnimated: true,
       logoClosed: false,
       hasMounted: false,
     }
 
-    this.toggleAboutPopup = this.toggleAboutPopup.bind(this)
-    this.toggleContactPopup = this.toggleContactPopup.bind(this)
+    this.togglePopupChange = this.togglePopupChange.bind(this)
+    // this.toggleAboutPopup = this.toggleAboutPopup.bind(this)
+    // this.toggleContactPopup = this.toggleContactPopup.bind(this)
   }
 
   componentDidMount() {
@@ -65,19 +61,10 @@ class App extends PureComponent {
     this.setState({hasMounted: true})
   }
 
-  toggleAboutPopup() {
+  togglePopupChange(opened) {
     this.setState({
-      aboutPopupActive: !this.state.aboutPopupActive,
-      sceneAnimated: !this.state.sceneAnimated,
-      logoClosed: !this.state.logoClosed
-    })
-  }
-
-  toggleContactPopup() {
-    this.setState({
-      contactPopupActive: !this.state.contactPopupActive,
-      sceneAnimated: !this.state.sceneAnimated,
-      logoClosed: !this.state.logoClosed
+      sceneAnimated: !opened,
+      logoClosed: opened
     })
   }
 
@@ -88,24 +75,22 @@ class App extends PureComponent {
     return (
       <GlobalStyles>
         <div className={classes.app}>
-          <div className={classes.content} />
-          <SlidingPopup
-            direction={'left'}
-            title={'About me'}
-            open={this.state.aboutPopupActive}
-            toggleHandler={this.toggleAboutPopup}
-          >
-            <About />
-          </SlidingPopup>
-          <SlidingPopup
-            direction={'right'}
-            title={'Contact me'}
-            open={this.state.contactPopupActive}
-            toggleHandler={this.toggleContactPopup}
-          >
-            <Contact />
-          </SlidingPopup>
-
+          <SlidingPopupGroup onChange={this.togglePopupChange}>
+            <SlidingPopup
+              name={'aboutMe'}
+              direction={'left'}
+              title={'About me'}
+            >
+              <About />
+            </SlidingPopup>
+            <SlidingPopup
+              name={'contactMe'}
+              direction={'right'}
+              title={'Contact me'}
+            >
+              <Contact />
+            </SlidingPopup>
+          </SlidingPopupGroup>
           <div className={classes.logo}>
             {hasMounted && <Logo
               loading={this.state.loading}

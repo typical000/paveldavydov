@@ -10,14 +10,19 @@ class SlidingPopup extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     children: PropTypes.node.isRequired,
+    name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     direction: PropTypes.string,
-    open: PropTypes.bool,
-    toggleHandler: PropTypes.func
+    active: PropTypes.bool,
+    hidden: PropTypes.bool,
+    onToggle: PropTypes.func,
   }
 
   static defaultProps = {
-    direction: 'left'
+    direction: 'left',
+    active: false,
+    hidden: false,
+    onToggle: () => {}
   }
 
   constructor(props) {
@@ -25,7 +30,6 @@ class SlidingPopup extends PureComponent {
 
     this.direction = capitalizeFirstLetter(this.props.direction)
     this.state = {
-      isOpen: props.open,
       hovered: false
     }
 
@@ -33,37 +37,33 @@ class SlidingPopup extends PureComponent {
     this.onCloseLeave = this.onCloseLeave.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      isOpen: nextProps.open
-    })
-  }
-
   onCloseEnter() {
-    this.setState({
-      hovered: true
-    })
+    this.setState({hovered: true})
   }
 
   onCloseLeave() {
-    this.setState({
-      hovered: false
-    })
+    this.setState({hovered: false})
   }
 
   render() {
-    const {classes, children, title} = this.props
+    const {classes, children, title, name, active, hidden} = this.props
     const direction = this.direction
+
     const popupClasses = cn(
-      classes[`popup${this.direction}`],
-      this.state.isOpen && classes.open
+      classes[`popup${direction}`],
+      active && classes.active
     )
 
     return (
       <div className={popupClasses}>
         <button
-          className={classes[`barOpen${direction}`]}
-          onClick={this.props.toggleHandler}
+          className={cn(
+            classes[`barActive${direction}`],
+            hidden && classes.hidden
+          )}
+          onClick={() => {
+            this.props.onToggle(name)
+          }}
         >
           <div className={classes[`title${direction}`]}>
             {title}
@@ -71,8 +71,13 @@ class SlidingPopup extends PureComponent {
         </button>
         <div className={classes[`content${direction}`]}>
           <button
-            className={classes[`barClose${direction}`]}
-            onClick={this.props.toggleHandler}
+            className={cn(
+              classes[`barClose${direction}`],
+              hidden && classes.hidden
+            )}
+            onClick={() => {
+              this.props.onToggle(null)
+            }}
             onMouseEnter={this.onCloseEnter}
             onMouseLeave={this.onCloseLeave}
           >

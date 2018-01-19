@@ -1,7 +1,7 @@
 import * as color from './color'
-import * as time from './time'
+import * as number from './number'
 
 export default {
   color,
-  time
+  number
 }
