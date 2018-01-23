@@ -245,7 +245,7 @@ export default class Scene {
   initForeground() {
     const {x, y} = this.sizeManager.center
     const {width, height} = this.sizeManager
-    const radius = Math.floor(((width > height ? height : width) / 2) * 0.95)
+    const radius = Math.floor((width > height ? height : width) / 2)
 
     for (let i = 0; i < constants.RINGS_AMOUNT; i++) {
       this.rings[i] = new Ring({

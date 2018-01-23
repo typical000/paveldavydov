@@ -1,6 +1,6 @@
 export default {
   RINGS_AMOUNT: 16,
-  RING_DISPERSION_MULTIPLIER: 12, // Dispersion amount for rings
+  RING_DISPERSION_MULTIPLIER: 10, // Dispersion amount for rings
 
   PARTICLES_AMOUNT: 24,
   PARTICLE_OPACITY: 0.6,
