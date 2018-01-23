@@ -15,25 +15,22 @@ const getDispersedPosition = (coordinate) => {
  */
 export default class Ring {
   /**
-   * @param {number} x - center of circle on X
-   * @param {number} y - center of circle on Y
-   * @param {number} radius
-   * @param {boolean} animateClockwise - direction of animation
+   * @param {Object} settings
    */
-  constructor(
-    x = 0,
-    y = 0,
-    radius = 100,
-    animateClockwise = true,
-    animateSpeed = Math.random() * 0.02
-  ) {
+  constructor(settings = {
+    x: 0,
+    y: 0,
+    radius: 100,
+    rotateClockwise: true,
+    rotateSpeed: 0.1
+  }) {
     this.graphics = new Graphics()
 
-    this.radius = radius
-    this.animateClockwise = animateClockwise
-    this.animateSpeed = animateSpeed
+    this.radius = settings.radius
+    this.rotateClockwise = settings.rotateClockwise
+    this.rotateSpeed = settings.rotateSpeed
 
-    this.setCenter(x, y)
+    this.setCenter(settings.x, settings.y)
   }
 
   /**

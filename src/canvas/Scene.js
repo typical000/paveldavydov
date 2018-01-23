@@ -243,7 +243,13 @@ export default class Scene {
     const radius = Math.floor(((width > height ? height : width) / 2) * 0.95)
 
     for (let i = 0; i < constants.RINGS_AMOUNT; i++) {
-      this.rings[i] = new Ring(x, y, radius, isEven(i))
+      this.rings[i] = new Ring({
+        x,
+        y,
+        radius,
+        rotateClockwise: isEven(i),
+        rotateSpeed: Math.random() * 0.2
+      })
     }
   }
 
