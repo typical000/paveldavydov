@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import injectSheet from '../../utils/jss'
-import {mediaSm} from '../../constants/media'
+import {mediaSm, mediaXs} from '../../constants/media'
 import Container from '../Container'
 import Row from '../Row'
 
@@ -50,6 +50,11 @@ const styles = {
       margin: 0,
     },
   },
+  [mediaXs]: {
+    contact: {
+      padding: 0,
+    },
+  }
 }
 
 const Contact = ({classes}) => (

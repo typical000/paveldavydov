@@ -43,7 +43,7 @@ const styles = theme => ({
       fontSize: 12,
     },
     bold: {
-      fontSize: 16,
+      fontSize: 15,
     },
   },
 })

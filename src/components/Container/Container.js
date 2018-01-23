@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import injectSheet from '../../utils/jss'
+import {mediaSm} from '../../constants/media'
 
 const styles = {
   container: {
@@ -51,6 +52,11 @@ const styles = {
     left: '50%',
     marginLeft: -15
   },
+  [mediaSm]: {
+    title: {
+      display: 'none', // Because title on background is unreadable
+    },
+  }
 }
 
 const Container = ({classes, title, positionX, positionY, children}) => (
