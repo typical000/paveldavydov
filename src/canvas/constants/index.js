@@ -1,5 +1,3 @@
-import TWEEN from 'tween.js'
-
 export default {
   RINGS_AMOUNT: 16,
   RING_DISPERSION_MULTIPLIER: 12, // Dispersion amount for rings
@@ -21,8 +19,4 @@ export default {
   BACKGROUND_SECONDARY_ACCENT: 0x2c2c2c,
 
   FOREGROUND_OPACITY: 0.4,
-
-  // Done with && due to server side rendering, where 'gsap' creates infinite loop.
-  // We need to compute this variable ONLY in browser
-  ANIMATION_EASING: TWEEN.Easing.Quartic.InOut
 }

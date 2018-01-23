@@ -1,5 +1,4 @@
 import {Container, Graphics, Sprite, filters as pixiFilters, utils as pixiUtils, autoDetectRenderer} from 'pixi.js'
-import TWEEN from 'tween.js'
 import SizeManager from './SizeManager'
 import Ring from './Ring'
 import {Circle, Square, Triangle} from './Particle'
@@ -300,9 +299,6 @@ export default class Scene {
    * Main redraw scene function
    */
   redraw() {
-    // TODO: We need tweens in this case?
-    TWEEN.update()
-
     // Make noise animated
     this.backgorundFilter.seed = Math.random() / 10
 
