@@ -2,6 +2,14 @@ import {Graphics} from 'pixi.js'
 import constants from './constants'
 import {getRandomArbitrary} from './utils/number'
 
+const DEFAULT_SETTINGS = {
+  x: 0,
+  y: 0,
+  radius: 100,
+  rotateClockwise: true,
+  rotateSpeed: 0.1
+}
+
 /**
  * @param {number} coordinate
  */
@@ -17,13 +25,9 @@ export default class Ring {
   /**
    * @param {Object} settings
    */
-  constructor(settings = {
-    x: 0,
-    y: 0,
-    radius: 100,
-    rotateClockwise: true,
-    rotateSpeed: 0.1
-  }) {
+  constructor(settings = DEFAULT_SETTINGS) {
+    settings = Object.assign({}, DEFAULT_SETTINGS, settings)
+
     this.graphics = new Graphics()
 
     this.radius = settings.radius
@@ -69,9 +73,9 @@ export default class Ring {
    * Used inside requestAnimationFrame loop
    */
   animate() {
-    this.graphics.rotation = this.animateClockwise ?
-      this.graphics.rotation + this.animateSpeed :
-      this.graphics.rotation - this.animateSpeed
+    this.graphics.rotation = this.rotateClockwise ?
+      this.graphics.rotation + this.rotateSpeed :
+      this.graphics.rotation - this.rotateSpeed
   }
 
   /**

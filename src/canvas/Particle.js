@@ -1,6 +1,18 @@
 import {Graphics} from 'pixi.js'
 import constants from './constants'
 
+const DEFAULT_SETTINGS = {
+  x: 0,
+  y: 0,
+  size: 10,
+  lifetime: 2000,
+  angle: 0,
+  speed: 100,
+  rotationSpeed: 0.1,
+  rotateClockwise: true,
+  parent: {width: 0, height: 0} // Container, where paticle will be animated
+}
+
 /**
  * Abstract animated particle figure class
  */
@@ -8,17 +20,9 @@ export default class AbstractParticle {
   /**
    * @param {Object} settings
    */
-  constructor(settings = {
-    x: 0,
-    y: 0,
-    size: 10,
-    lifetime: 2000,
-    angle: 0,
-    speed: 100,
-    rotationSpeed: 0.1,
-    rotateClockwise: true,
-    parent: {width: 0, height: 0} // Container, where paticle will be animated
-  }) {
+  constructor(settings = DEFAULT_SETTINGS) {
+    settings = Object.assign({}, DEFAULT_SETTINGS, settings)
+
     this.graphics = new Graphics()
 
     this.parent = {}

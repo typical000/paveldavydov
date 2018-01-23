@@ -248,7 +248,7 @@ export default class Scene {
         y,
         radius,
         rotateClockwise: isEven(i),
-        rotateSpeed: Math.random() * 0.2
+        rotateSpeed: Math.random() * 0.02
       })
     }
   }
