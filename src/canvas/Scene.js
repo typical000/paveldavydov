@@ -1,7 +1,8 @@
 import {Container, Graphics, Sprite, filters as pixiFilters, utils as pixiUtils, autoDetectRenderer} from 'pixi.js'
 import TWEEN from 'tween.js'
 import SizeManager from './SizeManager'
-import Circle from './Circle'
+import Ring from './Ring'
+import {Circle, Square, Triangle} from './Particle'
 import settings from './settings'
 import {getRadialGradientTexture} from './utils/color'
 import {isEven} from './utils/number'
@@ -34,18 +35,21 @@ export default class Scene {
     this.stage = new Container()
 
     // Create background and foreground scene objects
+    // TODO: Maybe replace with container
     this.backgroundGraphics = new Graphics()
     this.foregroundGraphics = new Graphics()
 
     // Make self-opaque on startup
     this.foregroundGraphics.alpha = settings.foregroundOpacity
 
-    this.circle = []
+    this.particleContainer = new Container()
+
+    this.particles = []
+    this.rings = []
 
     this.initForeground()
 
-    this.drawBackground()
-    this.drawForeground()
+    this.drawScene()
 
     // Attach handlers and so on
     window.addEventListener('resize', this.resize.bind(this))
@@ -123,6 +127,15 @@ export default class Scene {
   }
 
   /**
+   * Draw all scene in one function
+   */
+  drawScene() {
+    this.drawBackground()
+    this.drawForeground()
+    this.drawParticles()
+  }
+
+  /**
    * Draw background
    */
   drawBackground() {
@@ -168,7 +181,7 @@ export default class Scene {
   drawForeground() {
     const graphics = this.foregroundGraphics
 
-    this.circle.forEach((circle) => {
+    this.rings.forEach((circle) => {
       graphics.addChild(circle.draw())
     })
 
@@ -177,15 +190,51 @@ export default class Scene {
   }
 
   /**
-   * Init foreground elements such as animated circles
+   * Draw random generated figures as particles
+   */
+  drawParticles() {
+    // TODO: Set initalization, if possible
+    // TODO: Make dinamycally creation and destruction
+    // TODO: Add animation
+
+    const {particleContainer} = this
+    const {particleSize, particleLifetime, particlesAmount} = settings
+    const {width, height} = this.sizeManager
+
+    const particleTypes = [Circle, Square, Triangle]
+
+    for (let i = 0; i < particlesAmount; i++) {
+      const Particle = particleTypes[Math.round(Math.random() * (particleTypes.length - 1))]
+      const x = Math.floor(Math.random() * width)
+      const y = Math.floor(Math.random() * height)
+
+      // TODO: Move to initialization
+      this.particles[i] = new Particle(
+        x,
+        y,
+        particleSize,
+        Math.round(Math.random() * particleLifetime),
+        isEven(i),
+        {width, height}
+      )
+
+      particleContainer.addChild(this.particles[i].draw())
+    }
+
+    this.stage.addChild(particleContainer)
+  }
+
+  /**
+   * Init foreground elements such as animated circles.
+   * They must be created only one time (except resize handler)
    */
   initForeground() {
     const {x, y} = this.sizeManager.center
     const {width, height} = this.sizeManager
     const radius = Math.floor(((width > height ? height : width) / 2) * 0.95)
 
-    for (let i = 0; i < settings.circlesAmount; i++) {
-      this.circle[i] = new Circle(x, y, radius, isEven(i))
+    for (let i = 0; i < settings.ringsAmount; i++) {
+      this.rings[i] = new Ring(x, y, radius, isEven(i))
     }
   }
 
@@ -193,9 +242,18 @@ export default class Scene {
    * Set center of coordinates
    * Needed to avoid offseting foreground on resize away from screen
    */
-  setForegroundCenter() {
+  updateForegroundCenter() {
     const {x, y} = this.sizeManager.center
-    this.circle.forEach(circle => circle.setCenter(x, y))
+    this.rings.forEach(circle => circle.setCenter(x, y))
+  }
+
+  /**
+   * Update all data regarding particles
+   */
+  updateParticlesMeasurements() {
+    const {x, y} = this.sizeManager.center
+    const {width, height} = this.sizeManager
+    this.particles.forEach(particle => particle.setSizes(x, y, width, height))
   }
 
   /**
@@ -208,11 +266,13 @@ export default class Scene {
     Scene.clearStage(this.backgroundGraphics)
     Scene.clearStage(this.foregroundGraphics)
 
-    this.circle.forEach(circle => circle.clear())
+    this.rings.forEach(circle => circle.clear())
+    this.particles.forEach(particle => particle.clear())
 
-    this.setForegroundCenter()
-    this.drawBackground()
-    this.drawForeground()
+    this.updateForegroundCenter()
+    this.updateParticlesMeasurements()
+
+    this.drawScene()
   }
 
   /**
@@ -225,8 +285,8 @@ export default class Scene {
     // Make noise animated
     this.backgorundFilter.seed = Math.random() / 10
 
-    // Rotate circles
-    this.circle.forEach(circle => circle.rotate())
+    this.rings.forEach(circle => circle.animate())
+    this.particles.forEach(particle => particle.animate())
 
     // Main render call that makes pixi draw container and its children
     this.renderer.render(this.stage)

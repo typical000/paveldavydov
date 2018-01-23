@@ -1,8 +1,15 @@
 import TWEEN from 'tween.js'
 
+// TODO: Rewrite all those constants to UPPERCASE
+
 export default {
-  circlesAmount: 16,
-  dispersionMultiplier: 12,
+  ringsAmount: 16,
+  ringDispersionMultiplier: 12, // Dispersion amount for rings
+
+  particlesAmount: 24,
+  particleOpacity: 0.5,
+  particleSize: 10,
+  particleLifetime: 2000,
 
   strokeWidth: 1,
   strokeColor: 0x515151,

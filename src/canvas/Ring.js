@@ -6,26 +6,33 @@ import {getRandomArbitrary} from './utils/number'
  * @param {number} coordinate
  */
 const getDispersedPosition = (coordinate) => {
-  const {dispersionMultiplier} = settings
-  const amount = Math.floor(coordinate / dispersionMultiplier)
+  const {ringDispersionMultiplier} = settings
+  const amount = Math.floor(coordinate / ringDispersionMultiplier)
   return coordinate + getRandomArbitrary(-amount, amount)
 }
 
 /**
  * Single animated circle class
  */
-export default class Dot {
+export default class Ring {
   /**
    * @param {number} x - center of circle on X
    * @param {number} y - center of circle on Y
    * @param {number} radius
    * @param {boolean} animateClockwise - direction of animation
    */
-  constructor(x, y, radius, animateClockwise = true) {
+  constructor(
+    x = 0,
+    y = 0,
+    radius = 100,
+    animateClockwise = true,
+    animateSpeed = Math.random() * 0.02
+  ) {
     this.graphics = new Graphics()
 
     this.radius = radius
     this.animateClockwise = animateClockwise
+    this.animateSpeed = animateSpeed
 
     this.setCenter(x, y)
   }
@@ -64,12 +71,11 @@ export default class Dot {
   /**
    * Rotate graphics by some amount.
    * Used inside requestAnimationFrame loop
-   * @param {number} amount
    */
-  rotate(amount = Math.random() * 0.02) {
+  animate() {
     this.graphics.rotation = this.animateClockwise ?
-      this.graphics.rotation + amount :
-      this.graphics.rotation - amount
+      this.graphics.rotation + this.animateSpeed :
+      this.graphics.rotation - this.animateSpeed
   }
 
   /**
