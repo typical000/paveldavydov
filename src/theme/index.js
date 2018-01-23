@@ -5,7 +5,6 @@ const base = {
 }
 
 export default {
-
   brand: base.brand, // Main brand color
 
   typography: {
@@ -31,5 +30,4 @@ export default {
   background: {
     overlay: 'rgba(0, 0, 0, 0.5)',
   },
-
 }

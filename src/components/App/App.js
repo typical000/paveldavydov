@@ -15,6 +15,7 @@ const styles = theme => ({
     color: theme.text.default,
     overflow: 'hidden',
     minHeight: '100vh',
+    letterSpacing: 2,
     font: {
       family: theme.typography.fontFamily,
       size: theme.typography.fontSize,
@@ -52,8 +53,6 @@ class App extends PureComponent {
     }
 
     this.togglePopupChange = this.togglePopupChange.bind(this)
-    // this.toggleAboutPopup = this.toggleAboutPopup.bind(this)
-    // this.toggleContactPopup = this.toggleContactPopup.bind(this)
   }
 
   componentDidMount() {
