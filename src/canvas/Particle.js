@@ -28,6 +28,7 @@ export default class AbstractParticle {
     this.parent = {}
     this.size = settings.size
     this.lifetime = settings.lifetime
+    this.currentLifetime = settings.lifetime
 
     this.angle = settings.angle
     this.speed = settings.speed
@@ -47,7 +48,7 @@ export default class AbstractParticle {
   draw() {
     const {STROKE_WIDTH, STROKE_COLOR} = constants
 
-    this.graphics.alpha = constants.PARTICLE_OPACITY
+    this.graphics.alpha = 0
     this.graphics.lineStyle(STROKE_WIDTH, STROKE_COLOR)
     this.drawFigure()
 
@@ -88,8 +89,19 @@ export default class AbstractParticle {
    * Set direction, velocity and other stuff for animation
    */
   setAnimation() {
+    // Set velocity
     this.graphics.vx = (Math.cos(this.angle) * this.speed) / 60
     this.graphics.vy = (Math.sin(this.angle) * this.speed) / 60
+
+    // Set additional measurements for fading animation
+    this.invisibleSize = Math.random() * (this.lifetime / 2) // Invisible part will be random
+    this.fadeStageSize = Math.round(this.invisibleSize / 3) // Because there is 3 stages (see below)
+    this.fadeStages = {
+      invisible: this.invisibleSize,
+      fadeIn: this.invisibleSize - this.fadeStageSize,
+      fadeOut: this.fadeStageSize
+    }
+    this.opacityAmountPerFrame = constants.PARTICLE_OPACITY / this.fadeStageSize
   }
 
   /**
@@ -100,10 +112,12 @@ export default class AbstractParticle {
     const {rotationSpeed, padding} = this
     const {width, height} = this.parent
 
+    // Rotate figure
     this.graphics.rotation = this.animateClockwise ?
       this.graphics.rotation + rotationSpeed :
       this.graphics.rotation - rotationSpeed
 
+    // Move figure
     this.graphics.x += this.graphics.vx
     this.graphics.y += this.graphics.vy
 
@@ -119,6 +133,44 @@ export default class AbstractParticle {
     if (this.graphics.y < -padding) {
       this.graphics.y += height + (2 * padding)
     }
+
+    // Change opacity. Make like appear, and disappear animation
+    this.currentLifetime--
+    this.updateVisibility()
+
+    if (this.currentLifetime <= 0) {
+      // If time finish - restart all
+      this.currentLifetime = this.lifetime
+    }
+  }
+
+  /**
+   * Update particle visiblity based on stage.
+   * Can be invisible, fully visible or fading in/out
+   */
+  updateVisibility() {
+    const {
+      fadeStages,
+      currentLifetime: time,
+      opacityAmountPerFrame: amount
+    } = this
+
+    if (time >= fadeStages.invisible) {
+      this.graphics.alpha = 0
+      return
+    }
+
+    if (time >= fadeStages.fadeIn) {
+      this.graphics.alpha += amount
+      return
+    }
+
+    if (time <= fadeStages.fadeOut) {
+      this.graphics.alpha -= amount
+      return
+    }
+
+    this.graphics.alpha = constants.PARTICLE_OPACITY
   }
 
   /**

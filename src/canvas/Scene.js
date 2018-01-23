@@ -201,13 +201,19 @@ export default class Scene {
       PARTICLE_SIZE,
       PARTICLE_LIFETIME,
       PARTICLE_LIFETIME_OFFSET,
+      PARTICLE_SPEED,
+      PARTICLE_SPEED_OFFSET,
       PARTICLES_AMOUNT
     } = constants
     const {particleContainer} = this
     const {width, height} = this.sizeManager
     const lifetime = {
       min: PARTICLE_LIFETIME - PARTICLE_LIFETIME_OFFSET,
-      max: PARTICLE_LIFETIME - PARTICLE_LIFETIME_OFFSET
+      max: PARTICLE_LIFETIME + PARTICLE_LIFETIME_OFFSET
+    }
+    const speed = {
+      min: PARTICLE_SPEED - PARTICLE_SPEED_OFFSET,
+      max: PARTICLE_SPEED + PARTICLE_SPEED_OFFSET
     }
 
     const particleTypes = [Circle, Square, Triangle]
@@ -221,8 +227,8 @@ export default class Scene {
         size: PARTICLE_SIZE,
         lifetime: getRoundRandomArbitrary(lifetime.min, lifetime.max),
         angle: Math.random() * Math.PI * 2,
-        speed: Math.random() * 200,
-        rotationSpeed: Math.random() * 0.02,
+        speed: getRoundRandomArbitrary(speed.min, speed.max),
+        rotationSpeed: Math.random() * 0.1,
         rotateClockwise: isEven(i),
         parent: {width, height}
       })
