@@ -3,9 +3,9 @@ import TWEEN from 'tween.js'
 import SizeManager from './SizeManager'
 import Ring from './Ring'
 import {Circle, Square, Triangle} from './Particle'
-import settings from './settings'
+import constants from './constants'
 import {getRadialGradientTexture} from './utils/color'
-import {isEven} from './utils/number'
+import {isEven, getRoundRandomArbitrary} from './utils/number'
 
 export default class Scene {
 
@@ -40,7 +40,7 @@ export default class Scene {
     this.foregroundGraphics = new Graphics()
 
     // Make self-opaque on startup
-    this.foregroundGraphics.alpha = settings.foregroundOpacity
+    this.foregroundGraphics.alpha = constants.FOREGROUND_OPACITY
 
     this.particleContainer = new Container()
 
@@ -81,32 +81,32 @@ export default class Scene {
   get backgroundScheme() {
     const {x, y} = this.sizeManager.center
     const {
-      backgroundPrimary,
-      backgroundSecondary,
-      backgroundPrimaryAccent,
-      backgroundSecondaryAccent
-    } = settings
+      BACKGROUND_PRIMARY,
+      BACKGROUND_PRIMARY_ACCENT,
+      BACKGROUND_SECONDARY,
+      BACKGROUND_SECONDARY_ACCENT
+    } = constants
 
     return [{
-      fill: backgroundPrimary,
+      fill: BACKGROUND_PRIMARY,
       rect: [0, 0, x, y],
-      overlayFill: backgroundPrimaryAccent,
+      overlayFill: BACKGROUND_PRIMARY_ACCENT,
       overlayRect: [x, y, x, y],
     }, {
-      fill: backgroundPrimary,
+      fill: BACKGROUND_PRIMARY,
       rect: [x, y, x, y],
-      overlayFill: backgroundPrimaryAccent,
+      overlayFill: BACKGROUND_PRIMARY_ACCENT,
       overlayRect: [x, y, 0, 0],
     }, {
-      fill: backgroundSecondary,
+      fill: BACKGROUND_SECONDARY,
       rect: [x, 0, x, y],
-      overlayFill: backgroundSecondaryAccent,
+      overlayFill: BACKGROUND_SECONDARY_ACCENT,
       overlayRect: [x, y, 0, y],
 
     }, {
-      fill: backgroundSecondary,
+      fill: BACKGROUND_SECONDARY,
       rect: [0, y, x, y],
-      overlayFill: backgroundSecondaryAccent,
+      overlayFill: BACKGROUND_SECONDARY_ACCENT,
       overlayRect: [x, y, x, 0],
     }]
   }
@@ -197,26 +197,35 @@ export default class Scene {
     // TODO: Make dinamycally creation and destruction
     // TODO: Add animation
 
+    const {
+      PARTICLE_SIZE,
+      PARTICLE_LIFETIME,
+      PARTICLE_LIFETIME_OFFSET,
+      PARTICLES_AMOUNT
+    } = constants
     const {particleContainer} = this
-    const {particleSize, particleLifetime, particlesAmount} = settings
     const {width, height} = this.sizeManager
+    const lifetime = {
+      min: PARTICLE_LIFETIME - PARTICLE_LIFETIME_OFFSET,
+      max: PARTICLE_LIFETIME - PARTICLE_LIFETIME_OFFSET
+    }
 
     const particleTypes = [Circle, Square, Triangle]
 
-    for (let i = 0; i < particlesAmount; i++) {
+    for (let i = 0; i < PARTICLES_AMOUNT; i++) {
       const Particle = particleTypes[Math.round(Math.random() * (particleTypes.length - 1))]
-      const x = Math.floor(Math.random() * width)
-      const y = Math.floor(Math.random() * height)
 
-      // TODO: Move to initialization
-      this.particles[i] = new Particle(
-        x,
-        y,
-        particleSize,
-        Math.round(Math.random() * particleLifetime),
-        isEven(i),
-        {width, height}
-      )
+      this.particles[i] = new Particle({
+        x: Math.floor(Math.random() * width),
+        y: Math.floor(Math.random() * height),
+        size: PARTICLE_SIZE,
+        lifetime: getRoundRandomArbitrary(lifetime.min, lifetime.max),
+        angle: Math.random() * Math.PI * 2,
+        speed: Math.random() * 200,
+        rotationSpeed: Math.random() * 0.02,
+        rotateClockwise: isEven(i),
+        parent: {width, height}
+      })
 
       particleContainer.addChild(this.particles[i].draw())
     }
@@ -233,7 +242,7 @@ export default class Scene {
     const {width, height} = this.sizeManager
     const radius = Math.floor(((width > height ? height : width) / 2) * 0.95)
 
-    for (let i = 0; i < settings.ringsAmount; i++) {
+    for (let i = 0; i < constants.RINGS_AMOUNT; i++) {
       this.rings[i] = new Ring(x, y, radius, isEven(i))
     }
   }

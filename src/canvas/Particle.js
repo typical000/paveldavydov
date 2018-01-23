@@ -1,36 +1,39 @@
 import {Graphics} from 'pixi.js'
-import settings from './settings'
+import constants from './constants'
 
 /**
  * Abstract animated particle figure class
  */
 export default class AbstractParticle {
   /**
-   * @param {number} x - center of circle on X
-   * @param {number} y - center of circle on Y
-   * @param {number} size
-   * @param {boolean} animateClockwise - direction of animation
+   * @param {Object} settings
    */
-  constructor(
-    x = 0,
-    y = 0,
-    size = 10,
-    lifetime = 2000,
-    animateClockwise = true,
-    parent = {width: 0, height: 0} // Container, where paticle will be animated
-  ) {
+  constructor(settings = {
+    x: 0,
+    y: 0,
+    size: 10,
+    lifetime: 2000,
+    angle: 0,
+    speed: 100,
+    rotationSpeed: 0.1,
+    rotateClockwise: true,
+    parent: {width: 0, height: 0} // Container, where paticle will be animated
+  }) {
     this.graphics = new Graphics()
 
     this.parent = {}
-    this.size = size
-    this.lifetime = lifetime
+    this.size = settings.size
+    this.lifetime = settings.lifetime
 
-    this.animateClockwise = animateClockwise
+    this.angle = settings.angle
+    this.speed = settings.speed
+    this.rotationSpeed = settings.rotationSpeed
+    this.rotateClockwise = settings.animateClockwise
 
     // TODO: Indicate, that it's used for collisions
     this.padding = 20
 
-    this.setSizes(x, y, parent.width, parent.height)
+    this.setSizes(settings.x, settings.y, settings.parent.width, settings.parent.height)
     this.setAnimation()
   }
 
@@ -38,10 +41,10 @@ export default class AbstractParticle {
    * Draw figure and convert it to sprite
    */
   draw() {
-    const {strokeWidth, strokeColor} = settings
+    const {STROKE_WIDTH, STROKE_COLOR} = constants
 
-    this.graphics.alpha = settings.particleOpacity
-    this.graphics.lineStyle(strokeWidth, strokeColor)
+    this.graphics.alpha = constants.PARTICLE_OPACITY
+    this.graphics.lineStyle(STROKE_WIDTH, STROKE_COLOR)
     this.drawFigure()
 
     return this.graphics
@@ -81,10 +84,6 @@ export default class AbstractParticle {
    * Set direction, velocity and other stuff for animation
    */
   setAnimation() {
-    this.angle = Math.random() * Math.PI * 2
-    this.speed = Math.random() * 200
-    this.rotationSpeed = Math.random() * 0.02
-
     this.graphics.vx = (Math.cos(this.angle) * this.speed) / 60
     this.graphics.vy = (Math.sin(this.angle) * this.speed) / 60
   }

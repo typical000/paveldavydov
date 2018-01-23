@@ -1,13 +1,12 @@
 import {Graphics} from 'pixi.js'
-import settings from './settings'
+import constants from './constants'
 import {getRandomArbitrary} from './utils/number'
 
 /**
  * @param {number} coordinate
  */
 const getDispersedPosition = (coordinate) => {
-  const {ringDispersionMultiplier} = settings
-  const amount = Math.floor(coordinate / ringDispersionMultiplier)
+  const amount = Math.floor(coordinate / constants.RING_DISPERSION_MULTIPLIER)
   return coordinate + getRandomArbitrary(-amount, amount)
 }
 
@@ -41,10 +40,10 @@ export default class Ring {
    * Draw circle inside grapics
    */
   draw() {
-    const {strokeWidth, strokeColor} = settings
+    const {STROKE_WIDTH, STROKE_COLOR} = constants
     const {graphics, x, y, radius} = this
 
-    graphics.lineStyle(strokeWidth, strokeColor)
+    graphics.lineStyle(STROKE_WIDTH, STROKE_COLOR)
     graphics.drawCircle(
       getDispersedPosition(x),
       getDispersedPosition(y),
