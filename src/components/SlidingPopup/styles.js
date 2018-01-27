@@ -1,11 +1,9 @@
 import {translate, rotateZ, scale, multiple} from 'css-functions'
-
-import theme from '../../theme'
 import {transition} from '../../utils/css'
 import {bar, barSm} from '../../constants/sizes'
 import {mediaSm} from '../../constants/media'
 
-export default {
+export default theme => ({
   popup: {
     zIndex: 1000,
     position: 'fixed',
@@ -133,7 +131,8 @@ export default {
     position: 'relative',
     zIndex: 2,
     height: '100vh',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    overflowX: 'hidden',
   },
 
   bar: {
@@ -267,4 +266,4 @@ export default {
       )
     }
   }
-}
+})

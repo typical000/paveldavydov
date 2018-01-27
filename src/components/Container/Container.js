@@ -12,6 +12,9 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  noScroll: {
+    overflow: 'hidden',
+  },
   content: {
     position: 'relative',
     zIndex: 2,
@@ -59,8 +62,8 @@ const styles = {
   }
 }
 
-const Container = ({classes, title, positionX, positionY, children}) => (
-  <div className={classes.container}>
+const Container = ({classes, title, positionX, positionY, noScroll, children}) => (
+  <div className={cn(classes.container, noScroll && classes.noScroll)}>
     <div className={classes.mask}>
       <div className={cn(classes.title, classes[positionX], classes[positionY])}>
         {title}
@@ -78,12 +81,14 @@ Container.propTypes = {
   title: PropTypes.string,
   positionX: PropTypes.oneOf(['left', 'right']),
   positionY: PropTypes.oneOf(['top', 'bottom']),
+  noScroll: PropTypes.bool,
 }
 
 Container.defaultProps = {
   title: '',
   positionX: 'left',
   positionY: 'top',
+  noScroll: false,
 }
 
 export default injectSheet(styles)(Container)

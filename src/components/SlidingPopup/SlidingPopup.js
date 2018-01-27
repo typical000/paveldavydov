@@ -33,15 +33,15 @@ class SlidingPopup extends PureComponent {
       hovered: false
     }
 
-    this.onCloseEnter = this.onCloseEnter.bind(this)
-    this.onCloseLeave = this.onCloseLeave.bind(this)
+    this.handleCloseEnter = this.handleCloseEnter.bind(this)
+    this.handleCloseLeave = this.handleCloseLeave.bind(this)
   }
 
-  onCloseEnter() {
+  handleCloseEnter() {
     this.setState({hovered: true})
   }
 
-  onCloseLeave() {
+  handleCloseLeave() {
     this.setState({hovered: false})
   }
 
@@ -78,8 +78,8 @@ class SlidingPopup extends PureComponent {
             onClick={() => {
               this.props.onToggle(null)
             }}
-            onMouseEnter={this.onCloseEnter}
-            onMouseLeave={this.onCloseLeave}
+            onMouseEnter={this.handleCloseEnter}
+            onMouseLeave={this.handleCloseLeave}
           >
             <div
               className={classes.close}
