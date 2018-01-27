@@ -10,18 +10,16 @@ Created by Pavel Davydov
   - [x] Ensure that SSR still work fine
   - [x] Fix lint-staged
   - [x] Add sourcemaps
-- [ ] Redesign
+- [x] Redesign
   - [x] Change fonts
   - [x] Change brand colors
-  - [ ] Redesign menu
-  - [ ] Redesign CSS animation on home screen
+  - [x] Redesign CSS animation on home screen
 - [ ] Create new animation for main section
   - [ ] Update pixi.js dependency. Search if there is any way to avoid importing all pixi js in bundle
   - [x] Noise background animation
   - [x] Circular animation in center
-  - [ ] Add floating figures
-  - [ ] Make that floating figures don't collide with circular animations
-- [ ] "Contact Me" content
+  - [x] Add floating figures with animations
+- [x] "Contact Me" content
 - [ ] "About Me" content
 - [ ] Functional `setState` as separated modules
 - [ ] "Work" content

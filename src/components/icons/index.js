@@ -1,5 +1,7 @@
+export {default as Arrow} from './Arrow'
+export {default as Email} from './Email'
 export {default as Github} from './Github'
 export {default as Link} from './Link'
-export {default as Arrow} from './Arrow'
-
-export {default as Displayer} from './Displayer'
+export {default as Linkedin} from './Linkedin'
+export {default as Skype} from './Skype'
+export {default as Twitter} from './Twitter'

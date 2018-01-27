@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, createElement} from 'react'
 import withSizes from 'react-sizes'
 import PropTypes from 'prop-types'
 import AnimatedDisplayer from '../AnimatedDisplayer'
@@ -7,38 +7,41 @@ import {xs as screenXs} from '../../constants/sizes'
 import {mediaSm, mediaXs} from '../../constants/media'
 import Container from '../Container'
 import Row from '../Row'
+import {Skype, Email, Twitter, Github, Linkedin} from '../icons'
 
-// TODO: Just temporary
-import {Github} from '../icons'
-
-const data = [
-  {
-    name: 'skype',
+const data = {
+  skype: {
     label: 'Skype',
     text: 'typical000',
     href: 'skype:typical000?chat',
-  }, {
+    component: Skype,
+  },
+  email: {
     name: 'email',
     label: 'Email',
     text: 'typical000@gmail.com',
     href: 'mailto:typical000@gmail.com',
-  }, {
-    name: 'twitter',
+    component: Email,
+  },
+  twitter: {
     label: 'Twitter',
     text: '@typical001',
     href: 'https://twitter.com/typical001',
-  }, {
-    name: 'github',
+    component: Twitter,
+  },
+  github: {
     label: 'GitHub',
     text: 'typical000',
     href: 'https://github.com/typical000',
-  }, {
-    name: 'linkedin',
+    component: Github,
+  },
+  linkedin: {
     label: 'Linkedin',
     text: 'PavelDavydov',
     href: 'https://www.linkedin.com/in/pavel-davydov-09892aa5/',
+    component: Linkedin,
   }
-]
+}
 
 const styles = theme => ({
   contact: {
@@ -58,13 +61,13 @@ const styles = theme => ({
     fill: theme.text.default,
     position: 'absolute',
     zIndex: 1,
-    top: -50,
+    top: -70,
     left: 100,
     opacity: 0.05,
   },
   icon: {
-    width: 500,
-    height: 500,
+    width: 400,
+    height: 400,
     maxWidth: 'none', // Reset default svg icon style
   },
   [mediaSm]: {
@@ -73,6 +76,10 @@ const styles = theme => ({
       paddingLeft: 100, // Label max width
       margin: 0,
     },
+    // We don't need hoverable items on touch devices
+    background: {
+      display: 'none'
+    }
   },
   [mediaXs]: {
     contact: {
@@ -123,8 +130,7 @@ class Contact extends Component {
 
   render() {
     const {classes, isMobileSize} = this.props
-    // TODO: Replace with 'mapNameToIconClass' or something else
-    // const {displayIcon} = this.state
+    const {displayIcon} = this.state
 
     return (
       <Container
@@ -134,13 +140,13 @@ class Contact extends Component {
         noScroll
       >
         <div className={classes.contact}>
-          {data.map(contact => (
-            <div className={classes.row} key={contact.name}>
+          {Object.keys(data).map(contact => (
+            <div className={classes.row} key={contact}>
               <Row
-                name={contact.name}
-                label={contact.label}
-                value={contact.text}
-                href={contact.href}
+                name={contact}
+                label={data[contact].label}
+                value={data[contact].text}
+                href={data[contact].href}
                 labelOnTop={isMobileSize}
                 small={isMobileSize}
                 onMouseEnter={this.handleMouseEnter}
@@ -151,8 +157,9 @@ class Contact extends Component {
         </div>
         <div className={classes.background}>
           <AnimatedDisplayer>
-            {/* TODO: Replace this code with React.createElement and map state to class */}
-            <Github className={classes.icon} />
+            {displayIcon && createElement(data[displayIcon].component, {
+              className: classes.icon
+            })}
           </AnimatedDisplayer>
         </div>
       </Container>
