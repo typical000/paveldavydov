@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import withSizes from 'react-sizes'
 import PropTypes from 'prop-types'
-import {Displayer as IconDisplayer} from '../icons'
+import AnimatedDisplayer from '../AnimatedDisplayer'
 import injectSheet from '../../utils/jss'
 import {xs as screenXs} from '../../constants/sizes'
 import {mediaSm, mediaXs} from '../../constants/media'
 import Container from '../Container'
 import Row from '../Row'
+
+// TODO: Just temporary
+import {Github} from '../icons'
 
 const data = [
   {
@@ -120,7 +123,8 @@ class Contact extends Component {
 
   render() {
     const {classes, isMobileSize} = this.props
-    const {displayIcon} = this.state
+    // TODO: Replace with 'mapNameToIconClass' or something else
+    // const {displayIcon} = this.state
 
     return (
       <Container
@@ -146,7 +150,10 @@ class Contact extends Component {
           ))}
         </div>
         <div className={classes.background}>
-          <IconDisplayer icon={displayIcon} className={classes.icon} />
+          <AnimatedDisplayer>
+            {/* TODO: Replace this code with React.createElement and map state to class */}
+            <Github className={classes.icon} />
+          </AnimatedDisplayer>
         </div>
       </Container>
     )
