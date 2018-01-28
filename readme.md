@@ -14,22 +14,25 @@ Created by Pavel Davydov
   - [x] Change fonts
   - [x] Change brand colors
   - [x] Redesign CSS animation on home screen
-- [ ] Create new animation for main section
-  - [ ] Update pixi.js dependency. Search if there is any way to avoid importing all pixi js in bundle
+- [x] Create new animation for main section
   - [x] Noise background animation
   - [x] Circular animation in center
   - [x] Add floating figures with animations
 - [x] "Contact Me" content
 - [ ] "About Me" content
-- [ ] Functional `setState` as separated modules
+  - [ ] Add photo
+  - [ ] Add switchable content
+  - [ ] Move all texts to consts
+  - [ ] Add resume PDS
 - [ ] "Work" content
   - [ ] Layout
   - [ ] Works or single work presentation
 - [ ] Tests for components (jest)
   - [ ] Unit testing
   - [ ] Integration tests
-- [ ] React-helmet
 - [ ] Add loader
+- [ ] React-helmet
+- [ ] Functional `setState` as separated modules
 - [ ] Decrease bundle size
   - [x] Add `webpack-bundle-analyzer`
   - [x] Replace GSAP with Tween.js

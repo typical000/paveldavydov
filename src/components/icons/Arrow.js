@@ -9,9 +9,9 @@ const Arrow = ({className}) => (
       <svg
         className={cn(classes.icon, className)}
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 60 23"
+        viewBox="0 0 20 10"
       >
-        <path d="M49 23l-.5-.5L58.938 12H0v-1h58.938L48.5.5 49 0l11 11v1L49 23z" />
+        <path d="M0 4 L14 4 14 0 20 5 14 10 14 6 0 6z" />
       </svg>
     )}
   </Icon>

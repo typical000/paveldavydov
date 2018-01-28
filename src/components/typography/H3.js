@@ -7,8 +7,9 @@ const styles = theme => ({
   heading: {
     fontSize: 24,
     lineHeight: 1.4,
-    fontWeight: 300,
+    fontWeight: 'bold',
     margin: [0, 0, 20, 0],
+    letterSpacing: 3,
     textTransform: 'none',
     color: theme.text.default
   },
@@ -17,10 +18,10 @@ const styles = theme => ({
   }
 })
 
-const H3 = (props) => {
-  const {classes, children, light} = props
+const H3 = ({classes, className, children, light}) => {
   const headingClasses = cn(
     classes.heading,
+    className,
     light && classes.light
   )
 
@@ -34,7 +35,13 @@ const H3 = (props) => {
 H3.propTypes = {
   children: PropTypes.string.isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  light: PropTypes.bool
+  className: PropTypes.string,
+  light: PropTypes.bool,
+}
+
+H3.defaultProps = {
+  className: '',
+  light: false,
 }
 
 export default injectSheet(styles)(H3)

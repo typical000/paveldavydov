@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
-import {translateX} from 'css-functions'
+import {scale} from 'css-functions'
 import injectSheet from '../../utils/jss'
 import {transition} from '../../utils/css'
 
@@ -9,65 +9,48 @@ const styles = theme => ({
   link: {
     position: 'relative',
     display: 'inline-block',
-    verticalAlign: 'top',
-    overflow: 'hidden',
-    margin: [0, -4],
-    '&:hover $stateDefault': {
-      transform: translateX('100%')
+    verticalAlign: 'middle',
+    fontWeight: 'bold',
+    textDecoration: 'none',
+    color: theme.text.highlight,
+    '&:hover $bar': {
+      transform: scale(1, 1),
     },
-    '&:hover $stateHover': {
-      transform: translateX(0),
-      opacity: 1
-    }
   },
-  state: {
-    padding: [0, 4],
-    display: 'inline-block',
-    verticalAlign: 'top',
-    transition: transition('500ms')
-  },
-  stateDefault: {
-    composes: '$state',
-    borderBottom: [1, 'dotted', theme.text.light],
-    color: theme.text.muted
-  },
-  stateHover: {
-    composes: '$state',
+  bar: {
+    background: theme.text.highlight,
+    height: 3,
     position: 'absolute',
-    top: 0,
+    top: '100%',
     left: 0,
-    color: theme.text.inverse,
-    background: theme.common.cardInverse,
-    transform: translateX('-25%'),
-    opacity: 0
-  }
+    right: 0,
+    transition: transition(),
+    transform: scale(0, 1),
+  },
 })
 
-const Link = (props) => {
-  const {href, target, classes, children, customClass} = props
-  const linkClass = cn(
-    classes.link,
-    customClass
-  )
-
-  return (
-    <a
-      className={linkClass}
-      href={href}
-      target={target}
-    >
-      <span className={classes.stateHover}>{children}</span>
-      <span className={classes.stateDefault}>{children}</span>
-    </a>
-  )
-}
+const Link = ({href, target, classes, className, children}) => (
+  <a
+    className={cn(classes.link, className)}
+    href={href}
+    target={target}
+  >
+    <span className={classes.text}>{children}</span>
+    <span className={classes.bar} />
+  </a>
+)
 
 Link.propTypes = {
   children: PropTypes.string.isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  customClass: PropTypes.string,
-  href: PropTypes.string,
+  className: PropTypes.string,
+  href: PropTypes.string.isRequired,
   target: PropTypes.string
+}
+
+Link.defaultProps = {
+  className: '',
+  target: '_self',
 }
 
 export default injectSheet(styles)(Link)

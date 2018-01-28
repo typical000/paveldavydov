@@ -1,75 +1,90 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
-import ScrollScreen from '../ScrollScreen'
-import {Link, H1, H2, H3} from '../typography'
-import {scrollScreen} from '../../utils/dom'
+import cn from 'classnames'
+import {translate} from 'css-functions'
+import Container from '../Container'
+import ContentShort from './ContentShort'
+import ContentLong from './ContentLong'
 import injectSheet from '../../utils/jss'
+import {transition} from '../../utils/css'
 
-// TODO: Move to some external consts
-const mail = 'typical000@gmail.com'
+import ScrollScreen from '../ScrollScreen'
 
-// TODO: Redesign needed
+const TRANSITION_DURATION = 300
+
 const styles = theme => ({
   about: {
-    position: 'relative',
+    width: '100%',
     height: '100%',
-    overflowY: 'auto'
-  },
-  container: {
-    position: 'relative'
-  },
-  containerTop: {
-    composes: '$container',
-    height: '100vh',
-    overflow: 'hidden'
-  },
-  containerBottom: {
-    composes: '$container',
-    padding: 100,
-    background: theme.common.card,
-  },
-
-  block: {
-    boxSizing: 'border-box',
-    float: 'left',
-    height: '100%',
-    width: '50%',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  column: {
+    boxSizing: 'border-box',
+    width: '50%',
+    flexGrow: 1,
+    flexShrink: 1,
     position: 'relative',
   },
-  blockPhoto: {
-    composes: '$block',
-    background: theme.common.card,
-    width: '52%'
-  },
-  blockName: {
-    composes: '$block',
-    padding: [100, 100, 100, 50],
-    width: '48%'
-  },
-
-  // Inner, smaller elements
-  inner: {
-    maxWidth: 600
-  },
-  mail: {
-    marginTop: 40
+  photo: {
+    composes: '$column',
+    // TODO: Temporary, replace with photo
+    background: theme.text.default,
+    opacity: 0.05,
+    height: '100%',
   },
   content: {
-    marginBottom: 40,
-    '&:last-child': {
-      marginBottom: 0
-    }
+    maxWidth: 600,
   },
 
-  // More button
-  more: {
+  // Buttons for content switching
+  switcher: {
     position: 'absolute',
-    bottom: 70,
-    right: 60
-  }
+    zIndex: 10,
+    left: 40,
+  },
+  top: {
+    composes: '$switcher',
+    top: 40,
+  },
+  bottom: {
+    composes: '$switcher',
+    bottom: 40,
+  },
+
+  // Inner content
+  short: {
+    position: 'absolute',
+    top: '50%',
+    left: 0,
+    '&$visible': {
+      transition: transition(TRANSITION_DURATION, TRANSITION_DURATION),
+      transform: translate(0, '-50%'),
+    },
+    '&$hidden': {
+      transition: transition(TRANSITION_DURATION, 0),
+      transform: translate(0, '-60%'),
+    },
+  },
+  long: {
+    '&$visible': {
+      transition: transition(TRANSITION_DURATION, 0),
+    },
+    '&$hidden': {
+      transition: transition(TRANSITION_DURATION, TRANSITION_DURATION),
+    },
+  },
+
+  visible: {
+    opacity: 1,
+    visibility: 'visible',
+    transform: translate(0, 0),
+  },
+  hidden: {
+    opacity: 0,
+    visibility: 'hidden',
+    transform: translate(0, '-10%'),
+  },
 })
 
 class About extends PureComponent {
@@ -79,56 +94,68 @@ class About extends PureComponent {
 
   constructor(props) {
     super(props)
-    this.onScrollClick = this.onScrollClick.bind(this)
+    this.state = {
+      expanded: false
+    }
+    this.toggleContent = this.toggleContent.bind(this)
   }
 
-  onScrollClick = () => scrollScreen(this.container)
+  toggleContent() {
+    this.setState({expanded: !this.state.expanded})
+  }
 
   render() {
     const {classes} = this.props
+    const {expanded} = this.state
 
     return (
-      <div
-        className={classes.about}
-        ref={container => (this.container = container)}
+      <Container
+        title={'About'}
+        positionX={'right'}
+        positionY={'bottom'}
       >
-        <div className={classes.containerTop}>
-          <div className={classes.blockPhoto} />
-          <div className={classes.blockName}>
-            <div>
-              <H1>Pavel Davydov</H1>
-              <H3 light>Front-end Developer and Designer</H3>
-              <div className={classes.mail}>
-                <Link href={`mailto:${mail}`}>{mail}</Link>
-              </div>
-            </div>
-            <div className={classes.more}>
-              <ScrollScreen onClick={this.onScrollClick}>
-                Read More
-              </ScrollScreen>
-            </div>
-          </div>
+        {
+          /**
+           * TODO: Rename ScrollScreen to something more friendly.
+           * Redesign arrow to fit any transform
+           */
+        }
+        <div className={classes.top}>
+          <ScrollScreen onClick={this.toggleContent}>
+            Read less
+          </ScrollScreen>
         </div>
-        <div className={classes.containerBottom}>
-          <div className={classes.inner}>
-            <H2>Hello,</H2>
+        <div className={classes.bottom}>
+          <ScrollScreen onClick={this.toggleContent}>
+            Read more
+          </ScrollScreen>
+        </div>
+        <div className={classes.about}>
+          <div className={classes.photo} />
+          <div className={classes.column}>
             <div className={classes.content}>
-              My name is Pavel Davydov and I am front-end developer
-              and graphic designer based in&nbsp;
-              <Link
-                href="https://en.wikipedia.org/wiki/Zaporizhia"
-                target="_blank"
+
+              <div
+                className={cn(
+                  classes.short,
+                  expanded ? classes.hidden : classes.visible
+                )}
               >
-                Zaporizhia
-              </Link>
-              , Ukraine.
+                <ContentShort />
+              </div>
+              <div
+                className={cn(
+                  classes.long,
+                  expanded ? classes.visible : classes.hidden
+                )}
+              >
+                <ContentLong />
+              </div>
+
             </div>
-
-            <H3>Open Source where I contribute</H3>
-
           </div>
         </div>
-      </div>
+      </Container>
     )
   }
 }

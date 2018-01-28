@@ -33,6 +33,7 @@ const styles = {
     textTransform: 'uppercase',
     letterSpacing: 10,
     opacity: 0.05,
+    whiteSpace: 'nowrap',
     font: {
       weight: 'bold',
       size: 120,

@@ -7,9 +7,12 @@ import injectSheet from '../../utils/jss'
 
 const styles = theme => ({
   scroll: {
+    letterSpacing: 2,
+    textTransform: 'uppercase',
     font: {
       family: theme.typography.fontFamily,
-      size: theme.typography.fontSize
+      size: 18,
+      weight: 'bold'
     },
     border: 0,
     outline: 0,
@@ -17,17 +20,15 @@ const styles = theme => ({
     margin: 0,
     background: 'transparent',
     cursor: 'pointer',
+    color: theme.text.default,
+    fill: theme.text.default,
     transformOrigin: ['100%', '100%'],
     transform: multiple(
       rotateZ(90),
       translateY('100%')
     ),
     transition: transition(1000),
-    color: theme.text.light,
-    fill: theme.text.light,
     '&:hover': {
-      color: theme.text.default,
-      fill: theme.text.default,
       paddingRight: 10
     }
   },
@@ -35,9 +36,12 @@ const styles = theme => ({
     verticalAlign: 'middle'
   },
   icon: {
-    paddingLeft: 10,
+    paddingLeft: 20,
     display: 'inline-block',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
+    opacity: 0.5,
+    height: 13,
+    maxWidth: 'none',
   }
 })
 

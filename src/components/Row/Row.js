@@ -26,7 +26,7 @@ const styles = theme => ({
   bold: {
     font: {
       weight: 'bold',
-      size: 22,
+      size: 20,
     },
   },
   separator: {

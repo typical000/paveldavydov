@@ -5,10 +5,11 @@ import injectSheet from '../../utils/jss'
 
 const styles = theme => ({
   heading: {
-    fontSize: 42,
+    fontSize: 54,
     lineHeight: 1.2,
-    fontWeight: 300,
+    fontWeight: 'bold',
     margin: [0, 0, 20, 0],
+    letterSpacing: 4,
     textTransform: 'uppercase',
     color: theme.text.default
   },
@@ -17,10 +18,10 @@ const styles = theme => ({
   }
 })
 
-const H1 = (props) => {
-  const {classes, children, light} = props
+const H1 = ({classes, className, children, light}) => {
   const headingClasses = cn(
     classes.heading,
+    className,
     light && classes.light
   )
 
@@ -34,7 +35,13 @@ const H1 = (props) => {
 H1.propTypes = {
   children: PropTypes.string.isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  light: PropTypes.bool
+  className: PropTypes.string,
+  light: PropTypes.bool,
+}
+
+H1.defaultProps = {
+  className: '',
+  light: false,
 }
 
 export default injectSheet(styles)(H1)
