@@ -49,7 +49,7 @@ class App extends PureComponent {
     this.state = {
       sceneAnimated: true,
       logoClosed: false,
-      hasMounted: false,
+      isClient: false,
     }
 
     this.togglePopupChange = this.togglePopupChange.bind(this)
@@ -57,7 +57,7 @@ class App extends PureComponent {
 
   componentDidMount() {
     // eslint-disable-next-line
-    this.setState({hasMounted: true})
+    this.setState({isClient: true})
   }
 
   togglePopupChange(opened) {
@@ -68,7 +68,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {hasMounted} = this.state
+    const {isClient} = this.state
     const {classes} = this.props
 
     return (
@@ -91,13 +91,13 @@ class App extends PureComponent {
             </SlidingPopup>
           </SlidingPopupGroup>
           <div className={classes.logo}>
-            {hasMounted && <Logo
+            {isClient && <Logo
               loading={this.state.loading}
               closed={this.state.logoClosed}
             />}
           </div>
           <div className={classes.scene}>
-            {hasMounted && <BackgroundScene animated={this.state.sceneAnimated} />}
+            {isClient && <BackgroundScene animated={this.state.sceneAnimated} />}
           </div>
         </div>
       </GlobalStyles>

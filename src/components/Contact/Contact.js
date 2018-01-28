@@ -1,4 +1,4 @@
-import React, {Component, createElement} from 'react'
+import React, {PureComponent, createElement} from 'react'
 import withSizes from 'react-sizes'
 import PropTypes from 'prop-types'
 import data from './data'
@@ -63,7 +63,7 @@ const mapSizesToProps = ({width}) => ({
   isMobileSize: width && width <= screenXs // Can be null on SSR
 })
 
-class Contact extends Component {
+class Contact extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     isMobileSize: PropTypes.bool,
@@ -73,11 +73,35 @@ class Contact extends Component {
     super(props)
 
     this.state = {
-      displayIcon: null
+      displayIcon: null,
+      isClient: false,
     }
 
     this.handleMouseEnter = this.handleMouseEnter.bind(this)
     this.handleMouseLeave = this.handleMouseLeave.bind(this)
+  }
+
+  /**
+   * The problem is with react-sizes and all logic
+   * related on changing props if screen size changes.
+   *
+   * Root of all this is new breaking change in Rect 16 related
+   * to 'hydrate' method. If DOM is the same but classes are not the same
+   * React will ignore it and leave all markup as it was on server-side.
+   *
+   * This causes problems on mobile devices where on inital render
+   * all goes rendered as on desktop.
+   *
+   * See more here: https://github.com/facebook/react/issues/10591
+   * And the 'best' solution from Dan Abramov: https://github.com/facebook/react/issues/8017#issuecomment-256351955
+   * As for me - it's a weird solution.
+   *
+   * Anyway - we avoid to render any contact data on server,
+   * and render it only on client. Causing double rendering
+   */
+  componentDidMount() {
+    // eslint-disable-next-line
+    this.setState({isClient: true})
   }
 
   /**
@@ -96,7 +120,7 @@ class Contact extends Component {
 
   render() {
     const {classes, isMobileSize} = this.props
-    const {displayIcon} = this.state
+    const {displayIcon, isClient} = this.state
 
     return (
       <Container
@@ -106,7 +130,7 @@ class Contact extends Component {
         noScroll
       >
         <div className={classes.contact}>
-          {Object.keys(data).map(contact => (
+          {isClient && Object.keys(data).map(contact => (
             <div className={classes.row} key={contact}>
               <Row
                 name={contact}
