@@ -1,6 +1,7 @@
 import React, {PureComponent, createElement} from 'react'
-import withSizes from 'react-sizes'
 import PropTypes from 'prop-types'
+import withSizes from 'react-sizes'
+import {translate} from 'css-functions'
 import data from './data'
 import AnimatedDisplayer from '../AnimatedDisplayer'
 import injectSheet from '../../utils/jss'
@@ -17,6 +18,12 @@ const styles = theme => ({
     zIndex: 2,
     marginTop: -8,
   },
+  wrap: {
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+    overflow: 'hidden',
+  },
   row: {
     marginBottom: 25,
     '&:last-child': {
@@ -27,8 +34,9 @@ const styles = theme => ({
     fill: theme.text.default,
     position: 'absolute',
     zIndex: 1,
-    top: -70,
-    left: 100,
+    top: '50%',
+    left: '50%',
+    transform: translate(100, -70),
     opacity: 0.05,
   },
   icon: {
@@ -127,30 +135,31 @@ class Contact extends PureComponent {
         title={'Contact'}
         positionX={'left'}
         positionY={'top'}
-        noScroll
       >
-        <div className={classes.contact}>
-          {isClient && Object.keys(data).map(contact => (
-            <div className={classes.row} key={contact}>
-              <Row
-                name={contact}
-                label={data[contact].label}
-                value={data[contact].text}
-                href={data[contact].href}
-                labelOnTop={isMobileSize}
-                small={isMobileSize}
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
-              />
-            </div>
-          ))}
-        </div>
-        <div className={classes.background}>
-          <AnimatedDisplayer>
-            {displayIcon && createElement(data[displayIcon].component, {
-              className: classes.icon
-            })}
-          </AnimatedDisplayer>
+        <div className={classes.wrap}>
+          <div className={classes.contact}>
+            {isClient && Object.keys(data).map(contact => (
+              <div className={classes.row} key={contact}>
+                <Row
+                  name={contact}
+                  label={data[contact].label}
+                  value={data[contact].text}
+                  href={data[contact].href}
+                  labelOnTop={isMobileSize}
+                  small={isMobileSize}
+                  onMouseEnter={this.handleMouseEnter}
+                  onMouseLeave={this.handleMouseLeave}
+                />
+              </div>
+            ))}
+          </div>
+          <div className={classes.background}>
+            <AnimatedDisplayer>
+              {displayIcon && createElement(data[displayIcon].component, {
+                className: classes.icon
+              })}
+            </AnimatedDisplayer>
+          </div>
         </div>
       </Container>
     )
