@@ -21,6 +21,9 @@ const styles = theme => ({
   wrap: {
     width: '100%',
     height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     position: 'relative',
     overflow: 'hidden',
   },

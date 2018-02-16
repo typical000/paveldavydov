@@ -1,112 +1,59 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
-import cn from 'classnames'
-import {translate} from 'css-functions'
+import withSizes from 'react-sizes'
+import AboutLarge from './AboutLarge'
+import AboutSmall from './AboutSmall'
 import Container from '../Container'
-import ContentShort from './ContentShort'
-import ContentLong from './ContentLong'
-import injectSheet from '../../utils/jss'
-import {transition} from '../../utils/css'
+import {sm as screenSm} from '../../constants/sizes'
 
-import ScrollScreen from '../ScrollScreen'
-
-const TRANSITION_DURATION = 300
-
-const styles = theme => ({
-  about: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  column: {
-    boxSizing: 'border-box',
-    width: '50%',
-    flexGrow: 1,
-    flexShrink: 1,
-    position: 'relative',
-  },
-  photo: {
-    composes: '$column',
-    // TODO: Temporary, replace with photo
-    background: theme.text.default,
-    opacity: 0.05,
-    height: '100%',
-  },
-  content: {
-    maxWidth: 600,
-  },
-
-  // Buttons for content switching
-  switcher: {
-    position: 'absolute',
-    zIndex: 10,
-    left: 40,
-  },
-  top: {
-    composes: '$switcher',
-    top: 40,
-  },
-  bottom: {
-    composes: '$switcher',
-    bottom: 40,
-  },
-
-  // Inner content
-  short: {
-    position: 'absolute',
-    top: '50%',
-    left: 0,
-    '&$visible': {
-      transition: transition(TRANSITION_DURATION, TRANSITION_DURATION),
-      transform: translate(0, '-50%'),
-    },
-    '&$hidden': {
-      transition: transition(TRANSITION_DURATION, 0),
-      transform: translate(0, '-60%'),
-    },
-  },
-  long: {
-    '&$visible': {
-      transition: transition(TRANSITION_DURATION, 0),
-    },
-    '&$hidden': {
-      transition: transition(TRANSITION_DURATION, TRANSITION_DURATION),
-    },
-  },
-
-  visible: {
-    opacity: 1,
-    visibility: 'visible',
-    transform: translate(0, 0),
-  },
-  hidden: {
-    opacity: 0,
-    visibility: 'hidden',
-    transform: translate(0, '-10%'),
-  },
+const mapSizesToProps = ({width}) => ({
+  isMobileSize: width && width <= screenSm // Can be null on SSR
 })
 
 class About extends PureComponent {
+
   static propTypes = {
-    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    isMobileSize: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    isMobileSize: false,
   }
 
   constructor(props) {
     super(props)
+
     this.state = {
-      expanded: false
+      isClient: false
     }
-    this.toggleContent = this.toggleContent.bind(this)
   }
 
-  toggleContent() {
-    this.setState({expanded: !this.state.expanded})
+  /**
+   * The problem is with react-sizes and all logic
+   * related on changing props if screen size changes.
+   *
+   * Root of all this is new breaking change in Rect 16 related
+   * to 'hydrate' method. If DOM is the same but classes are not the same
+   * React will ignore it and leave all markup as it was on server-side.
+   *
+   * This causes problems on mobile devices where on inital render
+   * all goes rendered as on desktop.
+   *
+   * See more here: https://github.com/facebook/react/issues/10591
+   * And the 'best' solution from Dan Abramov: https://github.com/facebook/react/issues/8017#issuecomment-256351955
+   * As for me - it's a weird solution.
+   *
+   * Anyway - we avoid to render any markup on server,
+   * and render it only on client. Causing double rendering
+   */
+  componentDidMount() {
+    // eslint-disable-next-line
+    this.setState({isClient: true})
   }
 
   render() {
-    const {classes} = this.props
-    const {expanded} = this.state
+    const {isMobileSize} = this.props
+    const {isClient} = this.state
 
     return (
       <Container
@@ -114,50 +61,10 @@ class About extends PureComponent {
         positionX={'right'}
         positionY={'bottom'}
       >
-        {
-          /**
-           * TODO: Rename ScrollScreen to something more friendly.
-           * Redesign arrow to fit any transform
-           */
-        }
-        <div className={classes.top}>
-          <ScrollScreen onClick={this.toggleContent}>
-            Read less
-          </ScrollScreen>
-        </div>
-        <div className={classes.bottom}>
-          <ScrollScreen onClick={this.toggleContent}>
-            Read more
-          </ScrollScreen>
-        </div>
-        <div className={classes.about}>
-          <div className={classes.photo} />
-          <div className={classes.column}>
-            <div className={classes.content}>
-
-              <div
-                className={cn(
-                  classes.short,
-                  expanded ? classes.hidden : classes.visible
-                )}
-              >
-                <ContentShort />
-              </div>
-              <div
-                className={cn(
-                  classes.long,
-                  expanded ? classes.visible : classes.hidden
-                )}
-              >
-                <ContentLong />
-              </div>
-
-            </div>
-          </div>
-        </div>
+        {isClient && (isMobileSize ? <AboutSmall /> : <AboutLarge />)}
       </Container>
     )
   }
 }
 
-export default injectSheet(styles)(About)
+export default withSizes(mapSizesToProps)(About)

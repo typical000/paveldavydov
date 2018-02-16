@@ -17,7 +17,7 @@ const styles = theme => ({
     bottom: 0,
   },
   labelSmall: {
-    fontSize: 12,
+    fontSize: 14,
   },
   labelOnTop: {
     position: 'static',
@@ -36,7 +36,7 @@ const styles = theme => ({
   },
   separatorSmall: {
     composes: '$separator',
-    fontSize: 15,
+    fontSize: 16,
   },
   link: {
     composes: '$bold',
@@ -49,7 +49,7 @@ const styles = theme => ({
   },
   linkSmall: {
     composes: '$link',
-    fontSize: 15,
+    fontSize: 16,
   },
 })
 

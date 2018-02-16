@@ -222,7 +222,7 @@ export default theme => ({
       transform: scale(0, 1)
     },
     [mediaSm]: {
-      fontSize: Math.floor(theme.typography.fontSize * 0.9),
+      fontSize: theme.typography.fontSize,
       '&::after': {
         marginTop: 5
       }
