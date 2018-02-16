@@ -18,7 +18,7 @@ const Linkedin = ({className}) => (
 )
 
 Linkedin.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 }
 
 export default Linkedin

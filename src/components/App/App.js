@@ -9,7 +9,7 @@ import SlidingPopup, {SlidingPopupGroup} from '../SlidingPopup'
 import BackgroundScene from '../../containers/BackgroundScene'
 import injectSheet from '../../utils/jss'
 
-const styles = theme => ({
+const styles = (theme) => ({
   app: {
     background: theme.common.page,
     color: theme.text.default,
@@ -20,7 +20,7 @@ const styles = theme => ({
       family: theme.typography.fontFamily,
       size: theme.typography.fontSize,
       lineHeight: theme.typography.lineHeight,
-    }
+    },
   },
   scene: {
     position: 'fixed',
@@ -63,7 +63,7 @@ class App extends PureComponent {
   togglePopupChange(opened) {
     this.setState({
       sceneAnimated: !opened,
-      logoClosed: opened
+      logoClosed: opened,
     })
   }
 
@@ -91,13 +91,17 @@ class App extends PureComponent {
             </SlidingPopup>
           </SlidingPopupGroup>
           <div className={classes.logo}>
-            {isClient && <Logo
-              loading={this.state.loading}
-              closed={this.state.logoClosed}
-            />}
+            {isClient && (
+              <Logo
+                loading={this.state.loading}
+                closed={this.state.logoClosed}
+              />
+            )}
           </div>
           <div className={classes.scene}>
-            {isClient && <BackgroundScene animated={this.state.sceneAnimated} />}
+            {isClient && (
+              <BackgroundScene animated={this.state.sceneAnimated} />
+            )}
           </div>
         </div>
       </GlobalStyles>

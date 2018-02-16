@@ -18,7 +18,7 @@ const Skype = ({className}) => (
 )
 
 Skype.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 }
 
 export default Skype

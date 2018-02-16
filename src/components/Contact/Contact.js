@@ -10,7 +10,7 @@ import {mediaSm, mediaXs} from '../../constants/media'
 import Container from '../Container'
 import Row from '../Row'
 
-const styles = theme => ({
+const styles = (theme) => ({
   contact: {
     position: 'absolute',
     top: '50%',
@@ -55,14 +55,14 @@ const styles = theme => ({
     },
     // We don't need hoverable items on touch devices
     background: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   [mediaXs]: {
     contact: {
       padding: 0,
     },
-  }
+  },
 })
 
 /**
@@ -71,7 +71,7 @@ const styles = theme => ({
  * So we track screen size changes, and pass needed prop to children, updating it.
  */
 const mapSizesToProps = ({width}) => ({
-  isMobileSize: width && width <= screenXs // Can be null on SSR
+  isMobileSize: width && width <= screenXs, // Can be null on SSR
 })
 
 class Contact extends PureComponent {
@@ -134,33 +134,31 @@ class Contact extends PureComponent {
     const {displayIcon, isClient} = this.state
 
     return (
-      <Container
-        title={'Contact'}
-        positionX={'left'}
-        positionY={'top'}
-      >
+      <Container title={'Contact'} positionX={'left'} positionY={'top'}>
         <div className={classes.wrap}>
           <div className={classes.contact}>
-            {isClient && Object.keys(data).map(contact => (
-              <div className={classes.row} key={contact}>
-                <Row
-                  name={contact}
-                  label={data[contact].label}
-                  value={data[contact].text}
-                  href={data[contact].href}
-                  labelOnTop={isMobileSize}
-                  small={isMobileSize}
-                  onMouseEnter={this.handleMouseEnter}
-                  onMouseLeave={this.handleMouseLeave}
-                />
-              </div>
-            ))}
+            {isClient &&
+              Object.keys(data).map((contact) => (
+                <div className={classes.row} key={contact}>
+                  <Row
+                    name={contact}
+                    label={data[contact].label}
+                    value={data[contact].text}
+                    href={data[contact].href}
+                    labelOnTop={isMobileSize}
+                    small={isMobileSize}
+                    onMouseEnter={this.handleMouseEnter}
+                    onMouseLeave={this.handleMouseLeave}
+                  />
+                </div>
+              ))}
           </div>
           <div className={classes.background}>
             <AnimatedDisplayer>
-              {displayIcon && createElement(data[displayIcon].component, {
-                className: classes.icon
-              })}
+              {displayIcon &&
+                createElement(data[displayIcon].component, {
+                  className: classes.icon,
+                })}
             </AnimatedDisplayer>
           </div>
         </div>

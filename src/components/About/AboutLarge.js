@@ -10,7 +10,7 @@ import {transition} from '../../utils/css'
 
 const TRANSITION_DURATION = 400
 
-const styles = theme => ({
+const styles = (theme) => ({
   about: {
     width: '100%',
     height: '100%',
@@ -78,7 +78,7 @@ class AboutLarge extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      expanded: false
+      expanded: false,
     }
     this.toggleContent = this.toggleContent.bind(this)
   }
@@ -93,17 +93,14 @@ class AboutLarge extends PureComponent {
 
     return (
       <div className={classes.about}>
-        <Switcher
-          onClick={this.toggleContent}
-          activated={expanded}
-        />
+        <Switcher onClick={this.toggleContent} activated={expanded} />
         <div className={classes.photo} />
         <div className={classes.column}>
           <div className={classes.content}>
             <div
               className={cn(
                 classes.short,
-                expanded ? classes.hidden : classes.visible
+                expanded ? classes.hidden : classes.visible,
               )}
             >
               <ContentShort />
@@ -111,7 +108,7 @@ class AboutLarge extends PureComponent {
             <div
               className={cn(
                 classes.long,
-                expanded ? classes.visible : classes.hidden
+                expanded ? classes.visible : classes.hidden,
               )}
             >
               <ContentLong />

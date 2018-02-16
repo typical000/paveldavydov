@@ -3,7 +3,7 @@ import {transition} from '../../utils/css'
 import {bar, barSm} from '../../constants/sizes'
 import {mediaSm} from '../../constants/media'
 
-export default theme => ({
+export default (theme) => ({
   popup: {
     zIndex: 1000,
     position: 'fixed',
@@ -11,18 +11,18 @@ export default theme => ({
     left: 0,
     transition: transition('1.2s'),
     height: '100vh',
-    width: '200%'
+    width: '200%',
   },
 
   popupLeft: {
     composes: '$popup',
-    transform: translate('-100%', 0)
+    transform: translate('-100%', 0),
   },
 
   popupRight: {
     composes: '$popup',
     transform: translate('100%', 0),
-    left: '-100%'
+    left: '-100%',
   },
 
   // Active (open) state
@@ -40,12 +40,16 @@ export default theme => ({
   },
   overlayLeft: {
     composes: '$overlay',
-    background: `linear-gradient(to right, ${theme.background.overlay} 50%, rgba(0,0,0,0))`,
+    background: `linear-gradient(to right, ${
+      theme.background.overlay
+    } 50%, rgba(0,0,0,0))`,
     left: '100%',
   },
   overlayRight: {
     composes: '$overlay',
-    background: `linear-gradient(to left, ${theme.background.overlay} 50%, rgba(0,0,0,0))`,
+    background: `linear-gradient(to left, ${
+      theme.background.overlay
+    } 50%, rgba(0,0,0,0))`,
     right: '100%',
   },
 
@@ -58,30 +62,30 @@ export default theme => ({
       top: '50%',
       left: '50%',
       background: theme.common.border,
-      opacity: 0.3
+      opacity: 0.3,
     },
   },
   overlayTopLeft: {
     composes: '$overlayTop',
     '&::before': {
       width: '60%',
-      transform: translate('-50%', -10)
+      transform: translate('-50%', -10),
     },
     '&::after': {
       width: '40%',
-      transform: translate('-35%', 10)
-    }
+      transform: translate('-35%', 10),
+    },
   },
   overlayTopRight: {
     composes: '$overlayTop',
     '&::before': {
       width: '65%',
-      transform: translate('-60%', 40)
+      transform: translate('-60%', 40),
     },
     '&::after': {
       width: '45%',
-      transform: translate('-85%', 60)
-    }
+      transform: translate('-85%', 60),
+    },
   },
 
   overlayBottom: {
@@ -91,23 +95,23 @@ export default theme => ({
     composes: '$overlayBottom',
     '&::before': {
       width: '70%',
-      transform: translate('-40%', -80)
+      transform: translate('-40%', -80),
     },
     '&::after': {
       width: '55%',
-      transform: translate('-70%', -125)
-    }
+      transform: translate('-70%', -125),
+    },
   },
   overlayBottomRight: {
     composes: '$overlayBottom',
     '&::before': {
       width: '50%',
-      transform: translate('-40%', -40)
+      transform: translate('-40%', -40),
     },
     '&::after': {
       width: '55%',
-      transform: translate('-70%', -75)
-    }
+      transform: translate('-70%', -75),
+    },
   },
 
   // Inner blocks
@@ -139,7 +143,7 @@ export default theme => ({
     transition: {
       timingFunction: 'cubic-bezier(1, 0, 0, 1)',
       duration: '500ms',
-      delay: '500ms'
+      delay: '500ms',
     },
     border: 0,
     outline: 0,
@@ -159,14 +163,14 @@ export default theme => ({
     font: {
       family: theme.typography.fontFamily,
       size: 18,
-      weight: 'bold'
+      weight: 'bold',
     },
     '&:hover $title::after': {
       transform: scale(1, 1),
     },
     [mediaSm]: {
       width: barSm,
-    }
+    },
   },
 
   hidden: {
@@ -179,11 +183,11 @@ export default theme => ({
   },
   barActiveLeft: {
     composes: '$barActive',
-    left: '100%'
+    left: '100%',
   },
   barActiveRight: {
     composes: '$barActive',
-    right: '100%'
+    right: '100%',
   },
 
   // Closing bar
@@ -192,11 +196,11 @@ export default theme => ({
   },
   barCloseLeft: {
     composes: '$barClose',
-    right: 0
+    right: 0,
   },
   barCloseRight: {
     composes: '$barClose',
-    left: 0
+    left: 0,
   },
 
   title: {
@@ -219,39 +223,33 @@ export default theme => ({
       height: 3,
       background: theme.text.default,
       transition: transition(),
-      transform: scale(0, 1)
+      transform: scale(0, 1),
     },
     [mediaSm]: {
       fontSize: theme.typography.fontSize,
       '&::after': {
-        marginTop: 5
-      }
+        marginTop: 5,
+      },
     },
   },
   titleLeft: {
     composes: '$title',
     textAlign: 'left',
     left: bar / 2,
-    transform: multiple(
-      translate('-50%', '-50%'),
-      rotateZ(-90)
-    ),
+    transform: multiple(translate('-50%', '-50%'), rotateZ(-90)),
     [mediaSm]: {
-      left: barSm / 2
-    }
+      left: barSm / 2,
+    },
   },
   titleRight: {
     composes: '$title',
     textAlign: 'right',
     right: bar / 2,
     left: 'auto',
-    transform: multiple(
-      translate('50%', '-50%'),
-      rotateZ(90)
-    ),
+    transform: multiple(translate('50%', '-50%'), rotateZ(90)),
     [mediaSm]: {
-      right: barSm / 2
-    }
+      right: barSm / 2,
+    },
   },
 
   close: {
@@ -260,10 +258,7 @@ export default theme => ({
     top: '50%',
     left: '50%',
     [mediaSm]: {
-      transform: multiple(
-        translate('-50%', '-50%'),
-        scale(0.8, 0.8)
-      )
-    }
-  }
+      transform: multiple(translate('-50%', '-50%'), scale(0.8, 0.8)),
+    },
+  },
 })

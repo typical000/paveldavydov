@@ -3,5 +3,5 @@ import * as number from './number'
 
 export default {
   color,
-  number
+  number,
 }

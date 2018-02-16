@@ -6,14 +6,14 @@ import {Arrow} from '../icons'
 import {transition} from '../../utils/css'
 import injectSheet from '../../utils/jss'
 
-const styles = theme => ({
+const styles = (theme) => ({
   toggler: {
     letterSpacing: 2,
     textTransform: 'uppercase',
     font: {
       family: theme.typography.fontFamily,
       size: 18,
-      weight: 'bold'
+      weight: 'bold',
     },
     border: 0,
     outline: 0,
@@ -29,7 +29,7 @@ const styles = theme => ({
     // }
   },
   text: {
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
   },
   arrow: {
     display: 'inline-block',
@@ -53,39 +53,27 @@ const styles = theme => ({
   // Directions
   up: {
     transformOrigin: ['100%', 0],
-    transform: multiple(
-      translate('-100%', 0),
-      rotateZ(-90)
-    ),
+    transform: multiple(translate('-100%', 0), rotateZ(-90)),
     '&:hover': {
-      transform: multiple(
-        translate('-100%', 20),
-        rotateZ(-90)
-      ),
+      transform: multiple(translate('-100%', 20), rotateZ(-90)),
     },
   },
   down: {
     transformOrigin: ['100%', '100%'],
-    transform: multiple(
-      translate('-100%', 0),
-      rotateZ(90)
-    ),
+    transform: multiple(translate('-100%', 0), rotateZ(90)),
     '&:hover': {
-      transform: multiple(
-        translate('-100%', -20),
-        rotateZ(90)
-      ),
+      transform: multiple(translate('-100%', -20), rotateZ(90)),
     },
   },
   left: {
     '&:hover': {
       transform: translateX(20),
-    }
+    },
   },
   right: {
     '&:hover': {
       transform: translateX(-20),
-    }
+    },
   },
 })
 
@@ -113,9 +101,7 @@ const ToggleArrow = ({onClick, classes, children, direction}) => {
           <Arrow className={classes.icon} />
         </div>
       )}
-      <span className={classes.text}>
-        {children}
-      </span>
+      <span className={classes.text}>{children}</span>
       {!inverted && (
         <div className={classes.arrow}>
           <Arrow className={classes.icon} />
@@ -129,11 +115,11 @@ ToggleArrow.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
-  direction: PropTypes.oneOf(['right', 'left', 'up', 'down'])
+  direction: PropTypes.oneOf(['right', 'left', 'up', 'down']),
 }
 
 ToggleArrow.defaultProps = {
-  direction: 'right'
+  direction: 'right',
 }
 
 export default injectSheet(styles)(ToggleArrow)

@@ -7,7 +7,7 @@ const DEFAULT_SETTINGS = {
   y: 0,
   radius: 100,
   rotateClockwise: true,
-  rotateSpeed: 0.1
+  rotateSpeed: 0.1,
 }
 
 /**
@@ -48,7 +48,7 @@ export default class Ring {
     graphics.drawCircle(
       getDispersedPosition(x),
       getDispersedPosition(y),
-      radius
+      radius,
     )
 
     return graphics
@@ -73,9 +73,9 @@ export default class Ring {
    * Used inside requestAnimationFrame loop
    */
   animate() {
-    this.graphics.rotation = this.rotateClockwise ?
-      this.graphics.rotation + this.rotateSpeed :
-      this.graphics.rotation - this.rotateSpeed
+    this.graphics.rotation = this.rotateClockwise
+      ? this.graphics.rotation + this.rotateSpeed
+      : this.graphics.rotation - this.rotateSpeed
   }
 
   /**

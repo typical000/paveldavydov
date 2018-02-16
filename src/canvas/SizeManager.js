@@ -19,12 +19,12 @@ export default class SizeManager {
   update() {
     this.size = {
       width: this.container.offsetWidth,
-      height: this.container.offsetHeight
+      height: this.container.offsetHeight,
     }
 
     this.center = {
       x: this.size.width / 2,
-      y: this.size.height / 2
+      y: this.size.height / 2,
     }
   }
 
@@ -45,5 +45,4 @@ export default class SizeManager {
   get height() {
     return this.size.height
   }
-
 }

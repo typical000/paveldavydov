@@ -11,7 +11,7 @@ hydrate(
       <App />
     </JssProvider>
   </ThemeProvider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 )
 
 const style = document.getElementById('critical-css')

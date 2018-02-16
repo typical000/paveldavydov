@@ -18,7 +18,8 @@
     "all:dev": "npm run clean && npm run build:dev && npm run build:html:dev",
     "all:prod": "npm run clean && npm run build:prod && npm run build:html:prod",
     "precommit": "lint-staged",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "prettier": "prettier --write './src/**/*.js'"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -40,6 +41,7 @@
     "eslint": "^3.11.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-config-jss": "^3.0.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-babel": "^4.1.2",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
@@ -52,6 +54,7 @@
     "json-loader": "^0.5.7",
     "lint-staged": "^6.0.0",
     "module-alias": "^2.0.3",
+    "prettier": "^1.10.2",
     "rimraf": "^2.6.2",
     "style-loader": "^0.13.1",
     "webpack": "^2.7.0",
@@ -78,6 +81,7 @@
   "lint-staged": {
     "*.js": [
       "eslint",
+      "prettier --write",
       "git add"
     ]
   },

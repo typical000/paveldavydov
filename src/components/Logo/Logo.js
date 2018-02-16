@@ -11,7 +11,7 @@ import styles from './styles'
 class Logo extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
-    closed: PropTypes.bool
+    closed: PropTypes.bool,
   }
 
   /**
@@ -42,7 +42,9 @@ class Logo extends PureComponent {
     return (
       <div key={name} className={classes[`part${name}`]}>
         <div className={classes[`container${name}`]}>
-          {rings.map(type => this.renderRing(name, capitalizeFirstLetter(type)))}
+          {rings.map((type) =>
+            this.renderRing(name, capitalizeFirstLetter(type)),
+          )}
         </div>
       </div>
     )
@@ -58,25 +60,19 @@ class Logo extends PureComponent {
       <div className={logoClasses}>
         <div className={classes.title}>
           <div className={classes.name}>
-            <div className={classes.textName}>
-              Pavel Davydov
-            </div>
+            <div className={classes.textName}>Pavel Davydov</div>
           </div>
           <div className={classes.position}>
             <div className={classes.textPosition}>
               <div className={classes.switcher}>
-                <div className={classes.text}>
-                  Web Developer
-                </div>
-                <div className={classes.text}>
-                  Web Designer
-                </div>
+                <div className={classes.text}>Web Developer</div>
+                <div className={classes.text}>Web Designer</div>
               </div>
             </div>
           </div>
         </div>
         <div className={classes.parts}>
-          {parts.map(type => this.renderPart(type))}
+          {parts.map((type) => this.renderPart(type))}
         </div>
       </div>
     )

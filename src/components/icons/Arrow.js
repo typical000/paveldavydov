@@ -18,7 +18,7 @@ const Arrow = ({className}) => (
 )
 
 Arrow.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 }
 
 export default Arrow

@@ -1,4 +1,11 @@
-import {Container, Graphics, Sprite, filters as pixiFilters, utils as pixiUtils, autoDetectRenderer} from 'pixi.js'
+import {
+  Container,
+  Graphics,
+  Sprite,
+  filters as pixiFilters,
+  utils as pixiUtils,
+  autoDetectRenderer,
+} from 'pixi.js'
 import SizeManager from './SizeManager'
 import Ring from './Ring'
 import {Circle, Square, Triangle} from './Particle'
@@ -7,7 +14,6 @@ import {getRadialGradientTexture} from './utils/color'
 import {isEven, getRoundRandomArbitrary} from './utils/number'
 
 export default class Scene {
-
   /**
    * @param {Object} container - DOM node where mount scene
    */
@@ -19,13 +25,17 @@ export default class Scene {
     this.sizeManager = new SizeManager(container.parentNode)
 
     // Create renderer
-    this.renderer = autoDetectRenderer(this.sizeManager.width, this.sizeManager.height, {
-      transparent: true,
-      forceFXAA: true,
-      antialias: true,
-      resolution: window.devicePixelRatio,
-      view: container,
-    })
+    this.renderer = autoDetectRenderer(
+      this.sizeManager.width,
+      this.sizeManager.height,
+      {
+        transparent: true,
+        forceFXAA: true,
+        antialias: true,
+        resolution: window.devicePixelRatio,
+        view: container,
+      },
+    )
 
     // Set right scene size take from screen size
     this.setSceneSize()
@@ -83,31 +93,35 @@ export default class Scene {
       BACKGROUND_PRIMARY,
       BACKGROUND_PRIMARY_ACCENT,
       BACKGROUND_SECONDARY,
-      BACKGROUND_SECONDARY_ACCENT
+      BACKGROUND_SECONDARY_ACCENT,
     } = constants
 
-    return [{
-      fill: BACKGROUND_PRIMARY,
-      rect: [0, 0, x, y],
-      overlayFill: BACKGROUND_PRIMARY_ACCENT,
-      overlayRect: [x, y, x, y],
-    }, {
-      fill: BACKGROUND_PRIMARY,
-      rect: [x, y, x, y],
-      overlayFill: BACKGROUND_PRIMARY_ACCENT,
-      overlayRect: [x, y, 0, 0],
-    }, {
-      fill: BACKGROUND_SECONDARY,
-      rect: [x, 0, x, y],
-      overlayFill: BACKGROUND_SECONDARY_ACCENT,
-      overlayRect: [x, y, 0, y],
-
-    }, {
-      fill: BACKGROUND_SECONDARY,
-      rect: [0, y, x, y],
-      overlayFill: BACKGROUND_SECONDARY_ACCENT,
-      overlayRect: [x, y, x, 0],
-    }]
+    return [
+      {
+        fill: BACKGROUND_PRIMARY,
+        rect: [0, 0, x, y],
+        overlayFill: BACKGROUND_PRIMARY_ACCENT,
+        overlayRect: [x, y, x, y],
+      },
+      {
+        fill: BACKGROUND_PRIMARY,
+        rect: [x, y, x, y],
+        overlayFill: BACKGROUND_PRIMARY_ACCENT,
+        overlayRect: [x, y, 0, 0],
+      },
+      {
+        fill: BACKGROUND_SECONDARY,
+        rect: [x, 0, x, y],
+        overlayFill: BACKGROUND_SECONDARY_ACCENT,
+        overlayRect: [x, y, 0, y],
+      },
+      {
+        fill: BACKGROUND_SECONDARY,
+        rect: [0, y, x, y],
+        overlayFill: BACKGROUND_SECONDARY_ACCENT,
+        overlayRect: [x, y, x, 0],
+      },
+    ]
   }
 
   /**
@@ -147,7 +161,7 @@ export default class Scene {
         scheme.rect[0],
         scheme.rect[1],
         scheme.rect[2],
-        scheme.rect[3]
+        scheme.rect[3],
       )
       graphics.endFill()
 
@@ -160,8 +174,8 @@ export default class Scene {
           scheme.overlayRect[3],
           scheme.overlayFill,
           150,
-          500
-        )
+          500,
+        ),
       )
       overlay.position.x = scheme.rect[0]
       overlay.position.y = scheme.rect[1]
@@ -202,23 +216,24 @@ export default class Scene {
       PARTICLE_LIFETIME_OFFSET,
       PARTICLE_SPEED,
       PARTICLE_SPEED_OFFSET,
-      PARTICLES_AMOUNT
+      PARTICLES_AMOUNT,
     } = constants
     const {particleContainer} = this
     const {width, height} = this.sizeManager
     const lifetime = {
       min: PARTICLE_LIFETIME - PARTICLE_LIFETIME_OFFSET,
-      max: PARTICLE_LIFETIME + PARTICLE_LIFETIME_OFFSET
+      max: PARTICLE_LIFETIME + PARTICLE_LIFETIME_OFFSET,
     }
     const speed = {
       min: PARTICLE_SPEED - PARTICLE_SPEED_OFFSET,
-      max: PARTICLE_SPEED + PARTICLE_SPEED_OFFSET
+      max: PARTICLE_SPEED + PARTICLE_SPEED_OFFSET,
     }
 
     const particleTypes = [Circle, Square, Triangle]
 
     for (let i = 0; i < PARTICLES_AMOUNT; i++) {
-      const Particle = particleTypes[Math.round(Math.random() * (particleTypes.length - 1))]
+      const Particle =
+        particleTypes[Math.round(Math.random() * (particleTypes.length - 1))]
 
       this.particles[i] = new Particle({
         x: Math.floor(Math.random() * width),
@@ -229,7 +244,7 @@ export default class Scene {
         speed: getRoundRandomArbitrary(speed.min, speed.max),
         rotationSpeed: Math.random() * 0.1,
         rotateClockwise: isEven(i),
-        parent: {width, height}
+        parent: {width, height},
       })
 
       particleContainer.addChild(this.particles[i].draw())
@@ -253,7 +268,7 @@ export default class Scene {
         y,
         radius,
         rotateClockwise: isEven(i),
-        rotateSpeed: Math.random() * 0.02
+        rotateSpeed: Math.random() * 0.02,
       })
     }
   }
@@ -264,7 +279,7 @@ export default class Scene {
    */
   updateForegroundCenter() {
     const {x, y} = this.sizeManager.center
-    this.rings.forEach(circle => circle.setCenter(x, y))
+    this.rings.forEach((circle) => circle.setCenter(x, y))
   }
 
   /**
@@ -273,7 +288,7 @@ export default class Scene {
   updateParticlesMeasurements() {
     const {x, y} = this.sizeManager.center
     const {width, height} = this.sizeManager
-    this.particles.forEach(particle => particle.setSizes(x, y, width, height))
+    this.particles.forEach((particle) => particle.setSizes(x, y, width, height))
   }
 
   /**
@@ -286,8 +301,8 @@ export default class Scene {
     Scene.clearStage(this.backgroundGraphics)
     Scene.clearStage(this.foregroundGraphics)
 
-    this.rings.forEach(circle => circle.clear())
-    this.particles.forEach(particle => particle.clear())
+    this.rings.forEach((circle) => circle.clear())
+    this.particles.forEach((particle) => particle.clear())
 
     this.updateForegroundCenter()
     this.updateParticlesMeasurements()
@@ -302,8 +317,8 @@ export default class Scene {
     // Make noise animated
     this.backgorundFilter.seed = Math.random() / 10
 
-    this.rings.forEach(circle => circle.animate())
-    this.particles.forEach(particle => particle.animate())
+    this.rings.forEach((circle) => circle.animate())
+    this.particles.forEach((particle) => particle.animate())
 
     // Main render call that makes pixi draw container and its children
     this.renderer.render(this.stage)

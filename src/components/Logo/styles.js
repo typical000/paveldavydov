@@ -50,21 +50,22 @@ export default {
     top: 0,
     overflow: 'hidden',
     position: 'absolute',
-    maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+    maskImage:
+      'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
   },
   name: {
     composes: '$inner',
     textAlign: 'right',
     right: '100%',
     color: nameColor,
-    paddingRight: 3
+    paddingRight: 3,
   },
   position: {
     composes: '$inner',
     textAlign: 'left',
     left: '100%',
     color: positionColor,
-    paddingLeft: 3
+    paddingLeft: 3,
   },
 
   textContainer: {
@@ -80,7 +81,7 @@ export default {
 
   switcher: {
     transition: transition(transitionTime),
-    animation: `nameChange ${nameChangeInterval}ms ease infinite both`
+    animation: `nameChange ${nameChangeInterval}ms ease infinite both`,
   },
 
   // Outer rings styles
@@ -99,7 +100,7 @@ export default {
     left: 0,
     right: 0,
     transition: transition(transitionTime),
-    height: (size / 2) - (nameHeight / 2),
+    height: size / 2 - nameHeight / 2,
   },
   partTop: {
     composes: '$part',
@@ -114,7 +115,7 @@ export default {
     position: 'absolute',
     left: 0,
     width: size,
-    height: size
+    height: size,
   },
   containerTop: {
     composes: '$container',
@@ -151,7 +152,7 @@ export default {
     },
     '&:first-child': {
       transform: rotateZ(90),
-    }
+    },
   },
 
   ring: {
@@ -172,8 +173,8 @@ export default {
       duration: ringAnimationSpeed * 1.2,
       direction: 'alternate',
       iterationCount: 'infinite',
-      timingFunction: 'linear'
-    }
+      timingFunction: 'linear',
+    },
   },
   ringMiddle: {
     composes: '$ring',
@@ -185,8 +186,8 @@ export default {
       duration: ringAnimationSpeed,
       direction: 'reverse',
       iterationCount: 'infinite',
-      timingFunction: 'linear'
-    }
+      timingFunction: 'linear',
+    },
   },
   ringInner: {
     composes: '$ring',
@@ -197,8 +198,8 @@ export default {
       duration: ringAnimationSpeed * 0.8,
       direction: 'alternate',
       iterationCount: 'infinite',
-      timingFunction: 'linear'
-    }
+      timingFunction: 'linear',
+    },
   },
 
   // Closed global state
@@ -214,7 +215,7 @@ export default {
       top: '50%',
     },
     '& $textContainer': {
-      transition: transition(transitionTime)
+      transition: transition(transitionTime),
     },
     '& $textName': {
       transform: translate('110%', 0),
@@ -246,7 +247,7 @@ export default {
     },
     '100%': {
       transform: rotateZ(360),
-    }
+    },
   },
 
   [mediaMd]: {
@@ -267,17 +268,17 @@ export default {
       right: -200,
       width: 'auto',
       top: 'auto',
-      bottom: 0
+      bottom: 0,
     },
     part: {
-      height: (size / 2) - nameHeight,
-    }
+      height: size / 2 - nameHeight,
+    },
   },
 
   [mediaXs]: {
     logo: {
       transformOrigin: ['50%', '50%'],
-      transform: scale(0.6, 0.6)
-    }
-  }
+      transform: scale(0.6, 0.6),
+    },
+  },
 }

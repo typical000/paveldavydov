@@ -14,14 +14,14 @@ module.exports = {
         'react',
         'frontend',
         'portfolio',
-      ]
+      ],
     },
     og: {
       title: 'Pavel Davydov',
       description: 'Pavel Davydov - Front-end developer',
       type: 'website',
       image: 'http://cssinjs.org/images/logo-og.png', // Can't be relative url, and can't be svg
-      url: 'http://paveldavydov.com/'
-    }
-  }
+      url: 'http://paveldavydov.com/',
+    },
+  },
 }

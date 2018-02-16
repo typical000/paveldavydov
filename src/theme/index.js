@@ -1,7 +1,7 @@
 const base = {
   brand: '#fe504f',
   light: '#fff',
-  dark: '#333'
+  dark: '#333',
 }
 
 export default {

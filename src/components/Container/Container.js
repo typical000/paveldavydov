@@ -21,7 +21,8 @@ const styles = {
     left: 0,
     bottom: 0,
     right: 0,
-    maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+    maskImage:
+      'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
   },
   title: {
     pointerEvents: 'none',
@@ -42,33 +43,33 @@ const styles = {
   },
   bottom: {
     top: '50%',
-    marginTop: 15
+    marginTop: 15,
   },
   left: {
     right: '50%',
-    marginRight: -15
+    marginRight: -15,
   },
   right: {
     left: '50%',
-    marginLeft: -15
+    marginLeft: -15,
   },
   [mediaSm]: {
     title: {
       display: 'none', // Because title on background is unreadable
     },
-  }
+  },
 }
 
 const Container = ({classes, title, positionX, positionY, children}) => (
   <div className={classes.container}>
     <div className={classes.mask}>
-      <div className={cn(classes.title, classes[positionX], classes[positionY])}>
+      <div
+        className={cn(classes.title, classes[positionX], classes[positionY])}
+      >
         {title}
       </div>
     </div>
-    <div className={classes.content}>
-      {children}
-    </div>
+    <div className={classes.content}>{children}</div>
   </div>
 )
 

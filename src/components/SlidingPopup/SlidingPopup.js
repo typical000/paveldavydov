@@ -22,7 +22,7 @@ class SlidingPopup extends PureComponent {
     direction: 'left',
     active: false,
     hidden: false,
-    onToggle: () => {}
+    onToggle: () => {},
   }
 
   constructor(props) {
@@ -30,7 +30,7 @@ class SlidingPopup extends PureComponent {
 
     this.direction = capitalizeFirstLetter(this.props.direction)
     this.state = {
-      hovered: false
+      hovered: false,
     }
 
     this.handleCloseEnter = this.handleCloseEnter.bind(this)
@@ -51,7 +51,7 @@ class SlidingPopup extends PureComponent {
 
     const popupClasses = cn(
       classes[`popup${direction}`],
-      active && classes.active
+      active && classes.active,
     )
 
     return (
@@ -59,21 +59,19 @@ class SlidingPopup extends PureComponent {
         <button
           className={cn(
             classes[`barActive${direction}`],
-            hidden && classes.hidden
+            hidden && classes.hidden,
           )}
           onClick={() => {
             this.props.onToggle(name)
           }}
         >
-          <div className={classes[`title${direction}`]}>
-            {title}
-          </div>
+          <div className={classes[`title${direction}`]}>{title}</div>
         </button>
         <div className={classes[`content${direction}`]}>
           <button
             className={cn(
               classes[`barClose${direction}`],
-              hidden && classes.hidden
+              hidden && classes.hidden,
             )}
             onClick={() => {
               this.props.onToggle(null)
@@ -81,9 +79,7 @@ class SlidingPopup extends PureComponent {
             onMouseEnter={this.handleCloseEnter}
             onMouseLeave={this.handleCloseLeave}
           >
-            <div
-              className={classes.close}
-            >
+            <div className={classes.close}>
               <Close hovered={this.state.hovered} />
             </div>
           </button>
@@ -91,9 +87,7 @@ class SlidingPopup extends PureComponent {
             <div className={classes[`overlayTop${direction}`]} />
             <div className={classes[`overlayBottom${direction}`]} />
           </div>
-          <div className={classes.inner}>
-            {children}
-          </div>
+          <div className={classes.inner}>{children}</div>
         </div>
       </div>
     )

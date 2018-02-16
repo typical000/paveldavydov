@@ -7,14 +7,14 @@ import {DEG_TO_RAD, RAD_TO_DEG} from 'pixi.js'
  * @param {Number} Current degree
  * @return {Number} Converted degree to radians
  */
-export const degToRad = deg => deg * DEG_TO_RAD
+export const degToRad = (deg) => deg * DEG_TO_RAD
 
 /**
  * Converts radians to degs
  * @param {Number} Current radians
  * @return {Number} Converted radians to degree
  */
-export const radToDeg = rad => rad * RAD_TO_DEG
+export const radToDeg = (rad) => rad * RAD_TO_DEG
 
 /**
  * Converts decimal number to HEX color
@@ -23,7 +23,7 @@ export const radToDeg = rad => rad * RAD_TO_DEG
  */
 export const decToHex = (number) => {
   if (number < 0) {
-    number = 0xFFFFFFFF + number + 1
+    number = 0xffffffff + number + 1
   }
   return `#${number.toString(16).toUpperCase()}`
 }
@@ -36,8 +36,8 @@ export const decToHex = (number) => {
  */
 export const decToRgba = (number, opacity = 1) => {
   const r = number >> 16
-  const g = (number >> 8) & 0xFF
-  const b = number & 0xFF
+  const g = (number >> 8) & 0xff
+  const b = number & 0xff
 
   return `rgba(${r}, ${g}, ${b}, ${opacity})`
 }
@@ -46,5 +46,5 @@ export default {
   degToRad,
   radToDeg,
   decToHex,
-  decToRgba
+  decToRgba,
 }

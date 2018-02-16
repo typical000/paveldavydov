@@ -3,5 +3,5 @@ import * as time from './time'
 
 export default {
   color,
-  time
+  time,
 }

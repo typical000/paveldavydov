@@ -15,7 +15,7 @@ class SlidingPopupGroup extends PureComponent {
     super(props)
 
     this.state = {
-      activePopup: null
+      activePopup: null,
     }
 
     this.handleChildToggle = this.handleChildToggle.bind(this)
@@ -23,7 +23,7 @@ class SlidingPopupGroup extends PureComponent {
 
   handleChildToggle(name) {
     this.setState({
-      activePopup: name
+      activePopup: name,
     })
 
     this.props.onChange(Boolean(name))
@@ -32,11 +32,13 @@ class SlidingPopupGroup extends PureComponent {
   render() {
     const {activePopup} = this.state
 
-    return Children.map(this.props.children, child => cloneElement(child, {
-      active: child.props.name === activePopup,
-      hidden: activePopup && child.props.name !== activePopup,
-      onToggle: this.handleChildToggle
-    }))
+    return Children.map(this.props.children, (child) =>
+      cloneElement(child, {
+        active: child.props.name === activePopup,
+        hidden: activePopup && child.props.name !== activePopup,
+        onToggle: this.handleChildToggle,
+      }),
+    )
   }
 }
 

@@ -4,7 +4,7 @@ import cn from 'classnames'
 import injectSheet from '../../utils/jss'
 import {transition} from '../../utils/css'
 
-const styles = theme => ({
+const styles = (theme) => ({
   row: {
     position: 'relative',
   },
@@ -62,19 +62,21 @@ const Row = ({
   labelOnTop,
   small,
   onMouseEnter,
-  onMouseLeave
+  onMouseLeave,
 }) => (
   <div className={classes.row}>
     <span
       className={cn(
         classes.label,
         labelOnTop && classes.labelOnTop,
-        small && classes.labelSmall
+        small && classes.labelSmall,
       )}
     >
       {label}
     </span>
-    <span className={small ? classes.separatorSmall : classes.separator}>{'//'}</span>
+    <span className={small ? classes.separatorSmall : classes.separator}>
+      {'//'}
+    </span>
     <a
       className={small ? classes.linkSmall : classes.link}
       href={href}

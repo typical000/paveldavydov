@@ -7,14 +7,14 @@ import {DEG_TO_RAD, RAD_TO_DEG, Texture} from 'pixi.js'
  * @param {Number} Current degree
  * @return {Number} Converted degree to radians
  */
-export const degToRad = deg => deg * DEG_TO_RAD
+export const degToRad = (deg) => deg * DEG_TO_RAD
 
 /**
  * Converts radians to degs
  * @param {Number} Current radians
  * @return {Number} Converted radians to degree
  */
-export const radToDeg = rad => rad * RAD_TO_DEG
+export const radToDeg = (rad) => rad * RAD_TO_DEG
 
 /**
  * Converts decimal number to HEX color
@@ -23,7 +23,7 @@ export const radToDeg = rad => rad * RAD_TO_DEG
  */
 export const decToHex = (number) => {
   if (number < 0) {
-    number = 0xFFFFFFFF + number + 1
+    number = 0xffffffff + number + 1
   }
   return `#${number.toString(16).toUpperCase()}`
 }
@@ -36,8 +36,8 @@ export const decToHex = (number) => {
  */
 export const decToRgba = (number, opacity = 1) => {
   const r = number >> 16
-  const g = (number >> 8) & 0xFF
-  const b = number & 0xFF
+  const g = (number >> 8) & 0xff
+  const b = number & 0xff
 
   return `rgba(${r}, ${g}, ${b}, ${opacity})`
 }
@@ -53,7 +53,15 @@ export const decToRgba = (number, opacity = 1) => {
  * @param {Number} r1 - ending radius for gradient
  * @return {Object} PIXI.Texture object of converted radial gradient from canvas
  */
-export const getRadialGradientTexture = (w, h, x, y, color, r0 = 100, r1 = 300) => {
+export const getRadialGradientTexture = (
+  w,
+  h,
+  x,
+  y,
+  color,
+  r0 = 100,
+  r1 = 300,
+) => {
   const canvas = document.createElement('canvas')
   const context = canvas.getContext('2d')
   const gradient = context.createRadialGradient(x, y, r0, x, y, r1)
@@ -76,5 +84,5 @@ export default {
   degToRad,
   radToDeg,
   decToHex,
-  decToRgba
+  decToRgba,
 }

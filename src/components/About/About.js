@@ -7,11 +7,10 @@ import Container from '../Container'
 import {sm as screenSm} from '../../constants/sizes'
 
 const mapSizesToProps = ({width}) => ({
-  isMobileSize: width && width <= screenSm // Can be null on SSR
+  isMobileSize: width && width <= screenSm, // Can be null on SSR
 })
 
 class About extends PureComponent {
-
   static propTypes = {
     isMobileSize: PropTypes.bool,
   }
@@ -24,7 +23,7 @@ class About extends PureComponent {
     super(props)
 
     this.state = {
-      isClient: false
+      isClient: false,
     }
   }
 
@@ -56,11 +55,7 @@ class About extends PureComponent {
     const {isClient} = this.state
 
     return (
-      <Container
-        title={'About'}
-        positionX={'right'}
-        positionY={'bottom'}
-      >
+      <Container title={'About'} positionX={'right'} positionY={'bottom'}>
         {isClient && (isMobileSize ? <AboutSmall /> : <AboutLarge />)}
       </Container>
     )

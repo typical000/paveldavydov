@@ -9,5 +9,5 @@ export default {
   mediaLg,
   mediaMd,
   mediaSm,
-  mediaXs
+  mediaXs,
 }

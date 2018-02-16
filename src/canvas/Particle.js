@@ -10,7 +10,7 @@ const DEFAULT_SETTINGS = {
   speed: 100,
   rotationSpeed: 0.1,
   rotateClockwise: true,
-  parent: {width: 0, height: 0} // Container, where paticle will be animated
+  parent: {width: 0, height: 0}, // Container, where paticle will be animated
 }
 
 /**
@@ -38,7 +38,12 @@ export default class AbstractParticle {
     // TODO: Indicate, that it's used for collisions
     this.padding = 20
 
-    this.setSizes(settings.x, settings.y, settings.parent.width, settings.parent.height)
+    this.setSizes(
+      settings.x,
+      settings.y,
+      settings.parent.width,
+      settings.parent.height,
+    )
     this.setAnimation()
   }
 
@@ -90,8 +95,8 @@ export default class AbstractParticle {
    */
   setAnimation() {
     // Set velocity
-    this.graphics.vx = (Math.cos(this.angle) * this.speed) / 60
-    this.graphics.vy = (Math.sin(this.angle) * this.speed) / 60
+    this.graphics.vx = Math.cos(this.angle) * this.speed / 60
+    this.graphics.vy = Math.sin(this.angle) * this.speed / 60
 
     // Set additional measurements for fading animation
     this.invisibleSize = Math.random() * (this.lifetime / 2) // Invisible part will be random
@@ -99,7 +104,7 @@ export default class AbstractParticle {
     this.fadeStages = {
       invisible: this.invisibleSize,
       fadeIn: this.invisibleSize - this.fadeStageSize,
-      fadeOut: this.fadeStageSize
+      fadeOut: this.fadeStageSize,
     }
     this.opacityAmountPerFrame = constants.PARTICLE_OPACITY / this.fadeStageSize
   }
@@ -113,25 +118,25 @@ export default class AbstractParticle {
     const {width, height} = this.parent
 
     // Rotate figure
-    this.graphics.rotation = this.animateClockwise ?
-      this.graphics.rotation + rotationSpeed :
-      this.graphics.rotation - rotationSpeed
+    this.graphics.rotation = this.animateClockwise
+      ? this.graphics.rotation + rotationSpeed
+      : this.graphics.rotation - rotationSpeed
 
     // Move figure
     this.graphics.x += this.graphics.vx
     this.graphics.y += this.graphics.vy
 
     if (this.graphics.x > width + padding) {
-      this.graphics.x -= width + (2 * padding)
+      this.graphics.x -= width + 2 * padding
     }
     if (this.graphics.x < -padding) {
-      this.graphics.x += width + (2 * padding)
+      this.graphics.x += width + 2 * padding
     }
     if (this.graphics.y > height + padding) {
-      this.graphics.y -= height + (2 * padding)
+      this.graphics.y -= height + 2 * padding
     }
     if (this.graphics.y < -padding) {
-      this.graphics.y += height + (2 * padding)
+      this.graphics.y += height + 2 * padding
     }
 
     // Change opacity. Make like appear, and disappear animation
@@ -152,7 +157,7 @@ export default class AbstractParticle {
     const {
       fadeStages,
       currentLifetime: time,
-      opacityAmountPerFrame: amount
+      opacityAmountPerFrame: amount,
     } = this
 
     if (time >= fadeStages.invisible) {
@@ -233,7 +238,7 @@ export class Triangle extends AbstractParticle {
       x - radius,
       y + radius,
       x,
-      y - radius
+      y - radius,
     ])
   }
 }

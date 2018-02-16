@@ -28,22 +28,16 @@ const styles = (theme) => {
       height: barWeight,
       top: '50%',
       left: 0,
-      background: color
+      background: color,
     },
     barFirst: {
       composes: '$bar',
-      transform: multiple(
-        translate(0, '-50%'),
-        rotateZ(45)
-      )
+      transform: multiple(translate(0, '-50%'), rotateZ(45)),
     },
     barSecond: {
       composes: '$bar',
-      transform: multiple(
-        translate(0, '-50%'),
-        rotateZ(-45)
-      )
-    }
+      transform: multiple(translate(0, '-50%'), rotateZ(-45)),
+    },
   }
 }
 
@@ -61,7 +55,7 @@ const Close = ({hovered, classes}) => (
 
 Close.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  hovered: PropTypes.bool
+  hovered: PropTypes.bool,
 }
 
 export default injectSheet(styles)(Close)

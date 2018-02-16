@@ -3,8 +3,8 @@
  * @private
  * @return {Number} Random interval
  */
-export const getRandomInterval = (min, max) => (Math.random() * (max - min)) + min
+export const getRandomInterval = (min, max) => Math.random() * (max - min) + min
 
 export default {
-  getRandomInterval
+  getRandomInterval,
 }

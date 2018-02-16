@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import injectSheet from '../../utils/jss'
 
-const styles = theme => ({
+const styles = (theme) => ({
   heading: {
     fontSize: 32,
     lineHeight: 1.4,
@@ -11,25 +11,17 @@ const styles = theme => ({
     margin: [0, 0, 20, 0],
     letterSpacing: 3,
     textTransform: 'none',
-    color: theme.text.default
+    color: theme.text.default,
   },
   light: {
-    color: theme.text.muted
-  }
+    color: theme.text.muted,
+  },
 })
 
 const H2 = ({classes, className, children, light}) => {
-  const headingClasses = cn(
-    classes.heading,
-    className,
-    light && classes.light
-  )
+  const headingClasses = cn(classes.heading, className, light && classes.light)
 
-  return (
-    <h2 className={headingClasses}>
-      {children}
-    </h2>
-  )
+  return <h2 className={headingClasses}>{children}</h2>
 }
 
 H2.propTypes = {

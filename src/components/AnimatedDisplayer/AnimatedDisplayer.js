@@ -17,7 +17,7 @@ const styles = {
       duration: `${ANIMATION_SPEED}ms`,
       timingFunction: 'linear',
       direction: 'alternate',
-    }
+    },
   },
 
   // Appearing animation
@@ -46,7 +46,7 @@ class AnimatedDisplayer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      appearing: false
+      appearing: false,
     }
   }
 
@@ -67,7 +67,7 @@ class AnimatedDisplayer extends Component {
     if (!appearing) return
     this.timeout = setTimeout(() => {
       this.setState({
-        appearing: false
+        appearing: false,
       })
     }, ANIMATION_SPEED)
   }

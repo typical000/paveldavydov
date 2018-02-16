@@ -9,12 +9,13 @@ export const scrollScreen = (container) => {
   new TWEEN.Tween({x: container.scrollTop})
     .to({x: height}, height * 4)
     .easing(TWEEN.Easing.Exponential.Out)
-    .onUpdate(function () { // eslint-disable-line
+    .onUpdate(function() {
+      // eslint-disable-line
       container.scrollTop = this.x
     })
     .start()
 }
 
 export default {
-  scrollScreen
+  scrollScreen,
 }

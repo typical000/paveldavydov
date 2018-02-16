@@ -1,6 +1,9 @@
 {
   "parser": "babel-eslint",
-  "extends": "eslint-config-jss",
+  "extends": [
+    "eslint-config-jss",
+    "prettier"
+  ],
   "plugins": [
     "babel"
   ],
@@ -12,6 +15,7 @@
       ]
     }],
     "object-curly-spacing": "off",
+    "no-underscore-dangle": "off",
     "babel/object-curly-spacing": 2,
   },
   "parserOptions": {
@@ -19,5 +23,8 @@
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true
     }
+  },
+  "env": {
+    "jest": true
   }
 }

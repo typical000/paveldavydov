@@ -4,7 +4,8 @@
  * @param {number} max
  * @returns {number}
  */
-export const getRandomArbitrary = (min, max) => (Math.random() * (max - min)) + min
+export const getRandomArbitrary = (min, max) =>
+  Math.random() * (max - min) + min
 
 /**
  * Get rounded random between A and B
@@ -12,15 +13,16 @@ export const getRandomArbitrary = (min, max) => (Math.random() * (max - min)) + 
  * @param {number} max
  * @returns {number}
  */
-export const getRoundRandomArbitrary = (min, max) => Math.round(getRandomArbitrary(min, max))
+export const getRoundRandomArbitrary = (min, max) =>
+  Math.round(getRandomArbitrary(min, max))
 
 /**
  * @param {number} num
  * @returns {boolean}
  */
-export const isEven = num => num % 2 === 0
+export const isEven = (num) => num % 2 === 0
 
 export default {
   getRandomArbitrary,
-  isEven
+  isEven,
 }

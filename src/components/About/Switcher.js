@@ -43,10 +43,7 @@ const styles = {
 const Switcher = ({classes, activated, onClick}) => (
   <div>
     <div
-      className={cn(
-        classes.top,
-        activated ? classes.visible : classes.hidden
-      )}
+      className={cn(classes.top, activated ? classes.visible : classes.hidden)}
     >
       <ToggleArrow onClick={onClick} direction={'up'}>
         Read less
@@ -55,7 +52,7 @@ const Switcher = ({classes, activated, onClick}) => (
     <div
       className={cn(
         classes.bottom,
-        activated ? classes.hidden : classes.visible
+        activated ? classes.hidden : classes.visible,
       )}
     >
       <ToggleArrow onClick={onClick} direction={'down'}>

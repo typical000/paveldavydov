@@ -4,7 +4,7 @@ import Scene from '../canvas'
 
 export default class BackgroundSceneContainer extends Component {
   static propTypes = {
-    animated: PropTypes.bool
+    animated: PropTypes.bool,
   }
 
   componentDidMount() {
