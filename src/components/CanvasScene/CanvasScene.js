@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Scene from '../canvas'
+import Scene from '../../canvas'
 
 export default class BackgroundSceneContainer extends Component {
   static propTypes = {

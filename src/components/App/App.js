@@ -6,7 +6,7 @@ import Logo from '../Logo'
 import About from '../About'
 import Contact from '../Contact'
 import SlidingPopup, {SlidingPopupGroup} from '../SlidingPopup'
-import BackgroundScene from '../../containers/BackgroundScene'
+import CanvasScene from '../CanvasScene'
 import injectSheet from '../../utils/jss'
 
 const styles = (theme) => ({
@@ -99,9 +99,7 @@ class App extends PureComponent {
             )}
           </div>
           <div className={classes.scene}>
-            {isClient && (
-              <BackgroundScene animated={this.state.sceneAnimated} />
-            )}
+            {isClient && <CanvasScene animated={this.state.sceneAnimated} />}
           </div>
         </div>
       </GlobalStyles>
