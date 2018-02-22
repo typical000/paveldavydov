@@ -5,6 +5,7 @@ import {translateY} from 'css-functions'
 import injectSheet from '../../utils/jss'
 import {transition} from '../../utils/css'
 import ToggleArrow from '../ToggleArrow'
+import ParallaxLayer from '../ParallaxMousemove'
 
 const styles = {
   switcher: {
@@ -45,9 +46,11 @@ const Switcher = ({classes, activated, onClick}) => (
     <div
       className={cn(classes.top, activated ? classes.visible : classes.hidden)}
     >
-      <ToggleArrow onClick={onClick} direction={'up'}>
-        Read less
-      </ToggleArrow>
+      <ParallaxLayer yFactor={0.1}>
+        <ToggleArrow onClick={onClick} direction={'up'}>
+          Read less
+        </ToggleArrow>
+      </ParallaxLayer>
     </div>
     <div
       className={cn(
@@ -55,9 +58,11 @@ const Switcher = ({classes, activated, onClick}) => (
         activated ? classes.hidden : classes.visible,
       )}
     >
-      <ToggleArrow onClick={onClick} direction={'down'}>
-        Read more
-      </ToggleArrow>
+      <ParallaxLayer yFactor={0.1}>
+        <ToggleArrow onClick={onClick} direction={'down'}>
+          Read more
+        </ToggleArrow>
+      </ParallaxLayer>
     </div>
   </div>
 )

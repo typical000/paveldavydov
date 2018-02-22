@@ -9,6 +9,7 @@ import {xs as screenXs} from '../../constants/sizes'
 import {mediaSm, mediaXs} from '../../constants/media'
 import Container from '../Container'
 import Row from '../Row'
+import ParallaxLayer from '../ParallaxMousemove'
 
 const styles = (theme) => ({
   contact: {
@@ -138,18 +139,23 @@ class Contact extends PureComponent {
         <div className={classes.wrap}>
           <div className={classes.contact}>
             {isClient &&
-              Object.keys(data).map((contact) => (
-                <div className={classes.row} key={contact}>
-                  <Row
-                    name={contact}
-                    label={data[contact].label}
-                    value={data[contact].text}
-                    href={data[contact].href}
-                    labelOnTop={isMobileSize}
-                    small={isMobileSize}
-                    onMouseEnter={this.handleMouseEnter}
-                    onMouseLeave={this.handleMouseLeave}
-                  />
+              Object.keys(data).map((contact, index) => (
+                <div className={classes.row} key={index}>
+                  <ParallaxLayer
+                    xFactor={0.02 * index + 0.1}
+                    yFactor={0.05 * index + 0.1}
+                  >
+                    <Row
+                      name={contact}
+                      label={data[contact].label}
+                      value={data[contact].text}
+                      href={data[contact].href}
+                      labelOnTop={isMobileSize}
+                      small={isMobileSize}
+                      onMouseEnter={this.handleMouseEnter}
+                      onMouseLeave={this.handleMouseLeave}
+                    />
+                  </ParallaxLayer>
                 </div>
               ))}
           </div>

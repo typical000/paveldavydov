@@ -5,6 +5,7 @@ import GlobalStyles from '../GlobalStyles'
 import Logo from '../Logo'
 import About from '../About'
 import Contact from '../Contact'
+import ParallaxLayer from '../ParallaxMousemove'
 import SlidingPopup, {SlidingPopupGroup} from '../SlidingPopup'
 import CanvasScene from '../CanvasScene'
 import injectSheet from '../../utils/jss'
@@ -92,10 +93,12 @@ class App extends PureComponent {
           </SlidingPopupGroup>
           <div className={classes.logo}>
             {isClient && (
-              <Logo
-                loading={this.state.loading}
-                closed={this.state.logoClosed}
-              />
+              <ParallaxLayer xFactor={0.1} yFactor={0.1}>
+                <Logo
+                  loading={this.state.loading}
+                  closed={this.state.logoClosed}
+                />
+              </ParallaxLayer>
             )}
           </div>
           <div className={classes.scene}>
