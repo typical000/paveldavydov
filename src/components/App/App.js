@@ -4,6 +4,7 @@ import {translate} from 'css-functions'
 import GlobalStyles from '../GlobalStyles'
 import Logo from '../Logo'
 import About from '../About'
+import Work from '../Work'
 import Contact from '../Contact'
 import ParallaxLayer from '../ParallaxMousemove'
 import SlidingPopup, {SlidingPopupGroup} from '../SlidingPopup'
@@ -89,6 +90,9 @@ class App extends PureComponent {
               title={'Contact me'}
             >
               <Contact />
+            </SlidingPopup>
+            <SlidingPopup name={'work'} direction={'bottom'} title={'Work'}>
+              <Work />
             </SlidingPopup>
           </SlidingPopupGroup>
           <div className={classes.logo}>

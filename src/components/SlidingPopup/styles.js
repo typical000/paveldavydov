@@ -10,19 +10,43 @@ export default (theme) => ({
     top: 0,
     left: 0,
     transition: transition('1.2s'),
+  },
+
+  // Abstraction over 2 types of popups
+  popupHorizontal: {
+    composes: '$popup',
     height: '100vh',
     width: '200%',
   },
 
-  popupLeft: {
+  popupVertical: {
     composes: '$popup',
+    width: '100vw',
+    height: '200%',
+  },
+
+  popupLeft: {
+    composes: '$popupHorizontal',
     transform: translate('-100%', 0),
+    left: 0,
   },
 
   popupRight: {
-    composes: '$popup',
+    composes: '$popupHorizontal',
     transform: translate('100%', 0),
     left: '-100%',
+  },
+
+  popupTop: {
+    composes: '$popupVertical',
+    transform: translate(0, '-100%'),
+    top: 0,
+  },
+
+  popupBottom: {
+    composes: '$popupVertical',
+    transform: translate(0, '100%'),
+    top: '-100%',
   },
 
   // Active (open) state
@@ -52,9 +76,23 @@ export default (theme) => ({
     } 50%, rgba(0,0,0,0))`,
     right: '100%',
   },
+  overlayTop: {
+    composes: '$overlay',
+    background: `linear-gradient(to bottom, ${
+      theme.background.overlay
+    } 50%, rgba(0,0,0,0))`,
+    top: '100%',
+  },
+  overlayBottom: {
+    composes: '$overlay',
+    background: `linear-gradient(to top, ${
+      theme.background.overlay
+    } 50%, rgba(0,0,0,0))`,
+    bottom: '100%',
+  },
 
   // TODO: Think about removing this things if they are not visible
-  overlayTop: {
+  overlayInnerTop: {
     '&::before, &::after': {
       content: '""',
       position: 'absolute',
@@ -65,8 +103,8 @@ export default (theme) => ({
       opacity: 0.3,
     },
   },
-  overlayTopLeft: {
-    composes: '$overlayTop',
+  overlayInnerTopLeft: {
+    composes: '$overlayInnerTop',
     '&::before': {
       width: '60%',
       transform: translate('-50%', -10),
@@ -76,8 +114,8 @@ export default (theme) => ({
       transform: translate('-35%', 10),
     },
   },
-  overlayTopRight: {
-    composes: '$overlayTop',
+  overlayInnerTopRight: {
+    composes: '$overlayInnerTop',
     '&::before': {
       width: '65%',
       transform: translate('-60%', 40),
@@ -87,12 +125,38 @@ export default (theme) => ({
       transform: translate('-85%', 60),
     },
   },
-
-  overlayBottom: {
-    extend: 'overlayTop',
+  overlayInnerTopTop: {
+    composes: '$overlayInnerTop',
+    '&::before': {
+      width: 1,
+      height: '60%',
+      transform: translate(40, '-40%'),
+    },
+    '&::after': {
+      width: 1,
+      height: '40%',
+      transform: translate(70, '-45%'),
+    },
   },
-  overlayBottomLeft: {
-    composes: '$overlayBottom',
+  overlayInnerTopBottom: {
+    composes: '$overlayInnerTop',
+    '&::before': {
+      width: 1,
+      height: '65%',
+      transform: translate(40, '-60%'),
+    },
+    '&::after': {
+      width: 1,
+      height: '45%',
+      transform: translate(60, '-85%'),
+    },
+  },
+
+  overlayInnerBottom: {
+    extend: 'overlayInnerTop',
+  },
+  overlayInnerBottomLeft: {
+    composes: '$overlayInnerBottom',
     '&::before': {
       width: '70%',
       transform: translate('-40%', -80),
@@ -102,8 +166,8 @@ export default (theme) => ({
       transform: translate('-70%', -125),
     },
   },
-  overlayBottomRight: {
-    composes: '$overlayBottom',
+  overlayInnerBottomRight: {
+    composes: '$overlayInnerBottom',
     '&::before': {
       width: '50%',
       transform: translate('-40%', -40),
@@ -111,6 +175,32 @@ export default (theme) => ({
     '&::after': {
       width: '55%',
       transform: translate('-70%', -75),
+    },
+  },
+  overlayInnerBottomTop: {
+    composes: '$overlayInnerBottom',
+    '&::before': {
+      width: 1,
+      height: '70%',
+      transform: translate(-125, '-40%'),
+    },
+    '&::after': {
+      width: 1,
+      height: '55%',
+      transform: translate(-50, '-70%'),
+    },
+  },
+  overlayInnerBottomBottom: {
+    composes: '$overlayInnerBottom',
+    '&::before': {
+      width: 1,
+      height: '70%',
+      transform: translate(-80, '-40%'),
+    },
+    '&::after': {
+      width: 1,
+      height: '55%',
+      transform: translate(100, '-70%'),
     },
   },
 
@@ -128,6 +218,18 @@ export default (theme) => ({
   contentRight: {
     composes: '$content',
     float: 'right',
+  },
+  contentTop: {
+    composes: '$content',
+    width: '100%',
+    height: '50%',
+    marginBottom: '100vh',
+  },
+  contentBottom: {
+    composes: '$content',
+    width: '100%',
+    height: '50%',
+    marginTop: '100vh',
   },
 
   inner: {
@@ -152,9 +254,6 @@ export default (theme) => ({
     boxShadow: 'none',
     position: 'absolute',
     cursor: 'pointer',
-    width: bar,
-    top: 0,
-    bottom: 0,
     zIndex: 10,
     color: theme.text.default,
     background: 'transparent',
@@ -168,39 +267,66 @@ export default (theme) => ({
     '&:hover $title::after': {
       transform: scale(1, 1),
     },
-    [mediaSm]: {
-      width: barSm,
-    },
   },
 
   hidden: {
     opacity: 0,
   },
 
-  // Opening bar
-  barActive: {
+  barVertical: {
     composes: '$bar',
+    width: bar,
+    top: 0,
+    bottom: 0,
+    [mediaSm]: {
+      width: barSm,
+    },
   },
+  barHorizontal: {
+    composes: '$bar',
+    height: bar,
+    left: 0,
+    right: 0,
+    width: '100%',
+    [mediaSm]: {
+      height: barSm,
+    },
+  },
+
+  // Opening bar
   barActiveLeft: {
-    composes: '$barActive',
+    composes: '$barVertical',
     left: '100%',
   },
   barActiveRight: {
-    composes: '$barActive',
+    composes: '$barVertical',
     right: '100%',
+  },
+  barActiveTop: {
+    composes: '$barHorizontal',
+    top: '100%',
+  },
+  barActiveBottom: {
+    composes: '$barHorizontal',
+    bottom: '100%',
   },
 
   // Closing bar
-  barClose: {
-    composes: '$bar',
-  },
   barCloseLeft: {
-    composes: '$barClose',
+    composes: '$barVertical',
     right: 0,
   },
   barCloseRight: {
-    composes: '$barClose',
+    composes: '$barVertical',
     left: 0,
+  },
+  barCloseTop: {
+    composes: '$barHorizontal',
+    bottom: 0,
+  },
+  barCloseBottom: {
+    composes: '$barHorizontal',
+    top: 0,
   },
 
   title: {
@@ -216,8 +342,6 @@ export default (theme) => ({
     '&::after': {
       content: '""',
       position: 'absolute',
-      top: '100%',
-      marginTop: 10,
       left: 0,
       right: 0,
       height: 3,
@@ -227,13 +351,28 @@ export default (theme) => ({
     },
     [mediaSm]: {
       fontSize: theme.typography.fontSize,
+    },
+  },
+
+  // Abstract classes for vertical or horizontal title
+  titleVertical: {
+    composes: '$title',
+    '&::after': {
+      top: '100%',
+      marginTop: 10,
+    },
+    [mediaSm]: {
       '&::after': {
         marginTop: 5,
       },
     },
   },
-  titleLeft: {
+  titleHorizontal: {
     composes: '$title',
+  },
+
+  titleLeft: {
+    composes: '$titleVertical',
     textAlign: 'left',
     left: bar / 2,
     transform: multiple(translate('-50%', '-50%'), rotateZ(-90)),
@@ -242,13 +381,41 @@ export default (theme) => ({
     },
   },
   titleRight: {
-    composes: '$title',
+    composes: '$titleVertical',
     textAlign: 'right',
     right: bar / 2,
     left: 'auto',
     transform: multiple(translate('50%', '-50%'), rotateZ(90)),
     [mediaSm]: {
       right: barSm / 2,
+    },
+  },
+  titleTop: {
+    composes: '$titleHorizontal',
+    left: '50%',
+    top: '50%',
+    '&::after': {
+      top: '100%',
+      marginTop: 10,
+    },
+    [mediaSm]: {
+      '&::after': {
+        marginTop: 5,
+      },
+    },
+  },
+  titleBottom: {
+    composes: '$titleHorizontal',
+    left: '50%',
+    bottom: 0,
+    '&::after': {
+      bottom: '100%',
+      marginBottom: 10,
+    },
+    [mediaSm]: {
+      '&::after': {
+        marginBottom: 5,
+      },
     },
   },
 

@@ -76,6 +76,7 @@
     "react-event-listener": "^0.5.3",
     "react-jss": "^8.1.0",
     "react-sizes": "^1.0.0",
+    "react-swipeable-views": "^0.12.12",
     "tween.js": "^16.6.0",
     "whatwg-fetch": "^2.0.3"
   },

@@ -84,8 +84,8 @@ class SlidingPopup extends PureComponent {
             </div>
           </button>
           <div className={classes[`overlay${direction}`]}>
-            <div className={classes[`overlayTop${direction}`]} />
-            <div className={classes[`overlayBottom${direction}`]} />
+            <div className={classes[`overlayInnerTop${direction}`]} />
+            <div className={classes[`overlayInnerBottom${direction}`]} />
           </div>
           <div className={classes.inner}>{children}</div>
         </div>

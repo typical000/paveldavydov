@@ -62,13 +62,15 @@ const styles = {
 
 const Container = ({classes, title, positionX, positionY, children}) => (
   <div className={classes.container}>
-    <div className={classes.mask}>
-      <div
-        className={cn(classes.title, classes[positionX], classes[positionY])}
-      >
-        {title}
+    {title && (
+      <div className={classes.mask}>
+        <div
+          className={cn(classes.title, classes[positionX], classes[positionY])}
+        >
+          {title}
+        </div>
       </div>
-    </div>
+    )}
     <div className={classes.content}>{children}</div>
   </div>
 )
