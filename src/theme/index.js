@@ -6,6 +6,8 @@ const base = {
 
 export default {
   brand: base.brand, // Main brand color
+  light: base.light,
+  dark: base.dark,
 
   typography: {
     fontFamily: '"Gotham Pro", Helvetica, Arial, sans-serif',

@@ -10,7 +10,7 @@ const styles = (theme) => ({
     fontWeight: 'bold',
     margin: [0, 0, 20, 0],
     letterSpacing: 3,
-    textTransform: 'none',
+    textTransform: 'uppercase',
     color: theme.text.default,
   },
   light: {
