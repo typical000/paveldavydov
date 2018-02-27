@@ -1,6 +1,8 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import SwipeableViews from 'react-swipeable-views'
+import {translate, translateX, scale, multiple} from 'css-functions'
+import {animateProjectSelection} from './animations'
 import Work from './Work'
 import injectSheet from '../../utils/jss'
 
@@ -8,25 +10,29 @@ import injectSheet from '../../utils/jss'
 const allWork = [
   {
     project: 'first',
-    image: 'http://mulderscreek.com/photos/enhanced-1312-1435088986-17.jpg',
+    image: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
+    imageLarge: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
     title: 'First work',
     info: 'Design, Development, contributing to Open Source',
   },
   {
     project: 'second',
-    image: 'http://mulderscreek.com/photos/enhanced-1312-1435088986-17.jpg',
+    image: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
+    imageLarge: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
     title: 'Second work',
     info: 'Design and Development',
   },
   {
     project: 'third',
-    image: 'http://mulderscreek.com/photos/enhanced-1312-1435088986-17.jpg',
+    image: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
+    imageLarge: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
     title: 'Third work',
     info: 'Design and Development',
   },
   {
     project: 'fourth',
-    image: 'http://mulderscreek.com/photos/enhanced-1312-1435088986-17.jpg',
+    image: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
+    imageLarge: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
     title: 'Fourth work',
     info: 'Design and Development',
   },
@@ -41,10 +47,9 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
   background: {
-    opacity: 0.05,
-    filter: 'grayscale(100%)',
     position: 'absolute',
     zIndex: 1,
     top: 0,
@@ -54,10 +59,13 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
   foreground: {
+    willChange: 'transform',
     position: 'relative',
     zIndex: 2,
+    transform: ({foregroundOffsetX}) => translateX(foregroundOffsetX),
   },
   slider: {
     overflow: 'visible',
@@ -68,31 +76,65 @@ const styles = {
     width: slideWidth,
   },
   backgroundSlide: {
-    width: '60vw',
-    margin: [0, '20vw'],
+    position: 'relative',
+    width: '100vw',
+    height: '100vh',
+    overflow: 'hidden',
   },
   image: {
-    width: '100%',
-    height: 'auto',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    width: 'auto',
+    height: '100%',
+    filter: ({backgroundGrayscale}) => `grayscale(${backgroundGrayscale}%)`,
+    opacity: ({backgroundOpacity}) => backgroundOpacity,
+    transform: ({backgroundScale}) => multiple(
+      translate('-50%', '-50%'),
+      scale(backgroundScale, backgroundScale),
+    ),
   },
 }
 
 class WorkLayout extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    sheet: PropTypes.object.isRequired, // eslint-disable-line
   }
 
   constructor(props) {
     super(props)
 
     this.state = {
-      index: 0,
+      activeIndex: 0,
       switching: false,
+      activeProject: null,
     }
 
     this.handleChangeIndex = this.handleChangeIndex.bind(this)
     this.handleSlideSwitching = this.handleSlideSwitching.bind(this)
     this.handleSlideSwitched = this.handleSlideSwitched.bind(this)
+    this.handleProjectMouseDown = this.handleProjectMouseDown.bind(this)
+  }
+
+  componentWillMount() {
+    this.props.sheet.update({
+      foregroundOffsetX: 0,
+      backgroundGrayscale: 100,
+      backgroundOpacity: 0.05,
+      backgroundScale: 0.6,
+    })
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.activeProject === nextState.activeProject) {
+      return
+    }
+
+    animateProjectSelection({
+      sheet: this.props.sheet,
+      slidesOffsetDistance: this.foreground.offsetWidth * allWork.length * 2,
+    })
   }
 
   handleChangeIndex(index) {
@@ -109,6 +151,19 @@ class WorkLayout extends PureComponent {
     this.setState({switching: false})
   }
 
+  handleProjectMouseDown(e) {
+    // Don't use setState for internal, utilitary calculations
+    this.offsetX = e.screenX
+  }
+
+  handleProjectSelection(project, e) {
+    const delta = Math.abs(e.screenX - this.offsetX)
+    // If mouse was moved more - ignore click
+    if (delta > 10) return
+
+    this.setState({activeProject: project})
+  }
+
   render() {
     const {classes} = this.props
     const {activeIndex, switching} = this.state
@@ -117,18 +172,21 @@ class WorkLayout extends PureComponent {
       <div className={classes.container}>
         <div className={classes.background}>
           <SwipeableViews index={activeIndex}>
-            {allWork.map(({image}, index) => (
+            {allWork.map(({imageLarge}, index) => (
               <div className={classes.backgroundSlide} key={index}>
                 <img
                   className={classes.image}
-                  src={image}
+                  src={imageLarge}
                   role="presentation"
                 />
               </div>
             ))}
           </SwipeableViews>
         </div>
-        <div className={classes.foreground}>
+        <div
+          className={classes.foreground}
+          ref={(foreground) => {this.foreground = foreground}}
+        >
           <SwipeableViews
             enableMouseEvents
             className={classes.slider}
@@ -137,7 +195,7 @@ class WorkLayout extends PureComponent {
             onSwitching={this.handleSlideSwitching}
             onTransitionEnd={this.handleSlideSwitched}
           >
-            {allWork.map(({image, title, info}, index) => (
+            {allWork.map(({image, title, info, project}, index) => (
               <div className={classes.slide} key={index}>
                 <Work
                   image={image}
@@ -147,6 +205,8 @@ class WorkLayout extends PureComponent {
                   first={index === 0}
                   last={index === allWork.length - 1}
                   focused={switching}
+                  onMouseDown={this.handleProjectMouseDown}
+                  onClick={event => this.handleProjectSelection(project, event)}
                 />
               </div>
             ))}
@@ -157,4 +217,4 @@ class WorkLayout extends PureComponent {
   }
 }
 
-export default injectSheet(styles)(WorkLayout)
+export default injectSheet(styles, {inject: ['classes', 'sheet']})(WorkLayout)

@@ -107,13 +107,17 @@ const getStringIndex = (index) => {
   return `0${index}`
 }
 
-const Work = ({classes, image, index, title, info, first, last, focused}) => (
+const Work = ({classes, image, index, title, info, first, last, focused, onClick, onMouseDown, onMouseMove}) => (
   <div
+    role="link"
     className={cn(classes.work, {
       [classes.first]: first,
       [classes.last]: last,
       [classes.focused]: focused,
     })}
+    onMouseMove={onMouseMove}
+    onMouseDown={onMouseDown}
+    onClick={onClick}
   >
     <div className={classes.picture}>
       <img className={classes.img} src={image} role="presentation" />
@@ -131,6 +135,9 @@ Work.propTypes = {
   image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   info: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  onMouseDown: PropTypes.func,
+  onMouseMove: PropTypes.func,
   index: PropTypes.number,
   first: PropTypes.bool,
   last: PropTypes.bool,
@@ -142,6 +149,9 @@ Work.defaultProps = {
   first: false,
   last: false,
   focused: false,
+  onClick: () => {},
+  onMouseDown: () => {},
+  onMouseMove: () => {},
 }
 
 export default injectSheet(styles)(Work)
