@@ -13,10 +13,10 @@ import TWEEN from 'tween.js'
 let animationFrame = null
 
 // Initial and final data for project selection animation
-const foregroundCoords = {x: 0}
-const backgroundScale = {opacity: 0.05, scale: 0.6}
+const foregroundCoordsFrom = {x: 0}
+const backgroundScaleFrom = {opacity: 0.05, scale: 0.6}
 const backgroundScaleTo = {opacity: 1, scale: 1}
-const backgroundGrayscale = {grayscale: 100}
+const backgroundGrayscaleFrom = {grayscale: 100}
 const backgroundGrayscaleTo = {grayscale: 0}
 
 const initialAnimatedStyleProps = {
@@ -51,6 +51,11 @@ export const setInitialAnimatedStyleProps = (sheet) => {
  */
 export const animateProjectSelection = ({sheet, slidesOffsetDistance}) =>
   new Promise((resolve) => {
+    // Reset values due to mutations inside tweens animation process
+    const foregroundCoords = {...foregroundCoordsFrom}
+    const backgroundScale = {...backgroundScaleFrom}
+    const backgroundGrayscale = {...backgroundGrayscaleFrom}
+
     // Start looper animation frame
     animationFrame = requestAnimationFrame(animate)
 
