@@ -1,5 +1,6 @@
 import {translate, rotateZ, scale, multiple} from 'css-functions'
 import {transition} from '../../utils/css'
+import {slidingPopupSpeed} from '../../constants/animations'
 import {bar, barSm} from '../../constants/sizes'
 import {mediaSm} from '../../constants/media'
 
@@ -9,7 +10,7 @@ export default (theme) => ({
     position: 'fixed',
     top: 0,
     left: 0,
-    transition: transition('1.2s'),
+    transition: transition(slidingPopupSpeed),
   },
 
   // Abstraction over 2 types of popups

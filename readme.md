@@ -21,11 +21,11 @@ Created by Pavel Davydov
 - [x] "Contact Me" content
 - [ ] "About Me" content
   - [ ] Add photo
-  - [ ] Add switchable content
+  - [x] Add switchable content
   - [ ] Move all texts to consts
   - [ ] Add resume PDS
 - [ ] "Work" content
-  - [ ] Layout
+  - [x] Layout
   - [ ] Works or single work presentation
 - [ ] Tests for components (jest)
   - [ ] Unit testing
@@ -33,6 +33,7 @@ Created by Pavel Davydov
 - [ ] Add loader
 - [ ] React-helmet
 - [ ] Functional `setState` as separated modules
+- [ ] Make parallax working only on switching to section
 - [ ] Decrease bundle size
   - [x] Add `webpack-bundle-analyzer`
   - [x] Replace GSAP with Tween.js

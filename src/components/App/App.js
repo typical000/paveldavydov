@@ -4,7 +4,7 @@ import {translate} from 'css-functions'
 import GlobalStyles from '../GlobalStyles'
 import Logo from '../Logo'
 import About from '../About'
-import Work from '../Work'
+import WorkLayout from '../Work'
 import Contact from '../Contact'
 import ParallaxLayer from '../ParallaxMousemove'
 import SlidingPopup, {SlidingPopupGroup} from '../SlidingPopup'
@@ -50,7 +50,7 @@ class App extends PureComponent {
     super(props)
     this.state = {
       sceneAnimated: true,
-      logoClosed: false,
+      popupOpened: false,
       isClient: false,
     }
 
@@ -65,12 +65,12 @@ class App extends PureComponent {
   togglePopupChange(opened) {
     this.setState({
       sceneAnimated: !opened,
-      logoClosed: opened,
+      popupOpened: opened,
     })
   }
 
   render() {
-    const {isClient} = this.state
+    const {isClient, popupOpened} = this.state
     const {classes} = this.props
 
     return (
@@ -92,16 +92,13 @@ class App extends PureComponent {
               <Contact />
             </SlidingPopup>
             <SlidingPopup name={'work'} direction={'bottom'} title={'Work'}>
-              <Work />
+              <WorkLayout closed={!popupOpened} />
             </SlidingPopup>
           </SlidingPopupGroup>
           <div className={classes.logo}>
             {isClient && (
               <ParallaxLayer xFactor={0.1} yFactor={0.1}>
-                <Logo
-                  loading={this.state.loading}
-                  closed={this.state.logoClosed}
-                />
+                <Logo closed={popupOpened} />
               </ParallaxLayer>
             )}
           </div>

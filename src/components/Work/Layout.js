@@ -1,53 +1,30 @@
-import React, {PureComponent} from 'react'
+import React, {PureComponent, createElement} from 'react'
 import PropTypes from 'prop-types'
 import SwipeableViews from 'react-swipeable-views'
+import {isUndefined} from 'lodash'
 import {translate, translateX, scale, multiple} from 'css-functions'
-import {animateProjectSelection} from './animations'
-import Work from './Work'
+import {
+  animateProjectSelection,
+  setInitialAnimatedStyleProps,
+} from './animations'
+import stages from './stages'
+import Preview from './Preview'
+import allWork from '../../constants/works'
+import {slidingPopupSpeed} from '../../constants/animations'
 import injectSheet from '../../utils/jss'
 
-// TODO: Move to constants
-const allWork = [
-  {
-    project: 'first',
-    image: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
-    imageLarge: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
-    title: 'First work',
-    info: 'Design, Development, contributing to Open Source',
-  },
-  {
-    project: 'second',
-    image: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
-    imageLarge: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
-    title: 'Second work',
-    info: 'Design and Development',
-  },
-  {
-    project: 'third',
-    image: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
-    imageLarge: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
-    title: 'Third work',
-    info: 'Design and Development',
-  },
-  {
-    project: 'fourth',
-    image: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
-    imageLarge: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
-    title: 'Fourth work',
-    info: 'Design and Development',
-  },
-]
-
 const slideWidth = 500
+
+const displaySlidersValue = (display) => {
+  if (isUndefined(display)) return 'flex'
+  return display ? 'flex' : 'none'
+}
 
 const styles = {
   container: {
     width: '100%',
     height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
+    overflowX: 'hidden', // Hide strange extra 10px scroll
   },
   background: {
     position: 'absolute',
@@ -56,16 +33,22 @@ const styles = {
     left: 0,
     bottom: 0,
     right: 0,
-    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
+    display: ({displaySliders}) => displaySlidersValue(displaySliders),
   },
   foreground: {
+    overflow: 'hidden',
+    width: '100%',
+    height: '100%',
     willChange: 'transform',
     position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
     zIndex: 2,
     transform: ({foregroundOffsetX}) => translateX(foregroundOffsetX),
+    display: ({displaySliders}) => displaySlidersValue(displaySliders),
   },
   slider: {
     overflow: 'visible',
@@ -89,10 +72,17 @@ const styles = {
     height: '100%',
     filter: ({backgroundGrayscale}) => `grayscale(${backgroundGrayscale}%)`,
     opacity: ({backgroundOpacity}) => backgroundOpacity,
-    transform: ({backgroundScale}) => multiple(
-      translate('-50%', '-50%'),
-      scale(backgroundScale, backgroundScale),
-    ),
+    transform: ({backgroundScale}) =>
+      multiple(
+        translate('-50%', '-50%'),
+        scale(backgroundScale, backgroundScale),
+      ),
+  },
+  project: {
+    width: '100vw',
+    minHeight: '100vh',
+    position: 'relative',
+    zIndex: 5,
   },
 }
 
@@ -100,6 +90,7 @@ class WorkLayout extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     sheet: PropTypes.object.isRequired, // eslint-disable-line
+    closed: PropTypes.bool.isRequired, // Used to animate back slider on close
   }
 
   constructor(props) {
@@ -107,8 +98,9 @@ class WorkLayout extends PureComponent {
 
     this.state = {
       activeIndex: 0,
-      switching: false,
       activeProject: null,
+      // projectCanBeShowed: false,
+      stage: stages.LIST,
     }
 
     this.handleChangeIndex = this.handleChangeIndex.bind(this)
@@ -118,23 +110,48 @@ class WorkLayout extends PureComponent {
   }
 
   componentWillMount() {
-    this.props.sheet.update({
-      foregroundOffsetX: 0,
-      backgroundGrayscale: 100,
-      backgroundOpacity: 0.05,
-      backgroundScale: 0.6,
-    })
+    setInitialAnimatedStyleProps(this.props.sheet)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Take in sync stage state and possible closing animation coming from above
+    if (!this.props.closed && nextProps.closed) {
+      this.setState({stage: stages.PROJECT_TO_LIST})
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (this.state.activeProject === nextState.activeProject) {
+    const {sheet} = this.props
+    const {stage} = this.state
+
+    if (stage === nextState.stage) {
       return
     }
 
-    animateProjectSelection({
-      sheet: this.props.sheet,
-      slidesOffsetDistance: this.foreground.offsetWidth * allWork.length * 2,
-    })
+    if (nextState.stage === stages.LIST_TO_PROJECT) {
+      animateProjectSelection({
+        sheet,
+        slidesOffsetDistance:
+          this.foreground.offsetWidth * Object.keys(allWork).length * 2,
+      })
+        // This option means that we instantly render identical header
+        // instead of animated background
+        .then(() => {
+          this.setState({stage: stages.PROJECT})
+          this.props.sheet.update({
+            displaySliders: false,
+          })
+        })
+
+      return
+    }
+
+    if (nextState.stage === stages.PROJECT_TO_LIST) {
+      setTimeout(() => {
+        setInitialAnimatedStyleProps(sheet)
+        this.setState({stage: stages.LIST})
+      }, slidingPopupSpeed)
+    }
   }
 
   handleChangeIndex(index) {
@@ -142,13 +159,13 @@ class WorkLayout extends PureComponent {
   }
 
   handleSlideSwitching() {
-    if (!this.state.switching) {
-      this.setState({switching: true})
+    if (this.state.stage !== stages.SWITCHING) {
+      this.setState({stage: stages.SWITCHING})
     }
   }
 
   handleSlideSwitched() {
-    this.setState({switching: false})
+    this.setState({stage: stages.LIST})
   }
 
   handleProjectMouseDown(e) {
@@ -161,57 +178,109 @@ class WorkLayout extends PureComponent {
     // If mouse was moved more - ignore click
     if (delta > 10) return
 
-    this.setState({activeProject: project})
+    this.setState({
+      activeProject: project,
+      stage: stages.LIST_TO_PROJECT,
+    })
   }
 
-  render() {
+  renderBackgroundSlider() {
     const {classes} = this.props
-    const {activeIndex, switching} = this.state
+    const {activeIndex} = this.state
 
     return (
-      <div className={classes.container}>
-        <div className={classes.background}>
-          <SwipeableViews index={activeIndex}>
-            {allWork.map(({imageLarge}, index) => (
-              <div className={classes.backgroundSlide} key={index}>
-                <img
-                  className={classes.image}
-                  src={imageLarge}
-                  role="presentation"
-                />
-              </div>
-            ))}
-          </SwipeableViews>
-        </div>
-        <div
-          className={classes.foreground}
-          ref={(foreground) => {this.foreground = foreground}}
+      <div className={classes.background}>
+        <SwipeableViews index={activeIndex}>
+          {Object.keys(allWork).map((project, index) => (
+            <div className={classes.backgroundSlide} key={index}>
+              <img
+                className={classes.image}
+                src={allWork[project].imageLarge}
+                role="presentation"
+              />
+            </div>
+          ))}
+        </SwipeableViews>
+      </div>
+    )
+  }
+
+  renderForegroundSliderOrProject() {
+    const {stage} = this.state
+    if (stage === stages.PROJECT || stage === stages.PROJECT_TO_LIST)
+      return this.renderProject()
+    return this.renderForegoundSlider()
+  }
+
+  renderForegoundSlider() {
+    const {classes} = this.props
+    const switching = this.state.stage === stages.SWITCHING
+
+    return (
+      <div
+        className={classes.foreground}
+        ref={(foreground) => {
+          this.foreground = foreground
+        }}
+      >
+        <SwipeableViews
+          enableMouseEvents
+          className={classes.slider}
+          style={{overflowX: 'visible'}}
+          onChangeIndex={this.handleChangeIndex}
+          onSwitching={this.handleSlideSwitching}
+          onTransitionEnd={this.handleSlideSwitched}
         >
-          <SwipeableViews
-            enableMouseEvents
-            className={classes.slider}
-            style={{overflowX: 'visible'}}
-            onChangeIndex={this.handleChangeIndex}
-            onSwitching={this.handleSlideSwitching}
-            onTransitionEnd={this.handleSlideSwitched}
-          >
-            {allWork.map(({image, title, info, project}, index) => (
+          {Object.keys(allWork).map((project, index) => {
+            const {image, title, info} = allWork[project]
+
+            return (
               <div className={classes.slide} key={index}>
-                <Work
+                <Preview
                   image={image}
                   title={title}
                   info={info}
                   index={index + 1}
                   first={index === 0}
-                  last={index === allWork.length - 1}
+                  last={index === Object.keys(allWork).length - 1}
                   focused={switching}
                   onMouseDown={this.handleProjectMouseDown}
-                  onClick={event => this.handleProjectSelection(project, event)}
+                  onClick={(event) =>
+                    this.handleProjectSelection(project, event)
+                  }
                 />
               </div>
-            ))}
-          </SwipeableViews>
-        </div>
+            )
+          })}
+        </SwipeableViews>
+      </div>
+    )
+  }
+
+  renderProject() {
+    const {classes} = this.props
+    const {component, imageLarge, title, info} = allWork[
+      this.state.activeProject
+    ]
+
+    return (
+      <div className={classes.project}>
+        {createElement(component, {
+          imageLarge,
+          title,
+          info,
+        })}
+      </div>
+    )
+  }
+
+  render() {
+    const {classes} = this.props
+
+    return (
+      <div className={classes.container}>
+        {this.renderBackgroundSlider()}
+        {this.renderForegroundSliderOrProject()}
       </div>
     )
   }
