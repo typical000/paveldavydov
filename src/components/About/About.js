@@ -13,6 +13,8 @@ const mapSizesToProps = ({width}) => ({
 class About extends PureComponent {
   static propTypes = {
     isMobileSize: PropTypes.bool,
+    // For info, where we take 'active' props - see 'SlidingPopup'
+    active: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -51,12 +53,17 @@ class About extends PureComponent {
   }
 
   render() {
-    const {isMobileSize} = this.props
+    const {isMobileSize, active} = this.props
     const {isClient} = this.state
 
     return (
       <Container title={'About'} positionX={'right'} positionY={'bottom'}>
-        {isClient && (isMobileSize ? <AboutSmall /> : <AboutLarge />)}
+        {isClient &&
+          (isMobileSize ? (
+            <AboutSmall />
+          ) : (
+            <AboutLarge animateParallax={active} />
+          ))}
       </Container>
     )
   }

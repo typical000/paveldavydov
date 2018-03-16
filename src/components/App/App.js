@@ -64,20 +64,17 @@ class App extends PureComponent {
 
   /**
    * @param {boolean} opened
-   * @param {string} name
    */
-  togglePopupChange(opened, name) {
+  togglePopupChange(opened) {
     this.setState({
       sceneAnimated: !opened,
       isPopupOpened: opened,
-      activePopup: name,
     })
   }
 
   render() {
-    const {isClient, isPopupOpened, activePopup} = this.state
+    const {isClient, isPopupOpened} = this.state
     const {classes} = this.props
-    const isWorkClosed = !(isPopupOpened && activePopup === 'work')
 
     return (
       <GlobalStyles>
@@ -98,7 +95,7 @@ class App extends PureComponent {
               <Contact />
             </SlidingPopup>
             <SlidingPopup name={'work'} direction={'bottom'} title={'Work'}>
-              <WorkLayout closed={isWorkClosed} />
+              <WorkLayout />
             </SlidingPopup>
           </SlidingPopupGroup>
           <div className={classes.logo}>

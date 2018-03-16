@@ -39,6 +39,11 @@ class ParallaxMousemove extends PureComponent {
   handleMouseMove({clientX, clientY}) {
     const {xFactor, yFactor} = this.props
 
+    // Avoid updating stylesheets if there is no offset
+    if (!xFactor && !yFactor) {
+      return
+    }
+
     this.props.sheet.update({
       // Magic numbers ;)
       x: (window.innerWidth / 2 - clientX) * (xFactor / 12),

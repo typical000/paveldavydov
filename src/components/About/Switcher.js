@@ -41,16 +41,26 @@ const styles = {
   },
 }
 
-const Switcher = ({classes, activated, onClick}) => (
+/**
+ * @param {string} direction
+ * @param {string} text
+ * @param {Function} clickHandler
+ * @param {bool} animateParallax
+ */
+const renderArrow = (direction, text, clickHandler, animateParallax) => (
+  <ParallaxLayer yFactor={animateParallax ? 0.1 : 0}>
+    <ToggleArrow onClick={clickHandler} direction={direction}>
+      {text}
+    </ToggleArrow>
+  </ParallaxLayer>
+)
+
+const Switcher = ({classes, activated, animateParallax, onClick}) => (
   <div>
     <div
       className={cn(classes.top, activated ? classes.visible : classes.hidden)}
     >
-      <ParallaxLayer yFactor={0.1}>
-        <ToggleArrow onClick={onClick} direction={'up'}>
-          Read less
-        </ToggleArrow>
-      </ParallaxLayer>
+      {renderArrow('up', 'Read less', onClick, animateParallax)}
     </div>
     <div
       className={cn(
@@ -58,11 +68,7 @@ const Switcher = ({classes, activated, onClick}) => (
         activated ? classes.hidden : classes.visible,
       )}
     >
-      <ParallaxLayer yFactor={0.1}>
-        <ToggleArrow onClick={onClick} direction={'down'}>
-          Read more
-        </ToggleArrow>
-      </ParallaxLayer>
+      {renderArrow('down', 'Read more', onClick, animateParallax)}
     </div>
   </div>
 )
@@ -71,10 +77,12 @@ Switcher.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   onClick: PropTypes.func.isRequired,
   activated: PropTypes.bool,
+  animateParallax: PropTypes.bool,
 }
 
 Switcher.defaultProps = {
   activated: false,
+  animateParallax: false,
 }
 
 export default injectSheet(styles)(Switcher)

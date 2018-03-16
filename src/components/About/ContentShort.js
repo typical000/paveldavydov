@@ -19,31 +19,40 @@ const styles = {
   },
 }
 
-const ContentShort = ({classes}) => (
-  <div>
-    <ParallaxLayer xFactor={0.1} yFactor={0.2}>
-      <H1>Pavel Davydov</H1>
-    </ParallaxLayer>
-    <ParallaxLayer xFactor={0.1} yFactor={0.1}>
-      <div className={classes.row}>
-        <Row value={email.text} href={email.href} />
-      </div>
-      <div className={classes.row}>
-        <Row value={twitter.text} href={twitter.href} />
-      </div>
-    </ParallaxLayer>
-    <ParallaxLayer xFactor={0.1} yFactor={0.2}>
-      <div className={classes.action}>
-        <Link href={resumeUrl} target={'_blank'} className={classes.link}>
-          Get my resume
-        </Link>
-      </div>
-    </ParallaxLayer>
-  </div>
-)
+const ContentShort = ({classes, animateParallax}) => {
+  const xFactor = animateParallax ? 0.1 : 0
+  const yFactor = animateParallax ? 0.2 : 0
+  return (
+    <div>
+      <ParallaxLayer xFactor={xFactor} yFactor={yFactor}>
+        <H1>Pavel Davydov</H1>
+      </ParallaxLayer>
+      <ParallaxLayer xFactor={xFactor} yFactor={xFactor}>
+        <div className={classes.row}>
+          <Row value={email.text} href={email.href} />
+        </div>
+        <div className={classes.row}>
+          <Row value={twitter.text} href={twitter.href} />
+        </div>
+      </ParallaxLayer>
+      <ParallaxLayer xFactor={xFactor} yFactor={yFactor}>
+        <div className={classes.action}>
+          <Link href={resumeUrl} target={'_blank'} className={classes.link}>
+            Get my resume
+          </Link>
+        </div>
+      </ParallaxLayer>
+    </div>
+  )
+}
 
 ContentShort.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  animateParallax: PropTypes.bool,
+}
+
+ContentShort.defaultProps = {
+  animateParallax: false,
 }
 
 export default injectSheet(styles)(ContentShort)

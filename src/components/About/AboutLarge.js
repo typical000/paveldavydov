@@ -73,6 +73,11 @@ const styles = (theme) => ({
 class AboutLarge extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    animateParallax: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    animateParallax: false,
   }
 
   constructor(props) {
@@ -88,12 +93,16 @@ class AboutLarge extends PureComponent {
   }
 
   render() {
-    const {classes} = this.props
+    const {classes, animateParallax} = this.props
     const {expanded} = this.state
 
     return (
       <div className={classes.about}>
-        <Switcher onClick={this.toggleContent} activated={expanded} />
+        <Switcher
+          onClick={this.toggleContent}
+          activated={expanded}
+          animateParallax={animateParallax}
+        />
         <div className={classes.photo} />
         <div className={classes.column}>
           <div className={classes.content}>
@@ -103,7 +112,7 @@ class AboutLarge extends PureComponent {
                 expanded ? classes.hidden : classes.visible,
               )}
             >
-              <ContentShort />
+              <ContentShort animateParallax={animateParallax} />
             </div>
             <div
               className={cn(

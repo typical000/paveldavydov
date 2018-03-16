@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react'
+import React, {PureComponent, cloneElement} from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import Close from '../Close'
@@ -87,7 +87,9 @@ class SlidingPopup extends PureComponent {
             <div className={classes[`overlayInnerTop${direction}`]} />
             <div className={classes[`overlayInnerBottom${direction}`]} />
           </div>
-          <div className={classes.inner}>{children}</div>
+          <div className={classes.inner}>
+            {cloneElement(children, {active})}
+          </div>
         </div>
       </div>
     )

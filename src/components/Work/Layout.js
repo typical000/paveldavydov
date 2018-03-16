@@ -100,7 +100,7 @@ class WorkLayout extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     sheet: PropTypes.object.isRequired, // eslint-disable-line
-    closed: PropTypes.bool.isRequired, // Used to animate back slider on close
+    active: PropTypes.bool.isRequired, // Used to animate back slider on close
   }
 
   constructor(props) {
@@ -124,7 +124,7 @@ class WorkLayout extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     // Take in sync stage state and possible closing animation coming from above
-    if (!this.props.closed && nextProps.closed) {
+    if (this.props.active && !nextProps.active) {
       this.setState({stage: stages.PROJECT_TO_LIST})
     }
   }

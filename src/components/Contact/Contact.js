@@ -79,6 +79,8 @@ class Contact extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     isMobileSize: PropTypes.bool,
+    // For info, where we take 'active' props - see 'SlidingPopup'
+    active: PropTypes.bool.isRequired,
   }
 
   constructor(props) {
@@ -130,8 +132,40 @@ class Contact extends PureComponent {
     this.setState({displayIcon: null})
   }
 
+  /**
+   * Only render row with parallax in case if section became active
+   * @param {string} contact
+   * @param {number} index
+   */
+  renderRowWithParallax(contact, index) {
+    return (
+      <ParallaxLayer xFactor={0.02 * index + 0.1} yFactor={0.05 * index + 0.1}>
+        {this.renderRow(contact)}
+      </ParallaxLayer>
+    )
+  }
+
+  /**
+   * @param {string} contact
+   */
+  renderRow(contact) {
+    const {isMobileSize} = this.props
+    return (
+      <Row
+        name={contact}
+        label={data[contact].label}
+        value={data[contact].text}
+        href={data[contact].href}
+        labelOnTop={isMobileSize}
+        small={isMobileSize}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
+      />
+    )
+  }
+
   render() {
-    const {classes, isMobileSize} = this.props
+    const {classes, active} = this.props
     const {displayIcon, isClient} = this.state
 
     return (
@@ -141,21 +175,9 @@ class Contact extends PureComponent {
             {isClient &&
               Object.keys(data).map((contact, index) => (
                 <div className={classes.row} key={index}>
-                  <ParallaxLayer
-                    xFactor={0.02 * index + 0.1}
-                    yFactor={0.05 * index + 0.1}
-                  >
-                    <Row
-                      name={contact}
-                      label={data[contact].label}
-                      value={data[contact].text}
-                      href={data[contact].href}
-                      labelOnTop={isMobileSize}
-                      small={isMobileSize}
-                      onMouseEnter={this.handleMouseEnter}
-                      onMouseLeave={this.handleMouseLeave}
-                    />
-                  </ParallaxLayer>
+                  {active
+                    ? this.renderRowWithParallax(contact, index)
+                    : this.renderRow(contact)}
                 </div>
               ))}
           </div>
