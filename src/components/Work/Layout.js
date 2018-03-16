@@ -156,8 +156,8 @@ class WorkLayout extends PureComponent {
     }
 
     if (nextState.stage === stages.PROJECT_TO_LIST) {
+      setInitialAnimatedStyleProps(sheet)
       setTimeout(() => {
-        setInitialAnimatedStyleProps(sheet)
         this.setState({
           stage: stages.LIST,
           activeProject: null,

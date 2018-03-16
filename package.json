@@ -70,6 +70,7 @@
     "jss-preset-default": "^4.0.1",
     "normalize-jss": "^4.0.0",
     "pixi.js": "^4.7.0",
+    "polished": "^1.9.2",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
