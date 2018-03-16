@@ -26,7 +26,7 @@ class SlidingPopupGroup extends PureComponent {
       activePopup: name,
     })
 
-    this.props.onChange(Boolean(name))
+    this.props.onChange(Boolean(name), name)
   }
 
   render() {

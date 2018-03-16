@@ -11,6 +11,7 @@ import stages from './stages'
 import Preview from './Preview'
 import allWork from '../../constants/works'
 import {slidingPopupSpeed} from '../../constants/animations'
+import {mediaSm} from '../../constants/media'
 import injectSheet from '../../utils/jss'
 
 const slideWidth = 500
@@ -84,6 +85,15 @@ const styles = {
     position: 'relative',
     zIndex: 5,
   },
+  // Make slider fullwidth
+  [mediaSm]: {
+    slider: {
+      width: '100%',
+    },
+    slide: {
+      width: '100%',
+    },
+  },
 }
 
 class WorkLayout extends PureComponent {
@@ -99,7 +109,6 @@ class WorkLayout extends PureComponent {
     this.state = {
       activeIndex: 0,
       activeProject: null,
-      // projectCanBeShowed: false,
       stage: stages.LIST,
     }
 
@@ -149,7 +158,10 @@ class WorkLayout extends PureComponent {
     if (nextState.stage === stages.PROJECT_TO_LIST) {
       setTimeout(() => {
         setInitialAnimatedStyleProps(sheet)
-        this.setState({stage: stages.LIST})
+        this.setState({
+          stage: stages.LIST,
+          activeProject: null,
+        })
       }, slidingPopupSpeed)
     }
   }
@@ -206,9 +218,13 @@ class WorkLayout extends PureComponent {
   }
 
   renderForegroundSliderOrProject() {
-    const {stage} = this.state
-    if (stage === stages.PROJECT || stage === stages.PROJECT_TO_LIST)
+    const {stage, activeProject} = this.state
+    if (
+      (stage === stages.PROJECT || stage === stages.PROJECT_TO_LIST) &&
+      activeProject
+    ) {
       return this.renderProject()
+    }
     return this.renderForegoundSlider()
   }
 

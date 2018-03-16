@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {translate} from 'css-functions'
+import {transparentize} from 'polished'
 import {H2, H3} from '../typography'
+import {opacityAppearKeyframe} from '../../utils/css'
 import injectSheet from '../../utils/jss'
 
 const styles = (theme) => ({
@@ -21,6 +23,22 @@ const styles = (theme) => ({
     height: '100%',
     transform: translate('-50%', '-50%'),
   },
+  title: {
+    fontSize: 54,
+    lineHeight: 1.2,
+    marginBottom: 40,
+    '&::after': {
+      content: '""',
+      width: '50%',
+      display: 'block',
+      height: 2,
+      background: theme.light,
+      margin: [30, 'auto', 0],
+    },
+  },
+  info: {
+    textTransform: 'none',
+  },
   holder: {
     composes: '$spacing',
     position: 'absolute',
@@ -33,12 +51,18 @@ const styles = (theme) => ({
     justifyContent: 'center',
     flexDirection: 'column',
     textAlign: 'center',
-    // TODO: Check if we need it or we need maybe some overlay over it
+    background: transparentize(0.5, theme.dark),
     color: theme.text.light,
+    animation: {
+      name: 'opacityAppear',
+      duration: 500,
+    },
   },
   content: {
     composes: '$spacing',
   },
+
+  ...opacityAppearKeyframe(),
 })
 
 const Work = ({classes, imageLarge, title, info}) => (

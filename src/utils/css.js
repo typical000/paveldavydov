@@ -25,7 +25,20 @@ export const transition = (
   delay,
 })
 
+/**
+ * Appear keyframes animation from transparent
+ * @param {number} start
+ * @param {number} end
+ */
+export const opacityAppearKeyframe = (start = 0, end = 1) => ({
+  '@keyframes opacityAppear': {
+    from: {opacity: start},
+    to: {opacity: end},
+  },
+})
+
 export default {
   border,
   transition,
+  opacityAppearKeyframe,
 }
