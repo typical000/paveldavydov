@@ -24,12 +24,12 @@ const styles = (theme) => ({
     color: theme.text.default,
     fill: theme.text.default,
     transition: transition(1000),
-    // '&:hover': {
-    //   paddingRight: 10
-    // }
   },
   text: {
     verticalAlign: 'middle',
+    '&:empty': {
+      display: 'none',
+    },
   },
   arrow: {
     display: 'inline-block',
@@ -93,9 +93,10 @@ const ToggleArrow = ({onClick, classes, children, direction}) => {
   })
 
   const inverted = isInvertedArrow(direction)
+  const Tag = onClick ? 'button' : 'div'
 
   return (
-    <button className={classNames} onClick={onClick}>
+    <Tag className={classNames} onClick={onClick}>
       {inverted && (
         <div className={classes.arrow}>
           <Arrow className={classes.icon} />
@@ -107,18 +108,20 @@ const ToggleArrow = ({onClick, classes, children, direction}) => {
           <Arrow className={classes.icon} />
         </div>
       )}
-    </button>
+    </Tag>
   )
 }
 
 ToggleArrow.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  children: PropTypes.node.isRequired,
-  onClick: PropTypes.func.isRequired,
+  children: PropTypes.node,
+  onClick: PropTypes.func,
   direction: PropTypes.oneOf(['right', 'left', 'up', 'down']),
 }
 
 ToggleArrow.defaultProps = {
+  children: '',
+  onClick: null,
   direction: 'right',
 }
 

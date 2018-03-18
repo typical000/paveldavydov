@@ -76,6 +76,7 @@
     "react-dom": "^16.2.0",
     "react-event-listener": "^0.5.3",
     "react-jss": "^8.1.0",
+    "react-scroll": "^1.7.7",
     "react-sizes": "^1.0.0",
     "react-swipeable-views": "^0.12.12",
     "tween.js": "^16.6.0",

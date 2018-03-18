@@ -1,3 +1,3 @@
-export Work from './Work'
+export Project from './Project'
 
 export default from './Layout'

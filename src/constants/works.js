@@ -1,7 +1,7 @@
-import Work from '../components/Work/Work'
+import {Jss} from '../components/Projects'
 
 export const first = {
-  component: Work,
+  component: Jss,
   image: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
   imageLarge: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
   title: 'First work',
@@ -9,7 +9,7 @@ export const first = {
 }
 
 export const second = {
-  component: Work,
+  component: Jss,
   image: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
   imageLarge: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
   title: 'Second work',
@@ -17,7 +17,7 @@ export const second = {
 }
 
 export const third = {
-  component: Work,
+  component: Jss,
   image: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
   imageLarge: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
   title: 'Third work',
@@ -25,7 +25,7 @@ export const third = {
 }
 
 export const fourth = {
-  component: Work,
+  component: Jss,
   image: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
   imageLarge: 'https://www.hdwallpapers.in/walls/black_cat-HD.jpg',
   title: 'Fourth work',

@@ -9,6 +9,7 @@ import {
 } from './animations'
 import stages from './stages'
 import Preview from './Preview'
+import Project from './Project'
 import allWork from '../../constants/works'
 import {slidingPopupSpeed} from '../../constants/animations'
 import {mediaSm} from '../../constants/media'
@@ -281,11 +282,9 @@ class WorkLayout extends PureComponent {
 
     return (
       <div className={classes.project}>
-        {createElement(component, {
-          imageLarge,
-          title,
-          info,
-        })}
+        <Project image={imageLarge} title={title} info={info}>
+          {createElement(component)}
+        </Project>
       </div>
     )
   }
@@ -293,8 +292,10 @@ class WorkLayout extends PureComponent {
   render() {
     const {classes} = this.props
 
+    // Don't remove ID attribute. It's needed for project scroll animation
+    // @see Project
     return (
-      <div className={classes.container}>
+      <div className={classes.container} id="workLayoutContainer">
         {this.renderBackgroundSlider()}
         {this.renderForegroundSliderOrProject()}
       </div>
